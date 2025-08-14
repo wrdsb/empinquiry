@@ -1,0 +1,90 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Login.master.cs" Inherits="empinquiry.Login1" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+
+  <meta charset="utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+  <title><%:ConfigurationManager.AppSettings["title"].ToString() %></title>
+
+  <meta charset="utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+  <!-- Bootstrap -->
+  <%--<link href="<%=(String.Format("{0}{1}{2}","https://s3.amazonaws.com/wrdsb-ui-assets/",
+    System.Web.Configuration.WebConfigurationManager.AppSettings["awsVersion"].ToString(),
+      "/css/bootstrap.css"))%>" rel="stylesheet" media="all"/>--%>
+
+    <link href="css/bootstrap.css" rel="stylesheet" media="all" />
+
+  <%--<link href="<%=(String.Format("{0}{1}{2}","https://s3.amazonaws.com/wrdsb-ui-assets/",
+    System.Web.Configuration.WebConfigurationManager.AppSettings["awsVersion"].ToString(),
+      "/css/bootstrap-theme.css"))%>" rel="stylesheet"/>--%>
+
+    <link href="css/bootstrap-theme.css" rel="stylesheet" />
+
+  <%--<link href="<%=(String.Format("{0}{1}{2}","https://s3.amazonaws.com/wrdsb-ui-assets/",
+    System.Web.Configuration.WebConfigurationManager.AppSettings["awsVersion"].ToString(),
+      "/css/style.css"))%>" rel="stylesheet"/>--%>
+
+    <link href="css/style.css" rel="stylesheet" />
+
+  <%--<link href="<%=(String.Format("{0}{1}{2}","https://s3.amazonaws.com/wrdsb-ui-assets/",
+    System.Web.Configuration.WebConfigurationManager.AppSettings["awsVersion"].ToString(),
+      "/css/icon-styles.css"))%>" rel="stylesheet"/>--%>
+
+    <link href="css/icon-styles.css" rel="stylesheet" />
+
+  <!-- Dot Net specific style just for the login page -->
+  <%--<link href="<%=(String.Format("{0}{1}{2}","https://s3.amazonaws.com/wrdsb-ui-assets/",
+    System.Web.Configuration.WebConfigurationManager.AppSettings["awsVersion"].ToString(),
+      "/css/dotnetlogin.css"))%>" rel="stylesheet" />--%>
+
+    <link href="css/dotnetlogin.css" rel="stylesheet" />
+ 
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+    <!-- Favicon -->
+  <%--<link rel="shortcut icon" type="image/png" href="<%=(String.Format("{0}{1}{2}", "https://s3.amazonaws.com/wrdsb-ui-assets/",
+  System.Web.Configuration.WebConfigurationManager.AppSettings["awsVersion"].ToString(),
+  "/images/favicon.png"))%>" />--%>
+
+    <link rel="shortcut icon" type="image/png" href="images/favicon.png" />
+
+  
+  <!-- Google Analytics -->
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', '<%:ConfigurationManager.AppSettings["googleAnalytics"].ToString() %>']);
+                                _gaq.push(['_setDomainName', 'www.empinquiry.wrdsb.ca']);
+                    _gaq.push(['_setAllowHash', false]);
+                                    _gaq.push(['_trackPageview']);
+    
+            
+    (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', '<%:ConfigurationManager.AppSettings["googleAnalytics"].ToString() %>', 'auto');
+      ga('send', 'pageview');
+  </script>
+</head>
+<body>
+    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server"></asp:ContentPlaceHolder>
+</body>
+</html>
