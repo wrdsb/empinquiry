@@ -25,14 +25,10 @@
                         <asp:TableCell><asp:TextBox ID="tb_pal" runat="server"></asp:TextBox></asp:TableCell>
                     </asp:TableRow>
                     <asp:TableRow>    
-                         <asp:TableCell>Job Code</asp:TableCell>
-                        <asp:TableCell><asp:TextBox ID="tb_jobcode" runat="server"></asp:TextBox></asp:TableCell>
                         <asp:TableCell>Email Address</asp:TableCell>
                         <asp:TableCell><asp:TextBox ID="tb_email" runat="server"></asp:TextBox></asp:TableCell>
                         <asp:TableCell>Phone Number</asp:TableCell>
                         <asp:TableCell><asp:TextBox ID="tb_phone" runat="server"></asp:TextBox></asp:TableCell>
-                    </asp:TableRow>
-                    <asp:TableRow>                       
                         <asp:TableCell>Postal Code</asp:TableCell>
                         <asp:TableCell><asp:TextBox ID="tb_postalcode" runat="server"></asp:TextBox></asp:TableCell>
                     </asp:TableRow>

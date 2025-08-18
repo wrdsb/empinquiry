@@ -15,15 +15,6 @@ namespace empinquiry
     {
 
         /// <summary>
-        /// lbl_name control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_name;
-
-        /// <summary>
         /// tb_purpose control.
         /// </summary>
         /// <remarks>
@@ -40,24 +31,6 @@ namespace empinquiry
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfv_purpose;
-
-        /// <summary>
-        /// tb_ticket control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tb_ticket;
-
-        /// <summary>
-        /// rfv_ticket control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfv_ticket;
 
         /// <summary>
         /// btn_clear control.

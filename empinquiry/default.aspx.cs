@@ -50,7 +50,7 @@ namespace empinquiry
             
             if (!Page.IsPostBack)
             {
-                lbl_name.Text = Session["firstname"].ToString();
+                //lbl_name.Text = Session["firstname"].ToString();
                 Session["auditComplete"] = false;
             }
              
@@ -64,7 +64,7 @@ namespace empinquiry
         protected void btn_submit_Click(object sender, EventArgs e)
         {
             var purpose = tb_purpose.Text;
-            var ticket = tb_ticket.Text;
+            //var ticket = tb_ticket.Text;
 
             Session["auditComplete"] = true;
             Response.Redirect("reports.aspx");

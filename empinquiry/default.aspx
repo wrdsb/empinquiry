@@ -4,18 +4,19 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h2>Welcome <asp:Label ID="lbl_name" runat="server"></asp:Label>!</h2>
+                <%--<h2>Welcome <asp:Label ID="lbl_name" runat="server"></asp:Label>!</h2>--%>
                 <%--<h3>Audit</h3>--%>
                 <div style ="background-color:aliceblue">                  
                     Please provide Audit information for the current search: 
-                    <ol>
+                    <%--<ol>
                         <li>Purpose</li>
                         <li>Ticket #</li>                       
-                    </ol>
+                    </ol>--%>
                 </div>    
+                <br />              
                
                 <div class="form-group">
-                    <label class="required" for="tb_purpose">Purpose of the search <span class="required_error"></span></label>
+                    <label class="required" for="tb_purpose">Ticket # or Purpose of search<span class="required_error"></span></label>
 
                     <asp:TextBox ID="tb_purpose" runat="server" CssClass="form-control"  TextMode="MultiLine" 
                     ValidationGroup="submit" MaxLength="400">
@@ -27,7 +28,7 @@
                     </asp:RequiredFieldValidator>
     
                 </div>
-                <div class="form-group">
+                <%--<div class="form-group">
                     <label class="required" for="tb_ticket">Ticket # <span class="required_error"></span></label>
 
                     <asp:TextBox ID="tb_ticket" runat="server" CssClass="form-control"  TextMode="MultiLine" 
@@ -39,7 +40,7 @@
                     ValidationGroup="submit">
                     </asp:RequiredFieldValidator>
     
-                </div>
+                </div>--%>
 
 
                 <div class="row" style="margin-bottom: 20px;">
