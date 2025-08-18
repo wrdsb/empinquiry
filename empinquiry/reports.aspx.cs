@@ -50,18 +50,36 @@ namespace empinquiry
             else
                 schoolyear = DateTime.Now.AddYears(-1).ToString("yyyy") + DateTime.Now.ToString("yyyy");
 
-            query = string.Format(@"SELECT TOP 10 i.victim_surname, i.victim_firstname, i.victim_grade, 
-                    c.name AS cause_name,
-                    i.date_occurred, l.name AS location_name
-                    FROM incidents i
-                    LEFT JOIN causes c
-                    ON i.cause=c.value
-                    LEFT JOIN location_types l
-                    ON i.location_type=l.value
-                    WHERE (i.victim_surname like '%{0}%'
-                    OR i.victim_firstname like '%{0}%')
-                    AND school_year='{1}'
-                    ORDER BY i.date_occurred desc", name, schoolyear);
+            //query = string.Format(@"SELECT TOP 10 i.victim_surname, i.victim_firstname, i.victim_grade, 
+            //        c.name AS cause_name,
+            //        i.date_occurred, l.name AS location_name
+            //        FROM incidents i
+            //        LEFT JOIN causes c
+            //        ON i.cause=c.value
+            //        LEFT JOIN location_types l
+            //        ON i.location_type=l.value
+            //        WHERE (i.victim_surname like '%{0}%'
+            //        OR i.victim_firstname like '%{0}%')
+            //        AND school_year='{1}'
+            //        ORDER BY i.date_occurred desc", name, schoolyear);
+
+            query = string.Format(@"SELECT employee_id,
+                    surname,
+                    first_name,
+                    known_as,
+                    postal_code,
+                    telephone_no,
+                    emp_activity_code,
+                    review_date,
+                    start_date_for_vacation,
+                    e_mail_address,
+                    id,
+                    user_id 
+                    FROM ec_employee 
+                    WHERE (surname like '%{0}%'
+                    OR first_name like '%{0}%')
+                    ", name);
+           
 
             DataSource_incidents.SelectCommand = query;
             lv_incidents.DataBind();
