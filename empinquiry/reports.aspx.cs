@@ -82,12 +82,19 @@ namespace empinquiry
                     emp.telephone_no,
                     emp.emp_activity_code,
                     emp.review_date,          
-                    emp.e_mail_address,       
+                    emp.e_mail_address,  
+                    job.description_text,
                     usr.user_id 
                     FROM ec_employee emp 
                     INNER JOIN hd_ec_users usr
-                    ON (emp.EMPLOYEE_ID = usr.EMPLOYEE_ID)
-                    WHERE ";
+                    ON (emp.employee_id = usr.employee_id)     
+                    INNER JOIN ec_employee_positions empos
+                    ON (emp.employee_id = empos.employee_id) 
+                    INNER JOIN ec_jobs job
+                    ON (empos.job_code = job.job_code) 
+                    WHERE empos.home_location_ind = 'Y' 
+                    AND empos.position_start_date <= getdate()
+                    AND (empos.position_end_date >= getdate() or empos.position_end_date is null) AND ";
             query += string.IsNullOrEmpty(firstname) ? "" : "emp.first_name LIKE '%" + firstname + "%' AND ";
             query += string.IsNullOrEmpty(surname) ? "" : "emp.surname LIKE '%" + surname + "%' AND ";
             query += string.IsNullOrEmpty(knownas) ? "" : "emp.known_as_first LIKE '%" + knownas + "%' AND ";
@@ -106,6 +113,8 @@ namespace empinquiry
                     query = query.Remove(lastIndex, 3); // Remove the last "AND"
                 }
             }
+
+            query += " ORDER BY emp.employee_id";
 
             DataSource_incidents.SelectCommand = query;
             lv_incidents.DataBind();

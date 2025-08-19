@@ -76,7 +76,7 @@
                             <td><asp:Label ID="lbl_phone" runat="server" 
                                 Text='<%# String.Format("{0}-{1}", Eval("telephone_area"), Eval("telephone_no"))%>'>
                                 </asp:Label></td>
-                            <td><asp:Label ID="lbl_jobcode" runat="server" Text='s/w analyst'></asp:Label></td>
+                            <td><asp:Label ID="lbl_jobcode" runat="server" Text='<%#Eval("description_text") %>'></asp:Label></td>
                             <td><asp:Label ID="lbl_postal_code" runat="server" Text='<%#Eval("postal_code")%>'></asp:Label></td>                            
                             <td>
                                 <asp:Label ID="lbl_review_date" runat="server" 
