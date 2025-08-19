@@ -73,7 +73,9 @@
                             <td><asp:Label ID="lbl_known_as" runat="server" Text='<%#Eval("known_as_first")%>'></asp:Label></td>
                             <td><asp:Label ID="lbl_user_id" runat="server" Text='<%#Eval("user_id")%>'></asp:Label></td>                               
                             <td><asp:Label ID="lbl_email_address" runat="server" Text='<%#Eval("e_mail_address")%>'></asp:Label></td>
-                            <td><asp:Label ID="lbl_phone" runat="server" Text='<%#Eval("telephone_no")%>'></asp:Label></td>
+                            <td><asp:Label ID="lbl_phone" runat="server" 
+                                Text='<%# String.Format("{0}-{1}", Eval("telephone_area"), Eval("telephone_no"))%>'>
+                                </asp:Label></td>
                             <td><asp:Label ID="lbl_jobcode" runat="server" Text='s/w analyst'></asp:Label></td>
                             <td><asp:Label ID="lbl_postal_code" runat="server" Text='<%#Eval("postal_code")%>'></asp:Label></td>                            
                             <td>

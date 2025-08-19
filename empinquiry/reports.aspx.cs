@@ -46,6 +46,21 @@ namespace empinquiry
             string pal = tb_pal.Text;
             string email = tb_email.Text;
             string phone = tb_phone.Text;
+            string area = string.Empty;
+            if (phone.Length > 0) // work around to split area code from phone number
+            {
+                if (phone.Length > 3)
+                {
+                    area = phone.Substring(0,3);
+                    phone = phone.Substring(3);
+                }
+                else
+                {
+                    area = phone;
+                    phone = string.Empty;
+                }
+            }
+            
             string empid = tb_empId.Text;
 
             if (string.IsNullOrEmpty(surname) &&
@@ -63,6 +78,7 @@ namespace empinquiry
                     first_name,
                     known_as_first,
                     postal_code,
+                    telephone_area,
                     telephone_no,
                     emp_activity_code,
                     review_date,          
@@ -76,6 +92,7 @@ namespace empinquiry
             query += string.IsNullOrEmpty(pal) ? "" : "user_id LIKE '%" + pal + "%' AND ";
             query += string.IsNullOrEmpty(email) ? "" : "e_mail_address LIKE '%" + email + "%' AND ";
             query += string.IsNullOrEmpty(phone) ? "" : "telephone_no LIKE '%" + phone + "%' AND ";
+            query += string.IsNullOrEmpty(area) ? "" : "telephone_area LIKE '%" + area + "%' AND ";
             query += string.IsNullOrEmpty(empid) ? "" : "employee_id ='" + empid + "'";
 
             string andAtEnd = query.Substring(query.Length - 4, 3);
