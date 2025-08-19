@@ -4,22 +4,12 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
-               <%-- <h2 style="background-color:aliceblue"><strong>Employee Inquiry Search</strong></h2>--%>
-            </div>
-        </div>
-
-      
-
-        <div class="row">
-            <div class="col-md-12">
-                <p style="background-color:aliceblue">Please use the fields to search for the employee record</p>
-                <br />
+            <div class="col-md-12">            
                 <asp:Table runat ="server">
                     <asp:TableRow> 
                         <asp:TableCell>Employee Id</asp:TableCell>
                         <asp:TableCell><asp:TextBox ID="tb_empId" runat="server"></asp:TextBox></asp:TableCell>
-                        <asp:TableCell>SurName</asp:TableCell>
+                        <asp:TableCell>Surname</asp:TableCell>
                         <asp:TableCell><asp:TextBox ID="tb_surname" runat="server"></asp:TextBox></asp:TableCell>
                         <asp:TableCell>First Name</asp:TableCell>
                         <asp:TableCell><asp:TextBox ID="tb_firstname" runat="server"></asp:TextBox></asp:TableCell>                     
@@ -59,6 +49,7 @@
                     <LayoutTemplate>
                         <table class="table table-responsive table-bordered">
                             <tr>
+                                <th>Emp Id</th>
                                 <th>Name</th>
                                 <th>Preferred Name</th>
                                 <th>UserID</th>
@@ -74,13 +65,14 @@
                     </LayoutTemplate>
                     <ItemTemplate>
                         <tr>
+                            <td><asp:Label ID="lbl_empId" runat="server" Text='<%#Eval("employee_id")%>'></asp:Label></td>
                             <td><asp:Label ID="lbl_name" runat="server" 
                                 Text='<%# String.Format("{0}, {1}", Eval("surname"),Eval("first_name")) %>'>
                                 </asp:Label>
                             </td>
-                            <td><asp:Label ID="lbl_known_as" runat="server" Text='<%#Eval("known_as") %>'></asp:Label></td>
-                            <td><asp:Label ID="lbl_user_id" runat="server" Text='<%#Eval("user_id") %>'></asp:Label></td>                               
-                            <td><asp:Label ID="lbl_email_address" runat="server" Text='<%#Eval("e_mail_address") %>'></asp:Label></td>
+                            <td><asp:Label ID="lbl_known_as" runat="server" Text='<%#Eval("known_as_first")%>'></asp:Label></td>
+                            <td><asp:Label ID="lbl_user_id" runat="server" Text='<%#Eval("user_id")%>'></asp:Label></td>                               
+                            <td><asp:Label ID="lbl_email_address" runat="server" Text='<%#Eval("e_mail_address")%>'></asp:Label></td>
                             <td><asp:Label ID="lbl_phone" runat="server" Text='<%#Eval("telephone_no")%>'></asp:Label></td>
                             <td><asp:Label ID="lbl_jobcode" runat="server" Text='s/w analyst'></asp:Label></td>
                             <td><asp:Label ID="lbl_postal_code" runat="server" Text='<%#Eval("postal_code")%>'></asp:Label></td>                            

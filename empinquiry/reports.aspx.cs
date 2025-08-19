@@ -57,10 +57,11 @@ namespace empinquiry
                 string.IsNullOrEmpty(firstname))
                 return;
 
-            query = @"SELECT employee_id,
+            query = @"SELECT 
+                    employee_id,
                     surname,
                     first_name,
-                    known_as,
+                    known_as_first,
                     postal_code,
                     telephone_no,
                     emp_activity_code,
@@ -71,7 +72,7 @@ namespace empinquiry
                     WHERE ";
             query += string.IsNullOrEmpty(firstname) ? "" : "first_name LIKE '%" + firstname + "%' AND ";
             query += string.IsNullOrEmpty(surname) ? "" : "surname LIKE '%" + surname + "%' AND ";
-            query += string.IsNullOrEmpty(knownas) ? "" : "known_as LIKE '%" + knownas + "%' AND ";
+            query += string.IsNullOrEmpty(knownas) ? "" : "known_as_first LIKE '%" + knownas + "%' AND ";
             query += string.IsNullOrEmpty(pal) ? "" : "user_id LIKE '%" + pal + "%' AND ";
             query += string.IsNullOrEmpty(email) ? "" : "e_mail_address LIKE '%" + email + "%' AND ";
             query += string.IsNullOrEmpty(phone) ? "" : "telephone_no LIKE '%" + phone + "%' AND ";
