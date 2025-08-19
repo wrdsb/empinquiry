@@ -16,21 +16,27 @@
                 <p style="background-color:aliceblue">Please use the fields to search for the employee record</p>
                 <br />
                 <asp:Table runat ="server">
-                    <asp:TableRow>                       
-                        <asp:TableCell>Name</asp:TableCell>
-                        <asp:TableCell><asp:TextBox ID="tb_name" runat="server"></asp:TextBox></asp:TableCell>
+                    <asp:TableRow> 
+                        <asp:TableCell>Employee Id</asp:TableCell>
+                        <asp:TableCell><asp:TextBox ID="tb_empId" runat="server"></asp:TextBox></asp:TableCell>
+                        <asp:TableCell>SurName</asp:TableCell>
+                        <asp:TableCell><asp:TextBox ID="tb_surname" runat="server"></asp:TextBox></asp:TableCell>
+                        <asp:TableCell>First Name</asp:TableCell>
+                        <asp:TableCell><asp:TextBox ID="tb_firstname" runat="server"></asp:TextBox></asp:TableCell>                     
+                    </asp:TableRow>
+                    <asp:TableRow>
                         <asp:TableCell>Preferred Name</asp:TableCell>
-                        <asp:TableCell><asp:TextBox ID="tb_preferredname" runat="server"></asp:TextBox></asp:TableCell>    
+                        <asp:TableCell><asp:TextBox ID="tb_preferredname" runat="server"></asp:TextBox></asp:TableCell> 
                         <asp:TableCell>PAL\UserID</asp:TableCell>
                         <asp:TableCell><asp:TextBox ID="tb_pal" runat="server"></asp:TextBox></asp:TableCell>
+                        <asp:TableCell>Job Code</asp:TableCell>
+                        <asp:TableCell><asp:TextBox ID="tb_jobcode" runat="server"></asp:TextBox></asp:TableCell>                       
                     </asp:TableRow>
-                    <asp:TableRow>    
+                    <asp:TableRow>   
                         <asp:TableCell>Email Address</asp:TableCell>
                         <asp:TableCell><asp:TextBox ID="tb_email" runat="server"></asp:TextBox></asp:TableCell>
                         <asp:TableCell>Phone Number</asp:TableCell>
-                        <asp:TableCell><asp:TextBox ID="tb_phone" runat="server"></asp:TextBox></asp:TableCell>
-                        <asp:TableCell>Postal Code</asp:TableCell>
-                        <asp:TableCell><asp:TextBox ID="tb_postalcode" runat="server"></asp:TextBox></asp:TableCell>
+                        <asp:TableCell><asp:TextBox ID="tb_phone" runat="server"></asp:TextBox></asp:TableCell>                                             
                     </asp:TableRow>
                     <asp:TableRow>
                         <asp:TableCell>
@@ -44,6 +50,8 @@
                 <br />
             </div>
         </div>
+
+        <!-- For Grid -->
 
         <div class="row">
             <div class="col-md-12" style="min-height:200px;">

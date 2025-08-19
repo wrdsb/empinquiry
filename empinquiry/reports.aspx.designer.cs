@@ -15,13 +15,31 @@ namespace empinquiry
     {
 
         /// <summary>
-        /// tb_name control.
+        /// tb_empId control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tb_name;
+        protected global::System.Web.UI.WebControls.TextBox tb_empId;
+
+        /// <summary>
+        /// tb_surname control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tb_surname;
+
+        /// <summary>
+        /// tb_firstname control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tb_firstname;
 
         /// <summary>
         /// tb_preferredname control.
@@ -42,6 +60,15 @@ namespace empinquiry
         protected global::System.Web.UI.WebControls.TextBox tb_pal;
 
         /// <summary>
+        /// tb_jobcode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tb_jobcode;
+
+        /// <summary>
         /// tb_email control.
         /// </summary>
         /// <remarks>
@@ -58,15 +85,6 @@ namespace empinquiry
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tb_phone;
-
-        /// <summary>
-        /// tb_postalcode control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tb_postalcode;
 
         /// <summary>
         /// btn_clear control.
