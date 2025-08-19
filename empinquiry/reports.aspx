@@ -80,7 +80,7 @@
                                 <asp:Label ID="lbl_review_date" runat="server" 
                                     Text='<%#Bind("review_date","{0:MMMM dd, yyyy}") %>'></asp:Label>
                             </td>
-                            <td><asp:Label ID="Label1" runat="server" Text='<%#Eval("emp_activity_code")%>'></asp:Label></td>
+                            <td><asp:Label ID="lbl_activity_code" runat="server" Text='<%#Eval("emp_activity_code")%>'></asp:Label></td>
                         </tr>
                     </ItemTemplate>
                 <%--  <AlternatingItemTemplate>

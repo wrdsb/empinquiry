@@ -42,7 +42,19 @@ namespace empinquiry
             string query = "";
             string schoolyear = "";
             string name = tb_name.Text;
-            if (string.IsNullOrEmpty(name))
+            string knownas = tb_preferredname.Text;
+            string postalcode = tb_postalcode.Text;
+            string pal = tb_pal.Text;
+            string email = tb_email.Text;
+            string phone = tb_phone.Text;
+            
+
+            if (string.IsNullOrEmpty(name) &&
+                string.IsNullOrEmpty(knownas) &&
+                string.IsNullOrEmpty(postalcode) &&
+                string.IsNullOrEmpty(pal) &&
+                string.IsNullOrEmpty(email) &&
+                string.IsNullOrEmpty(phone))
                 return;
 
             if (DateTime.Now.Month > 8 && DateTime.Now.Month <= 12)
@@ -63,23 +75,28 @@ namespace empinquiry
             //        AND school_year='{1}'
             //        ORDER BY i.date_occurred desc", name, schoolyear);
 
-            query = string.Format(@"SELECT employee_id,
+            query = @"SELECT employee_id,
                     surname,
                     first_name,
                     known_as,
                     postal_code,
                     telephone_no,
                     emp_activity_code,
-                    review_date,
-                    start_date_for_vacation,
-                    e_mail_address,
-                    id,
+                    review_date,          
+                    e_mail_address,       
                     user_id 
                     FROM ec_employee 
-                    WHERE (surname like '%{0}%'
-                    OR first_name like '%{0}%')
-                    ", name);
-           
+                    WHERE ";
+                    query += string.IsNullOrEmpty(name) ? "" : "(surname LIKE '%" + name + "%' OR first_name LIKE '%" + name + "%') ";
+                    query += string.IsNullOrEmpty(knownas) ? "" : (string.IsNullOrEmpty(name) ? "" : " AND ") + " known_as LIKE '%" + knownas + "%' ";
+                    query += string.IsNullOrEmpty(postalcode) ? "" : (string.IsNullOrEmpty(name) && string.IsNullOrEmpty(knownas) ? "" : " AND ") + " postal_code LIKE '%" + postalcode + "%' ";
+                    query += string.IsNullOrEmpty(pal) ? "" : (string.IsNullOrEmpty(name) && string.IsNullOrEmpty(knownas) && string.IsNullOrEmpty(postalcode) ? "" : " AND ") + " user_id LIKE '%" + pal + "%' ";  
+                    query += string.IsNullOrEmpty(email) ? "" : (string.IsNullOrEmpty(name) && string.IsNullOrEmpty(knownas) && string.IsNullOrEmpty(postalcode) && string.IsNullOrEmpty(pal) ? "" : " AND ") + " e_mail_address LIKE '%" + email + "%' ";
+                    query += string.IsNullOrEmpty(phone) ? "" : (string.IsNullOrEmpty(name) && string.IsNullOrEmpty(knownas) && string.IsNullOrEmpty(postalcode) && string.IsNullOrEmpty(pal) && string.IsNullOrEmpty(email) ? "" : " AND ") + " telephone_no LIKE '%" + phone + "%' ";
+
+
+
+
 
             DataSource_incidents.SelectCommand = query;
             lv_incidents.DataBind();
