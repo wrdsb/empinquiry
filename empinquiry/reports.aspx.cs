@@ -73,27 +73,29 @@ namespace empinquiry
                 return;
 
             query = @"SELECT 
-                    employee_id,
-                    surname,
-                    first_name,
-                    known_as_first,
-                    postal_code,
-                    telephone_area,
-                    telephone_no,
-                    emp_activity_code,
-                    review_date,          
-                    e_mail_address,       
-                    user_id 
-                    FROM ec_employee 
+                    emp.employee_id,
+                    emp.surname,
+                    emp.first_name,
+                    emp.known_as_first,
+                    emp.postal_code,
+                    emp.telephone_area,
+                    emp.telephone_no,
+                    emp.emp_activity_code,
+                    emp.review_date,          
+                    emp.e_mail_address,       
+                    usr.user_id 
+                    FROM ec_employee emp 
+                    INNER JOIN hd_ec_users usr
+                    ON (emp.EMPLOYEE_ID = usr.EMPLOYEE_ID)
                     WHERE ";
-            query += string.IsNullOrEmpty(firstname) ? "" : "first_name LIKE '%" + firstname + "%' AND ";
-            query += string.IsNullOrEmpty(surname) ? "" : "surname LIKE '%" + surname + "%' AND ";
-            query += string.IsNullOrEmpty(knownas) ? "" : "known_as_first LIKE '%" + knownas + "%' AND ";
-            query += string.IsNullOrEmpty(pal) ? "" : "user_id LIKE '%" + pal + "%' AND ";
-            query += string.IsNullOrEmpty(email) ? "" : "e_mail_address LIKE '%" + email + "%' AND ";
-            query += string.IsNullOrEmpty(phone) ? "" : "telephone_no LIKE '%" + phone + "%' AND ";
-            query += string.IsNullOrEmpty(area) ? "" : "telephone_area LIKE '%" + area + "%' AND ";
-            query += string.IsNullOrEmpty(empid) ? "" : "employee_id ='" + empid + "'";
+            query += string.IsNullOrEmpty(firstname) ? "" : "emp.first_name LIKE '%" + firstname + "%' AND ";
+            query += string.IsNullOrEmpty(surname) ? "" : "emp.surname LIKE '%" + surname + "%' AND ";
+            query += string.IsNullOrEmpty(knownas) ? "" : "emp.known_as_first LIKE '%" + knownas + "%' AND ";
+            query += string.IsNullOrEmpty(pal) ? "" : "usr.user_id LIKE '%" + pal + "%' AND ";
+            query += string.IsNullOrEmpty(email) ? "" : "emp.e_mail_address LIKE '%" + email + "%' AND ";
+            query += string.IsNullOrEmpty(phone) ? "" : "emp.telephone_no LIKE '%" + phone + "%' AND ";
+            query += string.IsNullOrEmpty(area) ? "" : "emp.telephone_area LIKE '%" + area + "%' AND ";
+            query += string.IsNullOrEmpty(empid) ? "" : "emp.employee_id ='" + empid + "'";
 
             string andAtEnd = query.Substring(query.Length - 4, 3);
             if (andAtEnd == "AND")
