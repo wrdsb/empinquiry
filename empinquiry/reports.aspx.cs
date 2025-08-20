@@ -62,6 +62,7 @@ namespace empinquiry
             }
             
             string empid = tb_empId.Text;
+            string job = ddl_job.SelectedValue;
 
             if (string.IsNullOrEmpty(surname) &&
                 string.IsNullOrEmpty(knownas) &&
@@ -69,7 +70,8 @@ namespace empinquiry
                 string.IsNullOrEmpty(email) &&
                 string.IsNullOrEmpty(phone) &&
                 string.IsNullOrEmpty(empid) &&
-                string.IsNullOrEmpty(firstname))
+                string.IsNullOrEmpty(firstname) &&
+                string.IsNullOrEmpty(job))
                 return;
 
             query = @"SELECT 
@@ -102,6 +104,7 @@ namespace empinquiry
             query += string.IsNullOrEmpty(email) ? "" : "emp.e_mail_address LIKE '%" + email + "%' AND ";
             query += string.IsNullOrEmpty(phone) ? "" : "emp.telephone_no LIKE '%" + phone + "%' AND ";
             query += string.IsNullOrEmpty(area) ? "" : "emp.telephone_area LIKE '%" + area + "%' AND ";
+            query += string.IsNullOrEmpty(job) ? "" : "job.description_abbr = '" + job + "' AND ";
             query += string.IsNullOrEmpty(empid) ? "" : "emp.employee_id ='" + empid + "'";
 
             string andAtEnd = query.Substring(query.Length - 4, 3);
@@ -116,14 +119,23 @@ namespace empinquiry
 
             query += " ORDER BY emp.employee_id";
 
-            DataSource_incidents.SelectCommand = query;
-            lv_incidents.DataBind();
+
+            DataSource_search.SelectCommand = query;
+            lv_search.DataBind();
         }
 
         protected void btn_clear_Click(object sender, EventArgs e)
         {
-            Response.Clear();
+            Response.Redirect("reports.aspx");
+        }
 
+        protected void ddl_job_DataBound(object sender, EventArgs e)
+        {
+            if (ddl_job.Items.Count > 0)
+            {
+                ddl_job.Items.Insert(0, new ListItem("", ""));
+                ddl_job.SelectedIndex = 0;
+            }
         }
     }
 }

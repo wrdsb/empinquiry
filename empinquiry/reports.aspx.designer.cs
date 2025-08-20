@@ -60,13 +60,13 @@ namespace empinquiry
         protected global::System.Web.UI.WebControls.TextBox tb_pal;
 
         /// <summary>
-        /// tb_jobcode control.
+        /// ddl_job control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tb_jobcode;
+        protected global::System.Web.UI.WebControls.DropDownList ddl_job;
 
         /// <summary>
         /// tb_email control.
@@ -105,21 +105,30 @@ namespace empinquiry
         protected global::System.Web.UI.WebControls.Button btn_search;
 
         /// <summary>
-        /// lv_incidents control.
+        /// lv_search control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ListView lv_incidents;
+        protected global::System.Web.UI.WebControls.ListView lv_search;
 
         /// <summary>
-        /// DataSource_incidents control.
+        /// DataSource_search control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource DataSource_incidents;
+        protected global::System.Web.UI.WebControls.SqlDataSource DataSource_search;
+
+        /// <summary>
+        /// SqlDataSource_Job control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource_Job;
     }
 }

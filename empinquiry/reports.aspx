@@ -19,8 +19,14 @@
                         <asp:TableCell><asp:TextBox ID="tb_preferredname" runat="server"></asp:TextBox></asp:TableCell> 
                         <asp:TableCell>PAL\UserID</asp:TableCell>
                         <asp:TableCell><asp:TextBox ID="tb_pal" runat="server"></asp:TextBox></asp:TableCell>
-                        <asp:TableCell>Job Code</asp:TableCell>
-                        <asp:TableCell><asp:TextBox ID="tb_jobcode" runat="server"></asp:TextBox></asp:TableCell>                       
+                        <asp:TableCell>Job</asp:TableCell>
+                        <asp:TableCell>
+                             <asp:DropDownList ID="ddl_job" runat="server" CssClass="form-control" Width="180px" Height="30px" 
+                                 DataSourceID="SqlDataSource_job" DataTextField="description_text" DataValueField="description_abbr"
+                                 OnDataBound="ddl_job_DataBound">
+                             </asp:DropDownList>
+                        </asp:TableCell>     
+                         
                     </asp:TableRow>
                     <asp:TableRow>   
                         <asp:TableCell>Email Address</asp:TableCell>
@@ -45,7 +51,7 @@
 
         <div class="row">
             <div class="col-md-12" style="min-height:200px;">
-                <asp:ListView ID="lv_incidents" runat="server" DataSourceID="DataSource_incidents">
+                <asp:ListView ID="lv_search" runat="server" DataSourceID="DataSource_search">
                     <LayoutTemplate>
                         <table class="table table-responsive table-bordered">
                             <tr>
@@ -112,5 +118,7 @@
         </div>
     </div>
 
-    <asp:SqlDataSource ID="DataSource_incidents" runat="server" ConnectionString="<%$ ConnectionStrings:SQLDB %>"></asp:SqlDataSource>
+    <asp:SqlDataSource ID="DataSource_search" runat="server" ConnectionString="<%$ ConnectionStrings:SQLDB %>"></asp:SqlDataSource>
+    <asp:SqlDataSource ID="SqlDataSource_Job" runat="server" ConnectionString="<%$ ConnectionStrings:SQLDB %>"
+    SelectCommand="SELECT DISTINCT description_abbr, description_text FROM ec_jobs ORDER BY description_abbr"></asp:SqlDataSource>
 </asp:Content>
