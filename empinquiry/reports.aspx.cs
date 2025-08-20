@@ -148,7 +148,7 @@ namespace empinquiry
                 string empid = e.CommandArgument.ToString();
 
                 string query = ""; 
-                string leaveStartDate = string.Empty;
+                string leaveStartDate =string.Empty;
                 string leaveEndDate = string.Empty;
                 // Query to get leave details for the employee
                 query = string.Format("SELECT " +
@@ -181,11 +181,14 @@ namespace empinquiry
                 reader.Close();
                 con.Close();
 
+                string formatstartdate = Convert.ToDateTime(leaveStartDate).ToString("MMMM dd, yyyy");
+                string formatenddate = Convert.ToDateTime(leaveEndDate).ToString("MMMM dd, yyyy");
+
 
                 string detailsHtml = $"<table class='table table-sm'>" +
                                      $"<tr><td>Employee ID</td><td>{empid}</td></tr>" +
-                                     $"<tr><td>Leave start date : </td><td>{leaveStartDate}</td></tr>" +
-                                     $"<tr><td>Leave end date : </td><td>{leaveEndDate}</td></tr>" +
+                                     $"<tr><td>Leave start date</td><td>{formatstartdate}</td></tr>" +
+                                     $"<tr><td>Leave end date</td><td>{formatenddate}</td></tr>" +
                                      $"</table>";
 
                 // Inject into a Literal or Modal placeholder
