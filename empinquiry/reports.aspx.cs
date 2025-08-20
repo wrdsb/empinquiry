@@ -137,5 +137,28 @@ namespace empinquiry
                 ddl_job.SelectedIndex = 0;
             }
         }
+
+        protected void lv_search_ItemCommand(object sender, ListViewCommandEventArgs e)
+        {
+            if (e.CommandName == "ViewDetails")
+            {
+                string empid = e.CommandArgument.ToString();
+
+                // Example: fetch details from DB
+                // (replace with your actual logic)
+                string detailsHtml = $"<table class='table table-sm'>" +
+                                     $"<tr><td>Employee ID</td><td>{empid}</td></tr>" +
+                                     $"<tr><td>Leave start date : </td><td>Need to fill</td></tr>" +
+                                     $"<tr><td>Leave end date : </td><td>Need to fill</td></tr>" +
+                                     $"</table>";
+
+                // Inject into a Literal or Modal placeholder
+                litDetails.Text = detailsHtml;
+
+                // Show modal (custom CSS modal)
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "ShowModal",
+                    "document.getElementById('detailsModal').style.display = 'block';", true);
+            }
+        }
     }
 }

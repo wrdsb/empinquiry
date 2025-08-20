@@ -42,18 +42,20 @@
                             <asp:Button ID="btn_search" runat="server" CssClass="btn btn-primary" Text="Search" OnClick="btn_search_Click" />
                         </asp:TableCell>
                     </asp:TableRow>
+                    
                 </asp:Table>
                 <br />
             </div>
         </div>
 
         <!-- For Grid -->
-
+       
         <div class="row">
             <div class="col-md-12" style="min-height:200px;">
-                <asp:ListView ID="lv_search" runat="server" DataSourceID="DataSource_search">
+                <asp:ListView ID="lv_search" runat="server" DataSourceID="DataSource_search" OnItemCommand="lv_search_ItemCommand">
                     <LayoutTemplate>
                         <table class="table table-responsive table-bordered">
+                            <tr> <asp:Literal runat="server" ID="litDetails" ></asp:Literal></tr>
                             <tr>
                                 <th>Emp Id</th>
                                 <th>Name</th>
@@ -88,7 +90,23 @@
                                 <asp:Label ID="lbl_review_date" runat="server" 
                                     Text='<%#Bind("review_date","{0:MMMM dd, yyyy}") %>'></asp:Label>
                             </td>
-                            <td><asp:Label ID="lbl_activity_code" runat="server" Text='<%#Eval("emp_activity_code")%>'></asp:Label></td>
+                            <td>
+                                <%--<%# Eval("emp_activity_code") %>--%>
+                                <asp:Button 
+                                    ID="btnDetails" 
+                                    runat="server" 
+                                    Text='<%#Eval("emp_activity_code")%>' 
+                                    CommandName="ViewDetails" 
+                                    CommandArgument='<%# Eval("employee_id") %>' 
+                                    Visible='<%# Eval("emp_activity_code").ToString() == "ONLEAVE" %>' />
+ 
+                                    <asp:Label 
+                                        ID="lbl_activity_code" 
+                                        runat="server" 
+                                        Text='<%#Eval("emp_activity_code")%>'
+                                        Visible='<%# Eval("emp_activity_code").ToString() == "ACTIVE" %>'></asp:Label>      
+
+                            </td>
                         </tr>
                     </ItemTemplate>
                 <%--  <AlternatingItemTemplate>
@@ -117,6 +135,16 @@
             </div>
         </div>
     </div>
+
+   
+        <!-- Custom Modal -->
+        <div id="detailsModal" class="myModal">
+            <div class="myModal-content">
+                <span class="myClose" onclick="document.getElementById('detailsModal').style.display='none';">&times;</span>
+                <asp:Literal ID="litDetails" runat="server"></asp:Literal>
+            </div>
+        </div>
+    
 
     <asp:SqlDataSource ID="DataSource_search" runat="server" ConnectionString="<%$ ConnectionStrings:SQLDB %>"></asp:SqlDataSource>
     <asp:SqlDataSource ID="SqlDataSource_Job" runat="server" ConnectionString="<%$ ConnectionStrings:SQLDB %>"
