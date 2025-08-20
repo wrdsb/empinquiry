@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data.SqlClient;
 using System.Linq;
+using System.Net.Mail;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -144,12 +147,45 @@ namespace empinquiry
             {
                 string empid = e.CommandArgument.ToString();
 
-                // Example: fetch details from DB
-                // (replace with your actual logic)
+                string query = ""; 
+                string leaveStartDate = string.Empty;
+                string leaveEndDate = string.Empty;
+                // Query to get leave details for the employee
+                query = string.Format("SELECT " +
+                    "leave_start_date," +
+                    "leave_end_date " +
+                    "FROM ec_employee_leaves " +
+                    "WHERE leave_start_date <= getdate() " +
+                    "AND (leave_end_date >= getdate() or leave_end_date is null) " +
+                    "AND employee_id = {0}", empid);
+
+                string connString = ConfigurationManager.ConnectionStrings["SQLDB"].ConnectionString;
+                SqlConnection con = new SqlConnection(connString);
+                SqlCommand cmd = new SqlCommand(query, con);
+                con.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        leaveStartDate = reader["leave_start_date"].ToString().Trim();
+                        leaveEndDate = reader["leave_end_date"].ToString().Trim();
+                        
+                    }
+                }
+                else
+                {
+                    throw new Exception("Incorrect Value or Format.");
+                }
+                reader.Close();
+                con.Close();
+
+
                 string detailsHtml = $"<table class='table table-sm'>" +
                                      $"<tr><td>Employee ID</td><td>{empid}</td></tr>" +
-                                     $"<tr><td>Leave start date : </td><td>Need to fill</td></tr>" +
-                                     $"<tr><td>Leave end date : </td><td>Need to fill</td></tr>" +
+                                     $"<tr><td>Leave start date : </td><td>{leaveStartDate}</td></tr>" +
+                                     $"<tr><td>Leave end date : </td><td>{leaveEndDate}</td></tr>" +
                                      $"</table>";
 
                 // Inject into a Literal or Modal placeholder
