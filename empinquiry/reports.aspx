@@ -8,21 +8,21 @@
                 <asp:Table runat ="server">
                     <asp:TableRow> 
                         <asp:TableCell>Employee Id</asp:TableCell>
-                        <asp:TableCell><asp:TextBox ID="tb_empId" runat="server"></asp:TextBox></asp:TableCell>
+                        <asp:TableCell><asp:TextBox ID="tb_empId" runat="server" CssClass="form-control"></asp:TextBox></asp:TableCell>
                         <asp:TableCell>Surname</asp:TableCell>
-                        <asp:TableCell><asp:TextBox ID="tb_surname" runat="server"></asp:TextBox></asp:TableCell>
+                        <asp:TableCell><asp:TextBox ID="tb_surname" runat="server" CssClass="form-control"></asp:TextBox></asp:TableCell>
                         <asp:TableCell>First Name</asp:TableCell>
-                        <asp:TableCell><asp:TextBox ID="tb_firstname" runat="server"></asp:TextBox></asp:TableCell>                     
+                        <asp:TableCell><asp:TextBox ID="tb_firstname" runat="server" CssClass="form-control"></asp:TextBox></asp:TableCell>                     
                     </asp:TableRow>
                     <asp:TableRow>
-                        <asp:TableCell>Preferred Name</asp:TableCell>
-                        <asp:TableCell><asp:TextBox ID="tb_preferredname" runat="server"></asp:TextBox></asp:TableCell> 
+                        <asp:TableCell>Known as first</asp:TableCell>
+                        <asp:TableCell><asp:TextBox ID="tb_preferredname" runat="server" CssClass="form-control"></asp:TextBox></asp:TableCell> 
                         <asp:TableCell>PAL\UserID</asp:TableCell>
-                        <asp:TableCell><asp:TextBox ID="tb_pal" runat="server"></asp:TextBox></asp:TableCell>
-                        <asp:TableCell>Job</asp:TableCell>
+                        <asp:TableCell><asp:TextBox ID="tb_pal" runat="server" CssClass="form-control"></asp:TextBox></asp:TableCell>
+                        <asp:TableCell>Job (Code - Desc)</asp:TableCell>
                         <asp:TableCell>
-                             <asp:DropDownList ID="ddl_job" runat="server" CssClass="form-control" Width="180px" Height="30px" 
-                                 DataSourceID="SqlDataSource_job" DataTextField="description_text" DataValueField="description_abbr"
+                             <asp:DropDownList ID="ddl_job" runat="server" CssClass="form-control" Width="200px" Height="30px" 
+                                 DataSourceID="SqlDataSource_job" DataTextField="job_code_description" DataValueField="description_abbr"
                                  OnDataBound="ddl_job_DataBound">
                              </asp:DropDownList>
                         </asp:TableCell>     
@@ -30,9 +30,9 @@
                     </asp:TableRow>
                     <asp:TableRow>   
                         <asp:TableCell>Email Address</asp:TableCell>
-                        <asp:TableCell><asp:TextBox ID="tb_email" runat="server"></asp:TextBox></asp:TableCell>
+                        <asp:TableCell><asp:TextBox ID="tb_email" runat="server" CssClass="form-control"></asp:TextBox></asp:TableCell>
                         <asp:TableCell>Phone Number</asp:TableCell>
-                        <asp:TableCell><asp:TextBox ID="tb_phone" runat="server"></asp:TextBox></asp:TableCell>                                             
+                        <asp:TableCell><asp:TextBox ID="tb_phone" runat="server" CssClass="form-control"></asp:TextBox></asp:TableCell>                                             
                     </asp:TableRow>
                     <asp:TableRow>
                         <asp:TableCell>
@@ -59,13 +59,15 @@
                             <tr>
                                 <th>Emp Id</th>
                                 <th>Name</th>
-                                <th>Preferred Name</th>
+                                <th>known as first</th>
                                 <th>UserID</th>
                                 <th>EMail</th>
                                 <th>Phone</th>
-                                <th>Job</th>
                                 <th>Postal code</th>
-                                <th>Last Date</th>
+                                <th>Job code</th>
+                                <th>Job Desc</th>                         
+                                <th>Group code</th>
+                                <th>Location code</th>
                                 <th>Status</th>
                             </tr>
                             <tr id="itemPlaceholder" runat="server"></tr>
@@ -84,12 +86,16 @@
                             <td><asp:Label ID="lbl_phone" runat="server" 
                                 Text='<%# String.Format("{0}-{1}", Eval("telephone_area"), Eval("telephone_no"))%>'>
                                 </asp:Label></td>
-                            <td><asp:Label ID="lbl_jobcode" runat="server" Text='<%#Eval("description_text") %>'></asp:Label></td>
                             <td><asp:Label ID="lbl_postal_code" runat="server" Text='<%#Eval("postal_code")%>'></asp:Label></td>                            
-                            <td>
+                            <td><asp:Label ID="lbl_jobcode" runat="server" Text='<%#Eval("job_code") %>'></asp:Label></td>
+                            <td><asp:Label ID="lbl_jobdesc" runat="server" Text='<%#Eval("description_text") %>'></asp:Label></td>           
+                            <td><asp:Label ID="lbl_group_code" runat="server" Text='<%#Eval("emp_group_code")%>'></asp:Label></td>
+                            <td><asp:Label ID="lbl_location_code" runat="server" Text='<%#Eval("location_code")%>'></asp:Label></td>   
+                             
+                            <%--<td>
                                 <asp:Label ID="lbl_review_date" runat="server" 
                                     Text='<%#Bind("review_date","{0:MMMM dd, yyyy}") %>'></asp:Label>
-                            </td>
+                            </td>--%>
                             <td>
                                 <%--<%# Eval("emp_activity_code") %>--%>
                                 <asp:Button 
@@ -148,5 +154,5 @@
 
     <asp:SqlDataSource ID="DataSource_search" runat="server" ConnectionString="<%$ ConnectionStrings:SQLDB %>"></asp:SqlDataSource>
     <asp:SqlDataSource ID="SqlDataSource_Job" runat="server" ConnectionString="<%$ ConnectionStrings:SQLDB %>"
-    SelectCommand="SELECT DISTINCT description_abbr, description_text FROM ec_jobs ORDER BY description_abbr"></asp:SqlDataSource>
+    SelectCommand="SELECT DISTINCT job_code,description_abbr, description_text, job_code + ' - ' + description_text AS job_code_description FROM ec_jobs ORDER BY description_text"></asp:SqlDataSource>
 </asp:Content>

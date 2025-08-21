@@ -86,9 +86,11 @@ namespace empinquiry
                     emp.telephone_area,
                     emp.telephone_no,
                     emp.emp_activity_code,
-                    emp.review_date,          
                     emp.e_mail_address,  
                     job.description_text,
+                    job.job_code,
+                    empos.emp_group_code,
+                    empos.location_code,
                     usr.user_id 
                     FROM ec_employee emp 
                     INNER JOIN hd_ec_users usr
