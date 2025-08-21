@@ -22,7 +22,7 @@ namespace empinquiry
     public partial class _default : System.Web.UI.Page
     {
 
-        
+
         protected void Page_Load(object sender, EventArgs e)
         {
             Response.Cache.SetCacheability(HttpCacheability.NoCache);
@@ -30,7 +30,7 @@ namespace empinquiry
             Response.Cache.SetExpires(DateTime.UtcNow.AddHours(-1));
             Response.Cache.SetNoStore();
 
-            if(!Page.User.Identity.IsAuthenticated)
+            if (!Page.User.Identity.IsAuthenticated)
             {
                 Session.Clear();
                 Session.Abandon();
@@ -43,17 +43,17 @@ namespace empinquiry
             {
                 Session.Clear();
                 Session.Abandon();
-                
+
                 Response.Redirect("login.aspx");
             }
 
-            
+
             if (!Page.IsPostBack)
             {
                 //lbl_name.Text = Session["firstname"].ToString();
                 Session["auditComplete"] = false;
             }
-             
+
         }
 
         protected void btn_clear_Click(object sender, EventArgs e)
@@ -63,8 +63,17 @@ namespace empinquiry
 
         protected void btn_submit_Click(object sender, EventArgs e)
         {
+            var employeeId = Session["ein"];
+            var surName = Session["surname"];
+            var firstName = Session["firstname"];
+            var email = Session["email"];
+            var userId = Session["username"];
             var purpose = tb_purpose.Text;
-            //var ticket = tb_ticket.Text;
+
+            //Table need to be created in database !!!
+            var query = "INSERT INTO hd_empinquiry_audit (employeeId, surname, firstname, email, userId, purpose, inquiryDate) " +
+                "VALUES (@employeeId, @surname, @firstname, @email, @userId, @purpose,GETDATE())";
+            //DataSource_purpose.InsertCommand = query; -- uncomment this line if table is created in database
 
             Session["auditComplete"] = true;
             Response.Redirect("reports.aspx");
