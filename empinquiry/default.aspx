@@ -54,5 +54,4 @@
         </div>
     </div>
 
-    <asp:SqlDataSource ID="DataSource_purpose" runat="server" ConnectionString="<%$ ConnectionStrings:SQLDB %>"></asp:SqlDataSource>
 </asp:Content>

@@ -1,20 +1,21 @@
-﻿using Microsoft.Owin.Security.OpenIdConnect;
+﻿using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin;
 using Microsoft.Owin.Security;
+using Microsoft.Owin.Security.Cookies;
+using Microsoft.Owin.Security.OpenIdConnect;
+using Owin;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security.Cookies;
-using Microsoft.Owin;
-using Owin;
+using System.Configuration;
+using System.Data.SqlClient;
 using System.Globalization;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using System.Configuration;
+using System.Web;
 using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
 
 namespace empinquiry
@@ -69,11 +70,22 @@ namespace empinquiry
             var email = Session["email"];
             var userId = Session["username"];
             var purpose = tb_purpose.Text;
+            try
+            {
+                var query = "INSERT INTO hd_empinquiry_audit " +
+                "VALUES ('" + employeeId + "','" + surName + "','" + firstName + "','" + email + "','" + userId + "','" + purpose + "',GETDATE())";
+                string connString = ConfigurationManager.ConnectionStrings["SQLDB_HDHRP"].ConnectionString;
+                SqlConnection con = new SqlConnection(connString);
+                SqlCommand cmd = new SqlCommand(query, con);
+                con.Open();
+                cmd.ExecuteNonQuery();
+                con.Close();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error inserting audit record: " + ex.Message);
+            }
 
-            //Table need to be created in database !!!
-            var query = "INSERT INTO hd_empinquiry_audit (employeeId, surname, firstname, email, userId, purpose, inquiryDate) " +
-                "VALUES (@employeeId, @surname, @firstname, @email, @userId, @purpose,GETDATE())";
-            //DataSource_purpose.InsertCommand = query; -- uncomment this line if table is created in database
 
             Session["auditComplete"] = true;
             Response.Redirect("reports.aspx");
