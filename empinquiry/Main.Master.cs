@@ -46,9 +46,9 @@ namespace empinquiry
             FormsAuthentication.SignOut();
             FormsAuthentication.RedirectToLoginPage();
 
-            Request.GetOwinContext().Authentication.SignOut();
-            HttpContext.Current.GetOwinContext().Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationType);
-            Response.Redirect("https://login.microsoftonline.com/common/oauth2/v2.0/logout?");
+            //Request.GetOwinContext().Authentication.SignOut();
+            //HttpContext.Current.GetOwinContext().Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationType);
+            //Response.Redirect("https://login.microsoftonline.com/common/oauth2/v2.0/logout?");
         }
 
         protected void lb_settings_Click(object sender, EventArgs e)

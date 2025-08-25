@@ -116,9 +116,9 @@
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul id="menu-top-menu" class="nav nav-justified">
-                        <li runat="server" id="home_link" class="menu-item menu-item-type-post_type menu-item-object-page"><a title="Take me to the home page" href="default.aspx">Home</a></li>
+                        <li runat="server" id="home_link" class="menu-item menu-item-type-post_type menu-item-object-page"><a title="Audit page" href="default.aspx">Home</a></li>
                         <%--<li runat="server" id="new_incident_link" class="menu-item menu-item-type-post_type menu-item-object-page"><asp:LinkButton ID="lb_new_incident" runat="server" Text="New Incident" OnClick="lb_new_incident_Click"></asp:LinkButton></li>--%>
-                        <li runat="server" id="reports_link" class="menu-item menu-item-type-post_type menu-item-object-page"><a title="Take me to the Reports page" href="reports.aspx">Advanced Search</a></li>
+                        <li runat="server" id="reports_link" class="menu-item menu-item-type-post_type menu-item-object-page"><a title="Advanced Search page" href="reports.aspx">Advanced Search</a></li>
                     </ul>
                 </div>
             </div>
