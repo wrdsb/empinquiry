@@ -109,7 +109,7 @@
                                 <%--<%# Eval("emp_activity_code") %>--%>
                                 <asp:Button 
                                     ID="btnDetails" 
-                                    Width="100px" Height="30px" 
+                                    Width="100px" Height="40px" 
                                     CssClass="btn btn-primary" 
                                     runat="server" 
                                     Text='<%#Eval("emp_activity_code")%>' 

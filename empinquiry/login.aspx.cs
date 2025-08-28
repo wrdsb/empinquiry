@@ -31,8 +31,28 @@ namespace empinquiry
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            //Lets try redirecting to a new login page which then verifies the authentication and then handles the redirection there.            
+            //if (Request.IsAuthenticated == false)
+            //{
+            //    //Unauthenticated. Prompt for Azure Auth
+            //    HttpContext.Current.GetOwinContext().Authentication.Challenge(new AuthenticationProperties { RedirectUri = "login.aspx" }, OpenIdConnectAuthenticationDefaults.AuthenticationType);
+            //    return;
+            //}
+            //else
+            {
+                //Authenticated. Compare Azure Login Email with email from the DB
+                string emailAddress = User.Identity.Name;
+                emailAddress = "meenakshi_durairaj@wrdsb.ca"; //For testing purpose, hardcoded email address
+                if (emailAddress != null)
+                {                 
+                        authenticateWithDBtable(emailAddress);
+                 
+                }               
+            }
+
         }
 
+       
         public void Logout(object sender, EventArgs e)
         {
             Session.Clear();
@@ -40,23 +60,22 @@ namespace empinquiry
 
             FormsAuthentication.SignOut();
             FormsAuthentication.RedirectToLoginPage();
-         
+
+            Request.GetOwinContext().Authentication.SignOut();
+            HttpContext.Current.GetOwinContext().Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationType);
+            Response.Redirect("https://login.microsoftonline.com/common/oauth2/v2.0/logout?");
         }
+         
+       
 
-        protected void btLogin_Click(object sender, EventArgs e)
-        {
-            
-            string emailAddress = tb_login.Text.Trim();
-            //emailAddress = "meenakshi_durairaj@wrdsb.ca"; //For testing purpose, hardcoded email address
-
-            // Validate if email address exists in the employee table
-
-            if (emailAddress != null)
+        protected void authenticateWithDBtable(string email)
+        {                     
+            if (email != null)
             {
                 try
                 {
                     string query = "";     
-                    query = string.Format("SELECT username, employee_id, surname, first_name, location_code, school_code, location_desc, email_address, emp_group_code FROM hd_wrdsb_employee_view WHERE email_address='{0}' AND home_loc_ind='Y' AND activity_code IN ('ACTIVE','ONLEAVE')", emailAddress);
+                    query = string.Format("SELECT username, employee_id, surname, first_name, location_code, school_code, location_desc, email_address, emp_group_code FROM hd_wrdsb_employee_view WHERE email_address='{0}' AND home_loc_ind='Y' AND activity_code IN ('ACTIVE','ONLEAVE')", email);
                     string connString = ConfigurationManager.ConnectionStrings["SQLDB"].ConnectionString;
                     SqlConnection con = new SqlConnection(connString);
                     SqlCommand cmd = new SqlCommand(query, con);
@@ -83,7 +102,7 @@ namespace empinquiry
                     {
                         reader.Close();
                         con.Close();
-                        throw new Exception("The entered email address: " + emailAddress + " cannot be found. Please contact administrator for assistance.");
+                        throw new Exception("The entered email address: " + email + " cannot be found. Please contact administrator for assistance.");
                     }
                     reader.Close();
                     con.Close();
@@ -141,7 +160,7 @@ namespace empinquiry
                         //Add the cookie to the outgoing cookies collection.
                         Response.Cookies.Add(authCookie);
 
-                        FormsAuthentication.SetAuthCookie(emailAddress, true);
+                        FormsAuthentication.SetAuthCookie(email, true);
                         Response.Redirect(FormsAuthentication.GetRedirectUrl(Session["username"].ToString().ToLower(), false), false);
 
                         Context.ApplicationInstance.CompleteRequest();
@@ -157,8 +176,8 @@ namespace empinquiry
                     loginErrors.InnerHtml = ex.Message;
                     loginErrors.InnerText = ex.Message;
                     loginErrors.Visible = true;
-                    //logout2.Text = "Logout from existing Session";
-                    //logout2.Visible = true;
+                    logout2.Text = "Logout from existing Session";
+                    logout2.Visible = true;
                 }
             }
 
