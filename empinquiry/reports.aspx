@@ -32,7 +32,14 @@
                         <asp:TableCell>Email Address</asp:TableCell>
                         <asp:TableCell><asp:TextBox ID="tb_email" runat="server" CssClass="form-control"></asp:TextBox></asp:TableCell>
                         <asp:TableCell>Phone Number</asp:TableCell>
-                        <asp:TableCell><asp:TextBox ID="tb_phone" runat="server" CssClass="form-control"></asp:TextBox></asp:TableCell>                                             
+                        <asp:TableCell><asp:TextBox ID="tb_phone" runat="server" CssClass="form-control"></asp:TextBox></asp:TableCell>
+                         <asp:TableCell>Status</asp:TableCell>
+                        <asp:TableCell>
+                        <asp:DropDownList ID="ddl_status" runat="server" CssClass="form-control" Width="200px" Height="30px" 
+                              DataSourceID="SqlDataSource_status" DataTextField="emp_activity_code" DataValueField="emp_activity_code"
+                              OnDataBound="ddl_status_DataBound">
+                         </asp:DropDownList>
+                         </asp:TableCell>     
                     </asp:TableRow>
                     <asp:TableRow>
                         <asp:TableCell>
@@ -41,7 +48,9 @@
                         <asp:TableCell>
                             <asp:Button ID="btn_search" runat="server" CssClass="btn btn-primary" Text="Search" OnClick="btn_search_Click" />
                         </asp:TableCell>
+
                     </asp:TableRow>
+
                     
                 </asp:Table>
                 <br />
@@ -100,12 +109,22 @@
                                 <%--<%# Eval("emp_activity_code") %>--%>
                                 <asp:Button 
                                     ID="btnDetails" 
+                                    Width="100px" Height="30px" 
+                                    CssClass="btn btn-primary" 
                                     runat="server" 
                                     Text='<%#Eval("emp_activity_code")%>' 
                                     CommandName="ViewDetails" 
-                                    CommandArgument='<%# Eval("employee_id") %>' 
-                                    Visible='<%# Eval("emp_activity_code").ToString() == "ONLEAVE" %>' />
- 
+                                    CommandArgument='<%# Eval("employee_id") + ";" + Eval("emp_activity_code") %>' 
+                                    Visible='<%# Eval("emp_activity_code").ToString() == "ONLEAVE" ||
+                                    Eval("emp_activity_code").ToString() == "DECEASED" || 
+                                        Eval("emp_activity_code").ToString() == "INACTIVE" || 
+                                        Eval("emp_activity_code").ToString() == "ONLEAVE" || 
+                                        Eval("emp_activity_code").ToString() == "OTHER" || 
+                                        Eval("emp_activity_code").ToString() == "RESIGNED" || 
+                                        Eval("emp_activity_code").ToString() == "RETIRED" || 
+                                        Eval("emp_activity_code").ToString() == "TERMINAT" 
+                                        %>' />
+
                                     <asp:Label 
                                         ID="lbl_activity_code" 
                                         runat="server" 
@@ -155,4 +174,6 @@
     <asp:SqlDataSource ID="DataSource_search" runat="server" ConnectionString="<%$ ConnectionStrings:SQLDB %>"></asp:SqlDataSource>
     <asp:SqlDataSource ID="SqlDataSource_Job" runat="server" ConnectionString="<%$ ConnectionStrings:SQLDB %>"
     SelectCommand="SELECT DISTINCT job_code,description_abbr, description_text, job_code + ' - ' + description_text AS job_code_description FROM ec_jobs ORDER BY description_text"></asp:SqlDataSource>
+    <asp:SqlDataSource ID="SqlDataSource_status" runat="server" ConnectionString="<%$ ConnectionStrings:SQLDB %>"
+    SelectCommand="SELECT DISTINCT(emp_activity_code) FROM ec_employee ORDER BY emp_activity_code"></asp:SqlDataSource>
 </asp:Content>

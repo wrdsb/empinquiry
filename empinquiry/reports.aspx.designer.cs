@@ -87,6 +87,15 @@ namespace empinquiry
         protected global::System.Web.UI.WebControls.TextBox tb_phone;
 
         /// <summary>
+        /// ddl_status control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddl_status;
+
+        /// <summary>
         /// btn_clear control.
         /// </summary>
         /// <remarks>
@@ -139,5 +148,14 @@ namespace empinquiry
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource_Job;
+
+        /// <summary>
+        /// SqlDataSource_status control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource_status;
     }
 }
