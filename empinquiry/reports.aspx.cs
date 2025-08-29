@@ -20,7 +20,7 @@ namespace empinquiry
                 Response.Redirect("Login.aspx");
             }
 
-                    Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
             Response.Cache.SetAllowResponseInBrowserHistory(false);
             Response.Cache.SetExpires(DateTime.UtcNow.AddHours(-1));
             Response.Cache.SetNoStore();
@@ -49,14 +49,6 @@ namespace empinquiry
         protected void showSearchData()
         {
 
-
-            /* TODO 
-             * 
-             * 
-             * 
-             * Former Name needs to be included in the search and Gridview display
-             */
-
             string query = "";
             string firstname = tb_firstname.Text;
             string surname = tb_surname.Text;
@@ -82,6 +74,7 @@ namespace empinquiry
             string empid = tb_empId.Text;
             string job = ddl_job.SelectedValue;
             string status = ddl_status.SelectedValue;
+            string formername = tb_formername.Text;
 
             if (string.IsNullOrEmpty(surname) &&
                 string.IsNullOrEmpty(knownas) &&
@@ -91,7 +84,8 @@ namespace empinquiry
                 string.IsNullOrEmpty(empid) &&
                 string.IsNullOrEmpty(firstname) &&
                 string.IsNullOrEmpty(job) &&
-                string.IsNullOrEmpty(status))
+                string.IsNullOrEmpty(status) &&
+                string.IsNullOrEmpty(formername))
                 return;
 
             /*
@@ -110,6 +104,7 @@ namespace empinquiry
                     emp.telephone_no,
                     emp.emp_activity_code,
                     emp.e_mail_address,  
+                    emp.former_name,
 
                     job.description_text,
                     job.job_code,
@@ -139,6 +134,7 @@ namespace empinquiry
             query += string.IsNullOrEmpty(email) ? "" : "emp.e_mail_address LIKE '%" + email + "%' AND ";
             query += string.IsNullOrEmpty(phone) ? "" : "emp.telephone_no LIKE '%" + phone + "%' AND ";
             query += string.IsNullOrEmpty(area) ? "" : "emp.telephone_area LIKE '%" + area + "%' AND ";
+            query += string.IsNullOrEmpty(formername) ? "" : "emp.former_name LIKE '%" + formername + "%' AND ";
 
             query += string.IsNullOrEmpty(job) ? "" : "job.description_abbr = '" + job + "' AND ";
 

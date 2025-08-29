@@ -96,6 +96,15 @@ namespace empinquiry
         protected global::System.Web.UI.WebControls.DropDownList ddl_status;
 
         /// <summary>
+        /// tb_formername control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tb_formername;
+
+        /// <summary>
         /// btn_clear control.
         /// </summary>
         /// <remarks>

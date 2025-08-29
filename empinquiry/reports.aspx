@@ -42,6 +42,10 @@
                          </asp:TableCell>     
                     </asp:TableRow>
                     <asp:TableRow>
+                        <asp:TableCell>Former Name</asp:TableCell>
+                        <asp:TableCell><asp:TextBox ID="tb_formername" runat="server" CssClass="form-control"></asp:TextBox></asp:TableCell>
+                    </asp:TableRow>
+                    <asp:TableRow>
                         <asp:TableCell>
                             <asp:Button ID="btn_clear" runat="server" CssClass="btn btn-primary" Text="Clear" OnClick="btn_clear_Click" />
                         </asp:TableCell>
@@ -69,6 +73,7 @@
                                 <th>Emp Id</th>
                                 <th>Name</th>
                                 <th>known as first</th>
+                                <th>Former Name</th>
                                 <th>UserID</th>
                                 <th>EMail</th>
                                 <th>Phone</th>
@@ -90,6 +95,7 @@
                                 </asp:Label>
                             </td>
                             <td><asp:Label ID="lbl_known_as" runat="server" Text='<%#Eval("known_as_first")%>'></asp:Label></td>
+                            <td><asp:Label ID="lbl_former_name" runat="server" Text='<%#Eval("former_name")%>'></asp:Label></td>
                             <td><asp:Label ID="lbl_user_id" runat="server" Text='<%#Eval("user_id")%>'></asp:Label></td>                               
                             <td><asp:Label ID="lbl_email_address" runat="server" Text='<%#Eval("e_mail_address")%>'></asp:Label></td>
                             <td><asp:Label ID="lbl_phone" runat="server" 
