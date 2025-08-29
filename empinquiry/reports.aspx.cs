@@ -14,6 +14,7 @@ namespace empinquiry
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+
             Response.Cache.SetCacheability(HttpCacheability.NoCache);
             Response.Cache.SetAllowResponseInBrowserHistory(false);
             Response.Cache.SetExpires(DateTime.UtcNow.AddHours(-1));
@@ -120,17 +121,16 @@ namespace empinquiry
             query += string.IsNullOrEmpty(surname) ? "" : "emp.surname LIKE '%" + surname + "%' AND ";
             query += string.IsNullOrEmpty(knownas) ? "" : "emp.known_as_first LIKE '%" + knownas + "%' AND ";
             query += string.IsNullOrEmpty(status) ? "" : "emp.emp_activity_code = '" + status + "' AND ";
-            query += string.IsNullOrEmpty(pal) ? "" : "usr.user_id LIKE '%" + pal + "%' AND ";
+            query += string.IsNullOrEmpty(empid) ? "" : "emp.employee_id ='" + empid + "' AND";
             query += string.IsNullOrEmpty(email) ? "" : "emp.e_mail_address LIKE '%" + email + "%' AND ";
             query += string.IsNullOrEmpty(phone) ? "" : "emp.telephone_no LIKE '%" + phone + "%' AND ";
             query += string.IsNullOrEmpty(area) ? "" : "emp.telephone_area LIKE '%" + area + "%' AND ";
-            query += string.IsNullOrEmpty(job) ? "" : "job.description_abbr = '" + job + "' AND ";
-            query += string.IsNullOrEmpty(job) ? "" : "job.description_abbr = '" + job + "' AND ";
-            query += string.IsNullOrEmpty(empid) ? "" : "emp.employee_id ='" + empid + "' AND";
-          
 
+            query += string.IsNullOrEmpty(job) ? "" : "job.description_abbr = '" + job + "' AND ";
 
-            query += @" empos.HOME_LOCATION_IND = 'Y' 
+            query += string.IsNullOrEmpty(pal) ? "" : "usr.user_id LIKE '%" + pal + "%' AND ";
+
+            query += @" empos.home_location_ind = 'Y' 
                         AND 
                         empos.position_start_date <= getdate() 
                         AND 
@@ -138,7 +138,6 @@ namespace empinquiry
 
 
             query += " ORDER BY emp.employee_id";
-
 
             DataSource_search.SelectCommand = query;
             lv_search.DataBind();
@@ -159,7 +158,7 @@ namespace empinquiry
         }
 
         protected void lv_search_ItemCommand(object sender, ListViewCommandEventArgs e)
-        {          
+        {
             if (e.CommandName == "ViewDetails")
             {
                 // Retrieve the single string from the CommandArgument
@@ -171,7 +170,7 @@ namespace empinquiry
                 // Access the individual values
                 string empid = args[0];
                 string status = args[1];
-                
+
 
                 string query = "";
                 string leaveStartDate = string.Empty;
@@ -239,11 +238,11 @@ namespace empinquiry
                     string formatenddate = Convert.ToDateTime(leaveEndDate).ToString("MMMM dd, yyyy");
 
 
-                     detailsHtml = $"<table class='table table-sm'>" +
-                                         $"<tr><td>Employee ID</td><td>{empid}</td></tr>" +
-                                         $"<tr><td>Leave start date</td><td>{formatstartdate}</td></tr>" +
-                                         $"<tr><td>Leave end date</td><td>{formatenddate}</td></tr>" +
-                                         $"</table>";
+                    detailsHtml = $"<table class='table table-sm'>" +
+                                        $"<tr><td>Employee ID</td><td>{empid}</td></tr>" +
+                                        $"<tr><td>Leave start date</td><td>{formatstartdate}</td></tr>" +
+                                        $"<tr><td>Leave end date</td><td>{formatenddate}</td></tr>" +
+                                        $"</table>";
                 }
                 else
                 {
@@ -261,7 +260,7 @@ namespace empinquiry
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "ShowModal",
                     "document.getElementById('detailsModal').style.display = 'block';", true);
             }
-            
+
         }
 
         protected void ddl_status_DataBound(object sender, EventArgs e)
