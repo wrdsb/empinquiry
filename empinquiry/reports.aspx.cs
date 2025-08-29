@@ -15,7 +15,12 @@ namespace empinquiry
         protected void Page_Load(object sender, EventArgs e)
         {
 
-            Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            if (Session["auditComplete"] == null || Convert.ToBoolean(Session["auditComplete"]) == false)
+            {
+                Response.Redirect("Login.aspx");
+            }
+
+                    Response.Cache.SetCacheability(HttpCacheability.NoCache);
             Response.Cache.SetAllowResponseInBrowserHistory(false);
             Response.Cache.SetExpires(DateTime.UtcNow.AddHours(-1));
             Response.Cache.SetNoStore();
@@ -43,6 +48,15 @@ namespace empinquiry
 
         protected void showSearchData()
         {
+
+
+            /* TODO 
+             * 
+             * 
+             * 
+             * Former Name needs to be included in the search and Gridview display
+             */
+
             string query = "";
             string firstname = tb_firstname.Text;
             string surname = tb_surname.Text;
