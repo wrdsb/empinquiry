@@ -130,7 +130,7 @@ namespace empinquiry
             query += string.IsNullOrEmpty(surname) ? "" : "emp.surname LIKE '%" + surname + "%' AND ";
             query += string.IsNullOrEmpty(knownas) ? "" : "emp.known_as_first LIKE '%" + knownas + "%' AND ";
             query += string.IsNullOrEmpty(status) ? "" : "emp.emp_activity_code = '" + status + "' AND ";
-            query += string.IsNullOrEmpty(empid) ? "" : "emp.employee_id ='" + empid + "' AND";
+            query += string.IsNullOrEmpty(empid) ? "" : "emp.employee_id ='" + empid + "' AND ";
             query += string.IsNullOrEmpty(email) ? "" : "emp.e_mail_address LIKE '%" + email + "%' AND ";
             query += string.IsNullOrEmpty(phone) ? "" : "emp.telephone_no LIKE '%" + phone + "%' AND ";
             query += string.IsNullOrEmpty(area) ? "" : "emp.telephone_area LIKE '%" + area + "%' AND ";
