@@ -73,6 +73,7 @@ namespace empinquiry
 
             string empid = tb_empId.Text;
             string job = ddl_job.SelectedValue;
+            job = job.Replace("'", "''"); // replace single quote with double quote to avoid SQL error
             string status = ddl_status.SelectedValue;
             string formername = tb_formername.Text;
 
