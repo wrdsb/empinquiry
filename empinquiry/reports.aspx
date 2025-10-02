@@ -7,44 +7,42 @@
             <div class="col-md-12">            
                 <asp:Table runat ="server">
                     <asp:TableRow> 
-                        <asp:TableCell>Employee Id</asp:TableCell>
-                        <asp:TableCell><asp:TextBox ID="tb_empId" runat="server" CssClass="form-control"></asp:TextBox></asp:TableCell>
+                        <asp:TableCell>Emp Id</asp:TableCell>
+                        <asp:TableCell><asp:TextBox ID="tb_empId" runat="server" Width="150px" CssClass="form-control"></asp:TextBox></asp:TableCell>
                         <asp:TableCell>Surname</asp:TableCell>
-                        <asp:TableCell><asp:TextBox ID="tb_surname" runat="server" CssClass="form-control"></asp:TextBox></asp:TableCell>
+                        <asp:TableCell><asp:TextBox ID="tb_surname" runat="server" Width="150px" CssClass="form-control"></asp:TextBox></asp:TableCell>
                         <asp:TableCell>First Name</asp:TableCell>
-                        <asp:TableCell><asp:TextBox ID="tb_firstname" runat="server" CssClass="form-control"></asp:TextBox></asp:TableCell>                     
+                        <asp:TableCell><asp:TextBox ID="tb_firstname" runat="server" Width="150px" CssClass="form-control"></asp:TextBox></asp:TableCell>        
+                         <asp:TableCell>Former Name</asp:TableCell>
+                         <asp:TableCell><asp:TextBox ID="tb_formername" runat="server" Width="150px" CssClass="form-control"></asp:TextBox></asp:TableCell>
                     </asp:TableRow>
                     <asp:TableRow>
                         <asp:TableCell>Known as first</asp:TableCell>
-                        <asp:TableCell><asp:TextBox ID="tb_preferredname" runat="server" CssClass="form-control"></asp:TextBox></asp:TableCell> 
+                        <asp:TableCell><asp:TextBox ID="tb_preferredname" runat="server" Width="150px" CssClass="form-control"></asp:TextBox></asp:TableCell> 
                         <asp:TableCell>PAL\UserID</asp:TableCell>
-                        <asp:TableCell><asp:TextBox ID="tb_pal" runat="server" CssClass="form-control"></asp:TextBox></asp:TableCell>
-                        <asp:TableCell>Job (Code - Desc)</asp:TableCell>
-                        <asp:TableCell>
-                             <asp:DropDownList ID="ddl_job" runat="server" CssClass="form-control" Width="200px" Height="30px" 
-                                 DataSourceID="SqlDataSource_job" DataTextField="job_code_description" DataValueField="description_abbr"
-                                 OnDataBound="ddl_job_DataBound">
-                             </asp:DropDownList>
-                        </asp:TableCell>     
-                         
+                        <asp:TableCell><asp:TextBox ID="tb_pal" runat="server" Width="150px" CssClass="form-control"></asp:TextBox></asp:TableCell>
+                        <asp:TableCell>Email</asp:TableCell>
+                        <asp:TableCell><asp:TextBox ID="tb_email" runat="server" Width="150px" CssClass="form-control"></asp:TextBox></asp:TableCell>
+                        <asp:TableCell>Phone</asp:TableCell>
+                        <asp:TableCell><asp:TextBox ID="tb_phone" runat="server" Width="150px" CssClass="form-control"></asp:TextBox></asp:TableCell>                                                
                     </asp:TableRow>
                     <asp:TableRow>   
-                        <asp:TableCell>Email Address</asp:TableCell>
-                        <asp:TableCell><asp:TextBox ID="tb_email" runat="server" CssClass="form-control"></asp:TextBox></asp:TableCell>
-                        <asp:TableCell>Phone Number</asp:TableCell>
-                        <asp:TableCell><asp:TextBox ID="tb_phone" runat="server" CssClass="form-control"></asp:TextBox></asp:TableCell>
-                         <asp:TableCell>Status</asp:TableCell>
+                        <asp:TableCell>Job(Code - Desc)</asp:TableCell>
                         <asp:TableCell>
-                        <asp:DropDownList ID="ddl_status" runat="server" CssClass="form-control" Width="200px" Height="30px" 
+                         <asp:DropDownList ID="ddl_job" runat="server" CssClass="form-control" Width="150px" Height="34px" 
+                             DataSourceID="SqlDataSource_job" DataTextField="job_code_description" DataValueField="description_abbr"
+                             OnDataBound="ddl_job_DataBound">
+                         </asp:DropDownList>
+                        </asp:TableCell>                             
+                        <asp:TableCell>Status</asp:TableCell>
+                        <asp:TableCell>
+                        <asp:DropDownList ID="ddl_status" runat="server" CssClass="form-control" Width="150px" Height="34px" 
                               DataSourceID="SqlDataSource_status" DataTextField="emp_activity_code" DataValueField="emp_activity_code"
                               OnDataBound="ddl_status_DataBound">
                          </asp:DropDownList>
                          </asp:TableCell>     
                     </asp:TableRow>
-                    <asp:TableRow>
-                        <asp:TableCell>Former Name</asp:TableCell>
-                        <asp:TableCell><asp:TextBox ID="tb_formername" runat="server" CssClass="form-control"></asp:TextBox></asp:TableCell>
-                    </asp:TableRow>
+                    
                     <asp:TableRow>
                         <asp:TableCell>
                             <asp:Button ID="btn_clear" runat="server" CssClass="btn btn-primary" Text="Clear" OnClick="btn_clear_Click" />
@@ -52,10 +50,7 @@
                         <asp:TableCell>
                             <asp:Button ID="btn_search" runat="server" CssClass="btn btn-primary" Text="Search" OnClick="btn_search_Click" />
                         </asp:TableCell>
-
-                    </asp:TableRow>
-
-                    
+                    </asp:TableRow>                    
                 </asp:Table>
                 <br />
             </div>
