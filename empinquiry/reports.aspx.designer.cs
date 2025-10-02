@@ -132,6 +132,15 @@ namespace empinquiry
         protected global::System.Web.UI.WebControls.ListView lv_search;
 
         /// <summary>
+        /// MyDataPager control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DataPager MyDataPager;
+
+        /// <summary>
         /// litDetails control.
         /// </summary>
         /// <remarks>

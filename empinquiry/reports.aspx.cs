@@ -236,7 +236,7 @@ namespace empinquiry
                 }
                 else
                 {
-                    throw new Exception("Incorrect Value or Format.");
+                    //throw new Exception("Incorrect Value or Format.");
                 }
                 reader.Close();
                 con.Close();
@@ -281,6 +281,14 @@ namespace empinquiry
                 ddl_status.Items.Insert(0, new ListItem("", ""));
                 ddl_status.SelectedIndex = 0;
             }
+        }
+        protected void lv_search_PagePropertiesChanging(object sender, PagePropertiesChangingEventArgs e)
+        {
+            // Tell the DataPager the new page properties
+            MyDataPager.SetPageProperties(e.StartRowIndex, e.MaximumRows, false);
+
+            // Rebind the data for the new page
+            showSearchData();
         }
     }
 }

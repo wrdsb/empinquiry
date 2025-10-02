@@ -60,7 +60,8 @@
        
         <div class="row">
             <div class="col-md-12" style="min-height:200px;">
-                <asp:ListView ID="lv_search" runat="server" DataSourceID="DataSource_search" OnItemCommand="lv_search_ItemCommand">
+                <asp:ListView ID="lv_search" runat="server" DataSourceID="DataSource_search" OnItemCommand="lv_search_ItemCommand"
+                    OnPagePropertiesChanging="lv_search_PagePropertiesChanging" >
                     <LayoutTemplate>
                         <table class="table table-responsive table-bordered">
                             <tr> <asp:Literal runat="server" ID="litDetails" ></asp:Literal></tr>
@@ -158,6 +159,17 @@
                         We didn't find any data.
                     </EmptyDataTemplate>
                 </asp:ListView>
+                <asp:DataPager ID="MyDataPager" EnableEventValidation="false" runat="server" PagedControlID="lv_search" PageSize="5">
+                <Fields>
+                    <asp:NextPreviousPagerField ButtonType="Button" 
+                        ShowFirstPageButton="True" ShowLastPageButton="True"  
+                        PreviousPageText="&laquo; Prev"
+                        NextPageText="Next &raquo;"
+                        FirstPageText="First"
+                        LastPageText="Last"/>
+                    <asp:NumericPagerField />
+                </Fields>
+            </asp:DataPager>
             </div>
         </div>
     </div>
