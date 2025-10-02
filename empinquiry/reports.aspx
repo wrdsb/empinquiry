@@ -68,7 +68,7 @@
                             <tr>
                                 <th>Emp Id</th>
                                 <th>Name</th>
-                                <th>known as first</th>
+                                <th>known as</th>
                                 <th>Former Name</th>
                                 <th>UserID</th>
                                 <th>EMail</th>
@@ -167,7 +167,7 @@
                         NextPageText="Next &raquo;"
                         FirstPageText="First"
                         LastPageText="Last"/>
-                    <asp:NumericPagerField />
+                    <asp:NumericPagerField ButtonCount="5" />
                 </Fields>
             </asp:DataPager>
             </div>
