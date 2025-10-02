@@ -245,8 +245,8 @@ namespace empinquiry
                 if (status == "ONLEAVE")
                 {
 
-                    string formatstartdate = Convert.ToDateTime(leaveStartDate).ToString("MMMM dd, yyyy");
-                    string formatenddate = Convert.ToDateTime(leaveEndDate).ToString("MMMM dd, yyyy");
+                    string formatstartdate = string.IsNullOrEmpty(leaveStartDate) ? "" : Convert.ToDateTime(leaveStartDate).ToString("MMMM dd, yyyy");
+                    string formatenddate = string.IsNullOrEmpty(leaveEndDate) ? "" : Convert.ToDateTime(leaveEndDate).ToString("MMMM dd, yyyy");
 
 
                     detailsHtml = $"<table class='table table-sm'>" +
@@ -257,7 +257,7 @@ namespace empinquiry
                 }
                 else
                 {
-                    string formatdate = Convert.ToDateTime(terminationDate).ToString("MMMM dd, yyyy");
+                    string formatdate = string.IsNullOrEmpty(terminationDate) ? "" : Convert.ToDateTime(terminationDate).ToString("MMMM dd, yyyy");
                     detailsHtml = $"<table class='table table-sm'>" +
                                          $"<tr><td>Employee ID</td><td>{empid}</td></tr>" +
                                          $"<tr><td>Termination date</td><td>{formatdate}</td></tr>" +

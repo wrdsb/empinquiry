@@ -11,9 +11,9 @@
                         <asp:TableCell><asp:TextBox ID="tb_empId" runat="server" Width="150px" CssClass="form-control"></asp:TextBox></asp:TableCell>
                         <asp:TableCell>Surname</asp:TableCell>
                         <asp:TableCell><asp:TextBox ID="tb_surname" runat="server" Width="150px" CssClass="form-control"></asp:TextBox></asp:TableCell>
-                        <asp:TableCell>First Name</asp:TableCell>
+                        <asp:TableCell>FirstName</asp:TableCell>
                         <asp:TableCell><asp:TextBox ID="tb_firstname" runat="server" Width="150px" CssClass="form-control"></asp:TextBox></asp:TableCell>        
-                         <asp:TableCell>Former Name</asp:TableCell>
+                         <asp:TableCell>FormerName</asp:TableCell>
                          <asp:TableCell><asp:TextBox ID="tb_formername" runat="server" Width="150px" CssClass="form-control"></asp:TextBox></asp:TableCell>
                     </asp:TableRow>
                     <asp:TableRow>
@@ -27,7 +27,7 @@
                         <asp:TableCell><asp:TextBox ID="tb_phone" runat="server" Width="150px" CssClass="form-control"></asp:TextBox></asp:TableCell>                                                
                     </asp:TableRow>
                     <asp:TableRow>   
-                        <asp:TableCell>Job(Code - Desc)</asp:TableCell>
+                        <asp:TableCell>Job(Code-Desc)</asp:TableCell>
                         <asp:TableCell>
                          <asp:DropDownList ID="ddl_job" runat="server" CssClass="form-control" Width="150px" Height="34px" 
                              DataSourceID="SqlDataSource_job" DataTextField="job_code_description" DataValueField="description_abbr"
