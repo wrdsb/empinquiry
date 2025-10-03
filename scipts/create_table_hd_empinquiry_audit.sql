@@ -23,7 +23,7 @@ CREATE TABLE [dbo].[hd_empinquiry_audit] (
     emailaddress VARCHAR(60),
     userid VARCHAR(13),
     Purpose VARCHAR(256),
-    inquiry_date DATE
+    inquiry_date VARCHAR(30)
 );
 
 

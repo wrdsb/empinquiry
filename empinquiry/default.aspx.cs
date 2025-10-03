@@ -70,10 +70,13 @@ namespace empinquiry
             var email = Session["email"];
             var userId = Session["username"];
             var purpose = tb_purpose.Text;
+            string currenDate = DateTime.Now.ToString("MMM/dd/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
             try
             {
                 var query = "INSERT INTO hd_empinquiry_audit " +
-                "VALUES ('" + employeeId + "','" + surName + "','" + firstName + "','" + email + "','" + userId + "','" + purpose + "',GETDATE())";
+                "VALUES ('" + employeeId + "','" + surName + "','" + firstName + "','" + email + "','" + userId + "','" + purpose + "','" + currenDate + "')";
+
+
                 string connString = ConfigurationManager.ConnectionStrings["SQLDB_HDHRP"].ConnectionString;
                 SqlConnection con = new SqlConnection(connString);
                 SqlCommand cmd = new SqlCommand(query, con);
