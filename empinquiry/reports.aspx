@@ -7,44 +7,42 @@
             <div class="col-md-12">            
                 <asp:Table runat ="server">
                     <asp:TableRow> 
-                        <asp:TableCell>Employee Id</asp:TableCell>
-                        <asp:TableCell><asp:TextBox ID="tb_empId" runat="server" CssClass="form-control"></asp:TextBox></asp:TableCell>
+                        <asp:TableCell>Emp Id</asp:TableCell>
+                        <asp:TableCell><asp:TextBox ID="tb_empId" runat="server" Width="150px" CssClass="form-control"></asp:TextBox></asp:TableCell>
                         <asp:TableCell>Surname</asp:TableCell>
-                        <asp:TableCell><asp:TextBox ID="tb_surname" runat="server" CssClass="form-control"></asp:TextBox></asp:TableCell>
+                        <asp:TableCell><asp:TextBox ID="tb_surname" runat="server" Width="150px" CssClass="form-control"></asp:TextBox></asp:TableCell>
                         <asp:TableCell>First Name</asp:TableCell>
-                        <asp:TableCell><asp:TextBox ID="tb_firstname" runat="server" CssClass="form-control"></asp:TextBox></asp:TableCell>                     
+                        <asp:TableCell><asp:TextBox ID="tb_firstname" runat="server" Width="150px" CssClass="form-control"></asp:TextBox></asp:TableCell>        
+                         <asp:TableCell>Former Name</asp:TableCell>
+                         <asp:TableCell><asp:TextBox ID="tb_formername" runat="server" Width="150px" CssClass="form-control"></asp:TextBox></asp:TableCell>
                     </asp:TableRow>
                     <asp:TableRow>
-                        <asp:TableCell>Known as first</asp:TableCell>
-                        <asp:TableCell><asp:TextBox ID="tb_preferredname" runat="server" CssClass="form-control"></asp:TextBox></asp:TableCell> 
+                        <asp:TableCell>Known as</asp:TableCell>
+                        <asp:TableCell><asp:TextBox ID="tb_preferredname" runat="server" Width="150px" CssClass="form-control"></asp:TextBox></asp:TableCell> 
                         <asp:TableCell>PAL\UserID</asp:TableCell>
-                        <asp:TableCell><asp:TextBox ID="tb_pal" runat="server" CssClass="form-control"></asp:TextBox></asp:TableCell>
-                        <asp:TableCell>Job (Code - Desc)</asp:TableCell>
-                        <asp:TableCell>
-                             <asp:DropDownList ID="ddl_job" runat="server" CssClass="form-control" Width="200px" Height="30px" 
-                                 DataSourceID="SqlDataSource_job" DataTextField="job_code_description" DataValueField="description_abbr"
-                                 OnDataBound="ddl_job_DataBound">
-                             </asp:DropDownList>
-                        </asp:TableCell>     
-                         
+                        <asp:TableCell><asp:TextBox ID="tb_pal" runat="server" Width="150px" CssClass="form-control"></asp:TextBox></asp:TableCell>
+                        <asp:TableCell>Email</asp:TableCell>
+                        <asp:TableCell><asp:TextBox ID="tb_email" runat="server" Width="150px" CssClass="form-control"></asp:TextBox></asp:TableCell>
+                        <asp:TableCell>Phone</asp:TableCell>
+                        <asp:TableCell><asp:TextBox ID="tb_phone" runat="server" Width="150px" CssClass="form-control"></asp:TextBox></asp:TableCell>                                                
                     </asp:TableRow>
                     <asp:TableRow>   
-                        <asp:TableCell>Email Address</asp:TableCell>
-                        <asp:TableCell><asp:TextBox ID="tb_email" runat="server" CssClass="form-control"></asp:TextBox></asp:TableCell>
-                        <asp:TableCell>Phone Number</asp:TableCell>
-                        <asp:TableCell><asp:TextBox ID="tb_phone" runat="server" CssClass="form-control"></asp:TextBox></asp:TableCell>
-                         <asp:TableCell>Status</asp:TableCell>
+                        <asp:TableCell>Job</asp:TableCell>
                         <asp:TableCell>
-                        <asp:DropDownList ID="ddl_status" runat="server" CssClass="form-control" Width="200px" Height="30px" 
+                         <asp:DropDownList ID="ddl_job" runat="server" CssClass="form-control" Width="150px" Height="34px" 
+                             DataSourceID="SqlDataSource_job" DataTextField="job_code_description" DataValueField="description_abbr"
+                             OnDataBound="ddl_job_DataBound">
+                         </asp:DropDownList>
+                        </asp:TableCell>                             
+                        <asp:TableCell>Status</asp:TableCell>
+                        <asp:TableCell>
+                        <asp:DropDownList ID="ddl_status" runat="server" CssClass="form-control" Width="150px" Height="34px" 
                               DataSourceID="SqlDataSource_status" DataTextField="emp_activity_code" DataValueField="emp_activity_code"
                               OnDataBound="ddl_status_DataBound">
                          </asp:DropDownList>
                          </asp:TableCell>     
                     </asp:TableRow>
-                    <asp:TableRow>
-                        <asp:TableCell>Former Name</asp:TableCell>
-                        <asp:TableCell><asp:TextBox ID="tb_formername" runat="server" CssClass="form-control"></asp:TextBox></asp:TableCell>
-                    </asp:TableRow>
+                    
                     <asp:TableRow>
                         <asp:TableCell>
                             <asp:Button ID="btn_clear" runat="server" CssClass="btn btn-primary" Text="Clear" OnClick="btn_clear_Click" />
@@ -52,10 +50,7 @@
                         <asp:TableCell>
                             <asp:Button ID="btn_search" runat="server" CssClass="btn btn-primary" Text="Search" OnClick="btn_search_Click" />
                         </asp:TableCell>
-
-                    </asp:TableRow>
-
-                    
+                    </asp:TableRow>                    
                 </asp:Table>
                 <br />
             </div>
@@ -65,14 +60,15 @@
        
         <div class="row">
             <div class="col-md-12" style="min-height:200px;">
-                <asp:ListView ID="lv_search" runat="server" DataSourceID="DataSource_search" OnItemCommand="lv_search_ItemCommand">
+                <asp:ListView ID="lv_search" runat="server" DataSourceID="DataSource_search" OnItemCommand="lv_search_ItemCommand"
+                    OnPagePropertiesChanging="lv_search_PagePropertiesChanging" >
                     <LayoutTemplate>
                         <table class="table table-responsive table-bordered">
                             <tr> <asp:Literal runat="server" ID="litDetails" ></asp:Literal></tr>
                             <tr>
                                 <th>Emp Id</th>
                                 <th>Name</th>
-                                <th>known as first</th>
+                                <th>known as</th>
                                 <th>Former Name</th>
                                 <th>UserID</th>
                                 <th>EMail</th>
@@ -163,6 +159,17 @@
                         We didn't find any data.
                     </EmptyDataTemplate>
                 </asp:ListView>
+                <asp:DataPager ID="MyDataPager" EnableEventValidation="false" runat="server" PagedControlID="lv_search" PageSize="5">
+                <Fields>
+                    <asp:NextPreviousPagerField ButtonType="Button" 
+                        ShowFirstPageButton="True" ShowLastPageButton="True"  
+                        PreviousPageText="&laquo; Prev"
+                        NextPageText="Next &raquo;"
+                        FirstPageText="First"
+                        LastPageText="Last"/>
+                    <asp:NumericPagerField ButtonCount="5" />
+                </Fields>
+            </asp:DataPager>
             </div>
         </div>
     </div>

@@ -42,6 +42,15 @@ namespace empinquiry
         protected global::System.Web.UI.WebControls.TextBox tb_firstname;
 
         /// <summary>
+        /// tb_formername control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tb_formername;
+
+        /// <summary>
         /// tb_preferredname control.
         /// </summary>
         /// <remarks>
@@ -58,15 +67,6 @@ namespace empinquiry
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tb_pal;
-
-        /// <summary>
-        /// ddl_job control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddl_job;
 
         /// <summary>
         /// tb_email control.
@@ -87,6 +87,15 @@ namespace empinquiry
         protected global::System.Web.UI.WebControls.TextBox tb_phone;
 
         /// <summary>
+        /// ddl_job control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddl_job;
+
+        /// <summary>
         /// ddl_status control.
         /// </summary>
         /// <remarks>
@@ -94,15 +103,6 @@ namespace empinquiry
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddl_status;
-
-        /// <summary>
-        /// tb_formername control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tb_formername;
 
         /// <summary>
         /// btn_clear control.
@@ -130,6 +130,15 @@ namespace empinquiry
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ListView lv_search;
+
+        /// <summary>
+        /// MyDataPager control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DataPager MyDataPager;
 
         /// <summary>
         /// litDetails control.

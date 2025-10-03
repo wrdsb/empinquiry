@@ -236,7 +236,7 @@ namespace empinquiry
                 }
                 else
                 {
-                    throw new Exception("Incorrect Value or Format.");
+                    //throw new Exception("Incorrect Value or Format.");
                 }
                 reader.Close();
                 con.Close();
@@ -245,8 +245,8 @@ namespace empinquiry
                 if (status == "ONLEAVE")
                 {
 
-                    string formatstartdate = Convert.ToDateTime(leaveStartDate).ToString("MMMM dd, yyyy");
-                    string formatenddate = Convert.ToDateTime(leaveEndDate).ToString("MMMM dd, yyyy");
+                    string formatstartdate = string.IsNullOrEmpty(leaveStartDate) ? "" : Convert.ToDateTime(leaveStartDate).ToString("MMMM dd, yyyy");
+                    string formatenddate = string.IsNullOrEmpty(leaveEndDate) ? "" : Convert.ToDateTime(leaveEndDate).ToString("MMMM dd, yyyy");
 
 
                     detailsHtml = $"<table class='table table-sm'>" +
@@ -257,10 +257,10 @@ namespace empinquiry
                 }
                 else
                 {
-                    string formatdate = Convert.ToDateTime(terminationDate).ToString("MMMM dd, yyyy");
+                    string formatdate = string.IsNullOrEmpty(terminationDate) ? "" : Convert.ToDateTime(terminationDate).ToString("MMMM dd, yyyy");
                     detailsHtml = $"<table class='table table-sm'>" +
                                          $"<tr><td>Employee ID</td><td>{empid}</td></tr>" +
-                                         $"<tr><td>Termination date</td><td>{formatdate}</td></tr>" +
+                                         $"<tr><td>Last official date</td><td>{formatdate}</td></tr>" +
                                          $"</table>";
                 }
 
@@ -281,6 +281,14 @@ namespace empinquiry
                 ddl_status.Items.Insert(0, new ListItem("", ""));
                 ddl_status.SelectedIndex = 0;
             }
+        }
+        protected void lv_search_PagePropertiesChanging(object sender, PagePropertiesChangingEventArgs e)
+        {
+            // Tell the DataPager the new page properties
+            MyDataPager.SetPageProperties(e.StartRowIndex, e.MaximumRows, false);
+
+            // Rebind the data for the new page
+            showSearchData();
         }
     }
 }
