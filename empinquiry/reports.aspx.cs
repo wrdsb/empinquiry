@@ -260,7 +260,7 @@ namespace empinquiry
                     string formatdate = string.IsNullOrEmpty(terminationDate) ? "" : Convert.ToDateTime(terminationDate).ToString("MMMM dd, yyyy");
                     detailsHtml = $"<table class='table table-sm'>" +
                                          $"<tr><td>Employee ID</td><td>{empid}</td></tr>" +
-                                         $"<tr><td>Termination date</td><td>{formatdate}</td></tr>" +
+                                         $"<tr><td>Last official date</td><td>{formatdate}</td></tr>" +
                                          $"</table>";
                 }
 

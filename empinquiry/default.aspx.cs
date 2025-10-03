@@ -74,7 +74,7 @@ namespace empinquiry
             try
             {
                 var query = "INSERT INTO hd_empinquiry_audit " +
-                "VALUES ('" + employeeId + "','" + surName + "','" + firstName + "','" + email + "','" + userId + "','" + purpose + "','" + currenDate + "')";
+                "VALUES ('" + employeeId + "','" + firstName + "','" + surName + "','" + email + "','" + userId + "','" + purpose + "','" + currenDate + "')";
 
 
                 string connString = ConfigurationManager.ConnectionStrings["SQLDB_HDHRP"].ConnectionString;
