@@ -100,7 +100,6 @@ namespace empinquiry
                                   ClientId = clientId,
                                   Authority = authority,
                                   PostLogoutRedirectUri = postLogoutRedirectUri,
-                                  ResponseType = "id_token",
                                   Notifications = new OpenIdConnectAuthenticationNotifications()
                                   {
                                       AuthenticationFailed = (context) =>
