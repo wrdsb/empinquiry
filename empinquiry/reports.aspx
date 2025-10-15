@@ -1,70 +1,91 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="reports.aspx.cs" Inherits="empinquiry.reports" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container">
         <div class="row">
-            <div class="col-md-12">            
-                <asp:Table runat ="server">
-                    <asp:TableRow> 
-                        <asp:TableCell>Emp Id</asp:TableCell>
-                        <asp:TableCell><asp:TextBox ID="tb_empId" runat="server" Width="150px" CssClass="form-control"></asp:TextBox></asp:TableCell>
-                        <asp:TableCell>Surname</asp:TableCell>
-                        <asp:TableCell><asp:TextBox ID="tb_surname" runat="server" Width="150px" CssClass="form-control"></asp:TextBox></asp:TableCell>
-                        <asp:TableCell>First Name</asp:TableCell>
-                        <asp:TableCell><asp:TextBox ID="tb_firstname" runat="server" Width="150px" CssClass="form-control"></asp:TextBox></asp:TableCell>        
-                         <asp:TableCell>Former Name</asp:TableCell>
-                         <asp:TableCell><asp:TextBox ID="tb_formername" runat="server" Width="150px" CssClass="form-control"></asp:TextBox></asp:TableCell>
-                    </asp:TableRow>
-                    <asp:TableRow>
-                        <asp:TableCell>Known as</asp:TableCell>
-                        <asp:TableCell><asp:TextBox ID="tb_preferredname" runat="server" Width="150px" CssClass="form-control"></asp:TextBox></asp:TableCell> 
-                        <asp:TableCell>PAL\UserID</asp:TableCell>
-                        <asp:TableCell><asp:TextBox ID="tb_pal" runat="server" Width="150px" CssClass="form-control"></asp:TextBox></asp:TableCell>
-                        <asp:TableCell>Email</asp:TableCell>
-                        <asp:TableCell><asp:TextBox ID="tb_email" runat="server" Width="150px" CssClass="form-control"></asp:TextBox></asp:TableCell>
-                        <asp:TableCell>Phone</asp:TableCell>
-                        <asp:TableCell><asp:TextBox ID="tb_phone" runat="server" Width="150px" CssClass="form-control"></asp:TextBox></asp:TableCell>                                                
-                    </asp:TableRow>
-                    <asp:TableRow>   
-                        <asp:TableCell>Job</asp:TableCell>
-                        <asp:TableCell>
-                         <asp:DropDownList ID="ddl_job" runat="server" CssClass="form-control" Width="150px" Height="34px" 
-                             DataSourceID="SqlDataSource_job" DataTextField="job_code_description" DataValueField="description_abbr"
-                             OnDataBound="ddl_job_DataBound">
-                         </asp:DropDownList>
-                        </asp:TableCell>                             
-                        <asp:TableCell>Status</asp:TableCell>
-                        <asp:TableCell>
-                        <asp:DropDownList ID="ddl_status" runat="server" CssClass="form-control" Width="150px" Height="34px" 
-                              DataSourceID="SqlDataSource_status" DataTextField="emp_activity_code" DataValueField="emp_activity_code"
-                              OnDataBound="ddl_status_DataBound">
-                         </asp:DropDownList>
-                         </asp:TableCell>     
-                    </asp:TableRow>
-                    
-                    <asp:TableRow>
-                        <asp:TableCell>
-                            <asp:Button ID="btn_clear" runat="server" CssClass="btn btn-primary" Text="Clear" OnClick="btn_clear_Click" />
-                        </asp:TableCell>
-                        <asp:TableCell>
-                            <asp:Button ID="btn_search" runat="server" CssClass="btn btn-primary" Text="Search" OnClick="btn_search_Click" />
-                        </asp:TableCell>
-                    </asp:TableRow>                    
-                </asp:Table>
+            <div class="col-md-12">
+                <asp:Panel ID="pnlSearch" runat="server" DefaultButton="btn_search">
+                    <asp:Table runat="server">
+                        <asp:TableRow>
+                            <asp:TableCell>Emp Id</asp:TableCell>
+                            <asp:TableCell>
+                                <asp:TextBox ID="tb_empId" runat="server" Width="150px" CssClass="form-control"></asp:TextBox>
+                            </asp:TableCell>
+                            <asp:TableCell>Surname</asp:TableCell>
+                            <asp:TableCell>
+                                <asp:TextBox ID="tb_surname" runat="server" Width="150px" CssClass="form-control"></asp:TextBox>
+                            </asp:TableCell>
+                            <asp:TableCell>First Name</asp:TableCell>
+                            <asp:TableCell>
+                                <asp:TextBox ID="tb_firstname" runat="server" Width="150px" CssClass="form-control"></asp:TextBox>
+                            </asp:TableCell>
+                            <asp:TableCell>Former Name</asp:TableCell>
+                            <asp:TableCell>
+                                <asp:TextBox ID="tb_formername" runat="server" Width="150px" CssClass="form-control"></asp:TextBox>
+                            </asp:TableCell>
+                        </asp:TableRow>
+                        <asp:TableRow>
+                            <asp:TableCell>Known as</asp:TableCell>
+                            <asp:TableCell>
+                                <asp:TextBox ID="tb_preferredname" runat="server" Width="150px" CssClass="form-control"></asp:TextBox>
+                            </asp:TableCell>
+                            <asp:TableCell>PAL\UserID</asp:TableCell>
+                            <asp:TableCell>
+                                <asp:TextBox ID="tb_pal" runat="server" Width="150px" CssClass="form-control"></asp:TextBox>
+                            </asp:TableCell>
+                            <asp:TableCell>Email</asp:TableCell>
+                            <asp:TableCell>
+                                <asp:TextBox ID="tb_email" runat="server" Width="150px" CssClass="form-control"></asp:TextBox>
+                            </asp:TableCell>
+                            <asp:TableCell>Phone</asp:TableCell>
+                            <asp:TableCell>
+                                <asp:TextBox ID="tb_phone" runat="server" Width="150px" CssClass="form-control"></asp:TextBox>
+                            </asp:TableCell>
+                        </asp:TableRow>
+                        <asp:TableRow>
+                            <asp:TableCell>Job</asp:TableCell>
+                            <asp:TableCell>
+                                <asp:DropDownList ID="ddl_job" runat="server" CssClass="form-control" Width="150px" Height="34px"
+                                    DataSourceID="SqlDataSource_job" DataTextField="job_code_description" DataValueField="description_abbr"
+                                    OnDataBound="ddl_job_DataBound">
+                                </asp:DropDownList>
+                            </asp:TableCell>
+                            <asp:TableCell>Status</asp:TableCell>
+                            <asp:TableCell>
+                                <asp:DropDownList ID="ddl_status" runat="server" CssClass="form-control" Width="150px" Height="34px"
+                                    DataSourceID="SqlDataSource_status" DataTextField="emp_activity_code" DataValueField="emp_activity_code"
+                                    OnDataBound="ddl_status_DataBound">
+                                </asp:DropDownList>
+                            </asp:TableCell>
+                        </asp:TableRow>
+
+                        <asp:TableRow>
+                            <asp:TableCell>
+                                <asp:Button ID="btn_clear" runat="server" CssClass="btn btn-primary" Text="Clear" OnClick="btn_clear_Click" />
+                            </asp:TableCell>
+                            <asp:TableCell>
+                                <asp:Button ID="btn_search" runat="server" CssClass="btn btn-primary" Text="Search" OnClick="btn_search_Click" />
+                            </asp:TableCell>
+                        </asp:TableRow>
+                    </asp:Table>
+                </asp:Panel>
                 <br />
             </div>
         </div>
 
         <!-- For Grid -->
-       
+
         <div class="row">
-            <div class="col-md-12" style="min-height:200px;">
+            <div class="col-md-12" style="min-height: 200px;">
                 <asp:ListView ID="lv_search" runat="server" DataSourceID="DataSource_search" OnItemCommand="lv_search_ItemCommand"
-                    OnPagePropertiesChanging="lv_search_PagePropertiesChanging" >
+                    OnPagePropertiesChanging="lv_search_PagePropertiesChanging">
                     <LayoutTemplate>
                         <table class="table table-responsive table-bordered">
-                            <tr> <asp:Literal runat="server" ID="litDetails" ></asp:Literal></tr>
+                            <tr>
+                                <asp:Literal runat="server" ID="litDetails"></asp:Literal>
+                            </tr>
                             <tr>
                                 <th>Emp Id</th>
                                 <th>Name</th>
@@ -75,7 +96,7 @@
                                 <th>Phone</th>
                                 <th>Postal code</th>
                                 <th>Job code</th>
-                                <th>Job Desc</th>                         
+                                <th>Job Desc</th>
                                 <th>Group code</th>
                                 <th>Location code</th>
                                 <th>Status</th>
@@ -85,38 +106,50 @@
                     </LayoutTemplate>
                     <ItemTemplate>
                         <tr>
-                            <td><asp:Label ID="lbl_empId" runat="server" Text='<%#Eval("employee_id")%>'></asp:Label></td>
-                            <td><asp:Label ID="lbl_name" runat="server" 
-                                Text='<%# String.Format("{0}, {1}", Eval("surname"),Eval("first_name")) %>'>
+                            <td>
+                                <asp:Label ID="lbl_empId" runat="server" Text='<%#Eval("employee_id")%>'></asp:Label></td>
+                            <td>
+                                <asp:Label ID="lbl_name" runat="server"
+                                    Text='<%# String.Format("{0}, {1}", Eval("surname"),Eval("first_name")) %>'>
                                 </asp:Label>
                             </td>
-                            <td><asp:Label ID="lbl_known_as" runat="server" Text='<%#Eval("known_as_first")%>'></asp:Label></td>
-                            <td><asp:Label ID="lbl_former_name" runat="server" Text='<%#Eval("former_name")%>'></asp:Label></td>
-                            <td><asp:Label ID="lbl_user_id" runat="server" Text='<%#Eval("user_id")%>'></asp:Label></td>                               
-                            <td><asp:Label ID="lbl_email_address" runat="server" Text='<%#Eval("e_mail_address")%>'></asp:Label></td>
-                            <td><asp:Label ID="lbl_phone" runat="server" 
-                                Text='<%# String.Format("{0}-{1}", Eval("telephone_area"), Eval("telephone_no"))%>'>
+                            <td>
+                                <asp:Label ID="lbl_known_as" runat="server" Text='<%#Eval("known_as_first")%>'></asp:Label></td>
+                            <td>
+                                <asp:Label ID="lbl_former_name" runat="server" Text='<%#Eval("former_name")%>'></asp:Label></td>
+                            <td>
+                                <asp:Label ID="lbl_user_id" runat="server" Text='<%#Eval("user_id")%>'></asp:Label></td>
+                            <td>
+                                <asp:Label ID="lbl_email_address" runat="server" Text='<%#Eval("e_mail_address")%>'></asp:Label></td>
+                            <td>
+                                <asp:Label ID="lbl_phone" runat="server"
+                                    Text='<%# String.Format("{0}-{1}", Eval("telephone_area"), Eval("telephone_no"))%>'>
                                 </asp:Label></td>
-                            <td><asp:Label ID="lbl_postal_code" runat="server" Text='<%#Eval("postal_code")%>'></asp:Label></td>                            
-                            <td><asp:Label ID="lbl_jobcode" runat="server" Text='<%#Eval("job_code") %>'></asp:Label></td>
-                            <td><asp:Label ID="lbl_jobdesc" runat="server" Text='<%#Eval("description_text") %>'></asp:Label></td>           
-                            <td><asp:Label ID="lbl_group_code" runat="server" Text='<%#Eval("emp_group_code")%>'></asp:Label></td>
-                            <td><asp:Label ID="lbl_location_code" runat="server" Text='<%#Eval("location_code")%>'></asp:Label></td>   
-                             
+                            <td>
+                                <asp:Label ID="lbl_postal_code" runat="server" Text='<%#Eval("postal_code")%>'></asp:Label></td>
+                            <td>
+                                <asp:Label ID="lbl_jobcode" runat="server" Text='<%#Eval("job_code") %>'></asp:Label></td>
+                            <td>
+                                <asp:Label ID="lbl_jobdesc" runat="server" Text='<%#Eval("description_text") %>'></asp:Label></td>
+                            <td>
+                                <asp:Label ID="lbl_group_code" runat="server" Text='<%#Eval("emp_group_code")%>'></asp:Label></td>
+                            <td>
+                                <asp:Label ID="lbl_location_code" runat="server" Text='<%#Eval("location_code")%>'></asp:Label></td>
+
                             <%--<td>
                                 <asp:Label ID="lbl_review_date" runat="server" 
                                     Text='<%#Bind("review_date","{0:MMMM dd, yyyy}") %>'></asp:Label>
                             </td>--%>
                             <td>
                                 <%--<%# Eval("emp_activity_code") %>--%>
-                                <asp:Button 
-                                    ID="btnDetails" 
-                                    Width="100px" Height="40px" 
-                                    CssClass="btn btn-primary" 
-                                    runat="server" 
-                                    Text='<%#Eval("emp_activity_code")%>' 
-                                    CommandName="ViewDetails" 
-                                    CommandArgument='<%# Eval("employee_id") + ";" + Eval("emp_activity_code") %>' 
+                                <asp:Button
+                                    ID="btnDetails"
+                                    Width="100px" Height="40px"
+                                    CssClass="btn btn-primary"
+                                    runat="server"
+                                    Text='<%#Eval("emp_activity_code")%>'
+                                    CommandName="ViewDetails"
+                                    CommandArgument='<%# Eval("employee_id") + ";" + Eval("emp_activity_code") %>'
                                     Visible='<%# Eval("emp_activity_code").ToString() == "ONLEAVE" ||
                                     Eval("emp_activity_code").ToString() == "DECEASED" || 
                                         Eval("emp_activity_code").ToString() == "INACTIVE" || 
@@ -127,16 +160,16 @@
                                         Eval("emp_activity_code").ToString() == "TERMINAT" 
                                         %>' />
 
-                                    <asp:Label 
-                                        ID="lbl_activity_code" 
-                                        runat="server" 
-                                        Text='<%#Eval("emp_activity_code")%>'
-                                        Visible='<%# Eval("emp_activity_code").ToString() == "ACTIVE" %>'></asp:Label>      
+                                <asp:Label
+                                    ID="lbl_activity_code"
+                                    runat="server"
+                                    Text='<%#Eval("emp_activity_code")%>'
+                                    Visible='<%# Eval("emp_activity_code").ToString() == "ACTIVE" %>'></asp:Label>
 
                             </td>
                         </tr>
                     </ItemTemplate>
-                <%--  <AlternatingItemTemplate>
+                    <%--  <AlternatingItemTemplate>
                         <tr style="background-color:#e6e6e6">
                             <td><asp:Label ID="lbl_name" runat="server" 
                                 Text='<%# String.Format("{0}, {1}", Eval("victim_surname"),Eval("victim_firstname")) %>'>
@@ -160,33 +193,33 @@
                     </EmptyDataTemplate>
                 </asp:ListView>
                 <asp:DataPager ID="MyDataPager" EnableEventValidation="false" runat="server" PagedControlID="lv_search" PageSize="5">
-                <Fields>
-                    <asp:NextPreviousPagerField ButtonType="Button" 
-                        ShowFirstPageButton="True" ShowLastPageButton="True"  
-                        PreviousPageText="&laquo; Prev"
-                        NextPageText="Next &raquo;"
-                        FirstPageText="First"
-                        LastPageText="Last"/>
-                    <asp:NumericPagerField ButtonCount="5" />
-                </Fields>
-            </asp:DataPager>
+                    <Fields>
+                        <asp:NextPreviousPagerField ButtonType="Button"
+                            ShowFirstPageButton="True" ShowLastPageButton="True"
+                            PreviousPageText="&laquo; Prev"
+                            NextPageText="Next &raquo;"
+                            FirstPageText="First"
+                            LastPageText="Last" />
+                        <asp:NumericPagerField ButtonCount="5" />
+                    </Fields>
+                </asp:DataPager>
             </div>
         </div>
     </div>
 
-   
-        <!-- Custom Modal -->
-        <div id="detailsModal" class="myModal">
-            <div class="myModal-content">
-                <span class="myClose" onclick="document.getElementById('detailsModal').style.display='none';">&times;</span>
-                <asp:Literal ID="litDetails" runat="server"></asp:Literal>
-            </div>
+
+    <!-- Custom Modal -->
+    <div id="detailsModal" class="myModal">
+        <div class="myModal-content">
+            <span class="myClose" onclick="document.getElementById('detailsModal').style.display='none';">&times;</span>
+            <asp:Literal ID="litDetails" runat="server"></asp:Literal>
         </div>
-    
+    </div>
+
 
     <asp:SqlDataSource ID="DataSource_search" runat="server" ConnectionString="<%$ ConnectionStrings:SQLDB %>"></asp:SqlDataSource>
     <asp:SqlDataSource ID="SqlDataSource_Job" runat="server" ConnectionString="<%$ ConnectionStrings:SQLDB %>"
-    SelectCommand="SELECT DISTINCT job_code,description_abbr, description_text, job_code + ' - ' + description_text AS job_code_description FROM ec_jobs ORDER BY description_text"></asp:SqlDataSource>
+        SelectCommand="SELECT DISTINCT job_code,description_abbr, description_text, job_code + ' - ' + description_text AS job_code_description FROM ec_jobs ORDER BY description_text"></asp:SqlDataSource>
     <asp:SqlDataSource ID="SqlDataSource_status" runat="server" ConnectionString="<%$ ConnectionStrings:SQLDB %>"
-    SelectCommand="SELECT DISTINCT(emp_activity_code) FROM ec_employee ORDER BY emp_activity_code"></asp:SqlDataSource>
+        SelectCommand="SELECT DISTINCT(emp_activity_code) FROM ec_employee ORDER BY emp_activity_code"></asp:SqlDataSource>
 </asp:Content>
