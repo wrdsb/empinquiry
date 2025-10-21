@@ -60,13 +60,22 @@ namespace empinquiry
         protected global::System.Web.UI.WebControls.TextBox tb_formername;
 
         /// <summary>
-        /// tb_preferredname control.
+        /// tb_preferredfirstname control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tb_preferredname;
+        protected global::System.Web.UI.WebControls.TextBox tb_preferredfirstname;
+
+        /// <summary>
+        /// tb_preferredsurname control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tb_preferredsurname;
 
         /// <summary>
         /// tb_pal control.

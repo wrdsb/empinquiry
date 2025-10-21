@@ -52,11 +52,12 @@ namespace empinquiry
             string query = "";
             string firstname = tb_firstname.Text;
             string surname = tb_surname.Text;
-            string knownas = tb_preferredname.Text;
+            string knownasfirstname = tb_preferredfirstname.Text;
             string pal = tb_pal.Text;
             string email = tb_email.Text;
             string phone = tb_phone.Text;
             string area = string.Empty;
+            string knownassurname = tb_preferredsurname.Text;
             if (phone.Length > 0) // work around to split area code from phone number
             {
                 if (phone.Length > 3)
@@ -78,7 +79,7 @@ namespace empinquiry
             string formername = tb_formername.Text;
 
             if (string.IsNullOrEmpty(surname) &&
-                string.IsNullOrEmpty(knownas) &&
+                string.IsNullOrEmpty(knownasfirstname) &&
                 string.IsNullOrEmpty(pal) &&
                 string.IsNullOrEmpty(email) &&
                 string.IsNullOrEmpty(phone) &&
@@ -86,8 +87,9 @@ namespace empinquiry
                 string.IsNullOrEmpty(firstname) &&
                 string.IsNullOrEmpty(job) &&
                 string.IsNullOrEmpty(status) &&
-                string.IsNullOrEmpty(formername))
-                return;
+                string.IsNullOrEmpty(formername) &&
+                string.IsNullOrEmpty(knownassurname))
+            return;
 
             /*
              * WHERE empos.home_location_ind = 'Y' 
@@ -106,6 +108,7 @@ namespace empinquiry
                     emp.emp_activity_code,
                     emp.e_mail_address,  
                     emp.former_name,
+                    emp.known_as,
 
                     job.description_text,
                     job.job_code,
@@ -129,13 +132,14 @@ namespace empinquiry
 
             query += string.IsNullOrEmpty(firstname) ? "" : "emp.first_name LIKE '%" + firstname + "%' AND ";
             query += string.IsNullOrEmpty(surname) ? "" : "emp.surname LIKE '%" + surname + "%' AND ";
-            query += string.IsNullOrEmpty(knownas) ? "" : "emp.known_as_first LIKE '%" + knownas + "%' AND ";
+            query += string.IsNullOrEmpty(knownasfirstname) ? "" : "emp.known_as_first LIKE '%" + knownasfirstname + "%' AND ";
             query += string.IsNullOrEmpty(status) ? "" : "emp.emp_activity_code = '" + status + "' AND ";
             query += string.IsNullOrEmpty(empid) ? "" : "emp.employee_id ='" + empid + "' AND ";
             query += string.IsNullOrEmpty(email) ? "" : "emp.e_mail_address LIKE '%" + email + "%' AND ";
             query += string.IsNullOrEmpty(phone) ? "" : "emp.telephone_no LIKE '%" + phone + "%' AND ";
             query += string.IsNullOrEmpty(area) ? "" : "emp.telephone_area LIKE '%" + area + "%' AND ";
             query += string.IsNullOrEmpty(formername) ? "" : "emp.former_name LIKE '%" + formername + "%' AND ";
+            query += string.IsNullOrEmpty(knownassurname) ? "" : "emp.known_as LIKE '%" + knownassurname + "%' AND ";
 
             query += string.IsNullOrEmpty(job) ? "" : "job.description_abbr = '" + job + "' AND ";
 

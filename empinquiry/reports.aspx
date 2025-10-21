@@ -27,9 +27,13 @@
                             </asp:TableCell>
                         </asp:TableRow>
                         <asp:TableRow>
-                            <asp:TableCell>Known as</asp:TableCell>
+                            <asp:TableCell>Known as firstname</asp:TableCell>
                             <asp:TableCell>
-                                <asp:TextBox ID="tb_preferredname" runat="server" Width="150px" CssClass="form-control"></asp:TextBox>
+                                <asp:TextBox ID="tb_preferredfirstname" runat="server" Width="150px" CssClass="form-control"></asp:TextBox>
+                            </asp:TableCell>
+                            <asp:TableCell>known as surname</asp:TableCell>
+                            <asp:TableCell>
+                                <asp:TextBox ID="tb_preferredsurname" runat="server" Width="150px" CssClass="form-control"></asp:TextBox>
                             </asp:TableCell>
                             <asp:TableCell>PAL\UserID</asp:TableCell>
                             <asp:TableCell>
@@ -39,12 +43,13 @@
                             <asp:TableCell>
                                 <asp:TextBox ID="tb_email" runat="server" Width="150px" CssClass="form-control"></asp:TextBox>
                             </asp:TableCell>
-                            <asp:TableCell>Phone</asp:TableCell>
-                            <asp:TableCell>
-                                <asp:TextBox ID="tb_phone" runat="server" Width="150px" CssClass="form-control"></asp:TextBox>
-                            </asp:TableCell>
+                            
                         </asp:TableRow>
                         <asp:TableRow>
+                             <asp:TableCell>Phone</asp:TableCell>
+                             <asp:TableCell>
+                                 <asp:TextBox ID="tb_phone" runat="server" Width="150px" CssClass="form-control"></asp:TextBox>
+                             </asp:TableCell>
                             <asp:TableCell>Job</asp:TableCell>
                             <asp:TableCell>
                                 <asp:DropDownList ID="ddl_job" runat="server" CssClass="form-control" Width="150px" Height="34px"
@@ -89,7 +94,8 @@
                             <tr>
                                 <th>Emp Id</th>
                                 <th>Name</th>
-                                <th>known as</th>
+                                <th>known as firstname</th>
+                                <th>known as surname</th>
                                 <th>Former Name</th>
                                 <th>UserID</th>
                                 <th>EMail</th>
@@ -114,7 +120,9 @@
                                 </asp:Label>
                             </td>
                             <td>
-                                <asp:Label ID="lbl_known_as" runat="server" Text='<%#Eval("known_as_first")%>'></asp:Label></td>
+                                <asp:Label ID="lbl_known_as_firstname" runat="server" Text='<%#Eval("known_as_first")%>'></asp:Label></td>
+                            <td>
+                                <asp:Label ID="lbl_known_as_surname" runat="server" Text='<%#Eval("known_as")%>'></asp:Label></td>
                             <td>
                                 <asp:Label ID="lbl_former_name" runat="server" Text='<%#Eval("former_name")%>'></asp:Label></td>
                             <td>
@@ -192,7 +200,7 @@
                         We didn't find any data.
                     </EmptyDataTemplate>
                 </asp:ListView>
-                <asp:DataPager ID="MyDataPager" EnableEventValidation="false" runat="server" PagedControlID="lv_search" PageSize="5">
+                <asp:DataPager ID="MyDataPager" EnableEventValidation="false" runat="server" PagedControlID="lv_search" PageSize="25">
                     <Fields>
                         <asp:NextPreviousPagerField ButtonType="Button"
                             ShowFirstPageButton="True" ShowLastPageButton="True"
