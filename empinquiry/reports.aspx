@@ -98,7 +98,7 @@
                                 <th>known as surname</th>
                                 <th>Former Name</th>
                                 <th>UserID</th>
-                                <th>EMail</th>
+                                <th>Email</th>
                                 <th>Phone</th>
                                 <th>Postal code</th>
                                 <th>Job code</th>
