@@ -31,7 +31,7 @@
                             <asp:TableCell>
                                 <asp:TextBox ID="tb_preferredfirstname" runat="server" Width="150px" CssClass="form-control"></asp:TextBox>
                             </asp:TableCell>
-                            <asp:TableCell>known as surname</asp:TableCell>
+                            <asp:TableCell>Known as surname</asp:TableCell>
                             <asp:TableCell>
                                 <asp:TextBox ID="tb_preferredsurname" runat="server" Width="150px" CssClass="form-control"></asp:TextBox>
                             </asp:TableCell>
