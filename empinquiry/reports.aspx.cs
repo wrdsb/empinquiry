@@ -186,7 +186,13 @@ namespace empinquiry
                 // Access the individual values
                 string empid = args[0];
                 string status = args[1];
+                string groupcode = args[2];
+                string locationcode = args[3];
+                string recordchangedate = args[4];
 
+                groupcode = string.IsNullOrEmpty(groupcode) ? "" : groupcode;
+                locationcode = string.IsNullOrEmpty(locationcode) ? "" : locationcode;
+                recordchangedate = string.IsNullOrEmpty(recordchangedate) ? "" : Convert.ToDateTime(recordchangedate).ToString("MMMM dd, yyyy");
 
                 string query = "";
                 string leaveStartDate = string.Empty;
@@ -256,15 +262,30 @@ namespace empinquiry
 
                     detailsHtml = $"<table class='table table-sm'>" +
                                         $"<tr><td>Employee ID</td><td>{empid}</td></tr>" +
+                                        $"<tr><td>Group Code</td><td>{groupcode}</td></tr>" +
+                                        $"<tr><td>Location Code</td><td>{locationcode}</td></tr>" +
+                                        $"<tr><td>Record change date</td><td>{recordchangedate}</td></tr>" +
                                         $"<tr><td>Leave start date</td><td>{formatstartdate}</td></tr>" +
                                         $"<tr><td>Leave end date</td><td>{formatenddate}</td></tr>" +
                                         $"</table>";
+                }
+                else if(status == "ACTIVE")
+                {
+                    detailsHtml = $"<table class='table table-sm'>" +
+                                         $"<tr><td>Employee ID</td><td>{empid}</td></tr>" +
+                                         $"<tr><td>Group Code</td><td>{groupcode}</td></tr>" +
+                                         $"<tr><td>Location Code</td><td>{locationcode}</td></tr>" +
+                                         $"<tr><td>Record change date</td><td>{recordchangedate}</td></tr>" +
+                                         $"</table>";
                 }
                 else
                 {
                     string formatdate = string.IsNullOrEmpty(terminationDate) ? "" : Convert.ToDateTime(terminationDate).ToString("MMMM dd, yyyy");
                     detailsHtml = $"<table class='table table-sm'>" +
                                          $"<tr><td>Employee ID</td><td>{empid}</td></tr>" +
+                                         $"<tr><td>Group Code</td><td>{groupcode}</td></tr>" +
+                                         $"<tr><td>Location Code</td><td>{locationcode}</td></tr>" +
+                                         $"<tr><td>Record change date</td><td>{recordchangedate}</td></tr>" +
                                          $"<tr><td>Last official date</td><td>{formatdate}</td></tr>" +
                                          $"</table>";
                 }

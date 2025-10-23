@@ -103,9 +103,9 @@
                                 <th>Postal code</th>
                                 <th>Job code</th>
                                 <th>Job Desc</th>
-                                <th>Group code</th>
+                                <%--<th>Group code</th>
                                 <th>Location code</th>
-                                <th>Record change date</th>
+                                <th>Record change date</th>--%>
                                 <th>Status</th>
                             </tr>
                             <tr id="itemPlaceholder" runat="server"></tr>
@@ -140,7 +140,7 @@
                                 <asp:Label ID="lbl_jobcode" runat="server" Text='<%#Eval("job_code") %>'></asp:Label></td>
                             <td>
                                 <asp:Label ID="lbl_jobdesc" runat="server" Text='<%#Eval("description_text") %>'></asp:Label></td>
-                            <td>
+                            <%--<td>
                                 <asp:Label ID="lbl_group_code" runat="server" Text='<%#Eval("emp_group_code")%>'></asp:Label></td>
                             <td>
                                 <asp:Label ID="lbl_location_code" runat="server" Text='<%#Eval("location_code")%>'></asp:Label></td>
@@ -148,7 +148,7 @@
                             <td>
                                 <asp:Label ID="lbl_review_date" runat="server" 
                                     Text='<%#Bind("record_change_date","{0:MMMM dd, yyyy}") %>'></asp:Label>
-                            </td>
+                            </td>--%>
                             <td>
                                 <%--<%# Eval("emp_activity_code") %>--%>
                                 <asp:Button
@@ -158,22 +158,23 @@
                                     runat="server"
                                     Text='<%#Eval("emp_activity_code")%>'
                                     CommandName="ViewDetails"
-                                    CommandArgument='<%# Eval("employee_id") + ";" + Eval("emp_activity_code") %>'
+                                    CommandArgument='<%# Eval("employee_id") + ";" + Eval("emp_activity_code") +";"+Eval("emp_group_code")+";"+Eval("location_code")+";"+Eval("record_change_date") %>'
                                     Visible='<%# Eval("emp_activity_code").ToString() == "ONLEAVE" ||
-                                    Eval("emp_activity_code").ToString() == "DECEASED" || 
+                                        Eval("emp_activity_code").ToString() == "DECEASED" || 
                                         Eval("emp_activity_code").ToString() == "INACTIVE" || 
                                         Eval("emp_activity_code").ToString() == "ONLEAVE" || 
                                         Eval("emp_activity_code").ToString() == "OTHER" || 
                                         Eval("emp_activity_code").ToString() == "RESIGNED" || 
                                         Eval("emp_activity_code").ToString() == "RETIRED" || 
-                                        Eval("emp_activity_code").ToString() == "TERMINAT" 
+                                        Eval("emp_activity_code").ToString() == "TERMINAT" ||
+                                        Eval("emp_activity_code").ToString() == "ACTIVE"
                                         %>' />
 
-                                <asp:Label
+                               <%-- <asp:Label
                                     ID="lbl_activity_code"
                                     runat="server"
                                     Text='<%#Eval("emp_activity_code")%>'
-                                    Visible='<%# Eval("emp_activity_code").ToString() == "ACTIVE" %>'></asp:Label>
+                                    Visible='<%# Eval("emp_activity_code").ToString() == "ACTIVE" %>'></asp:Label>--%>
 
                             </td>
                         </tr>
