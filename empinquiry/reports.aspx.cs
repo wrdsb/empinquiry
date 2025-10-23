@@ -115,6 +115,7 @@ namespace empinquiry
 
                     empos.emp_group_code,
                     empos.location_code,
+                    empos.record_change_date,
 
                     usr.user_id 
 
