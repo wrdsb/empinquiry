@@ -293,9 +293,14 @@ namespace empinquiry
                 // Inject into a Literal or Modal placeholder
                 litDetails.Text = detailsHtml;
 
+                lv_search.SelectedIndex = e.Item.DataItemIndex % 25;
+
+
                 // Show modal (custom CSS modal)
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "ShowModal",
                     "document.getElementById('detailsModal').style.display = 'block';", true);
+
+                showSearchData();
             }
 
         }
@@ -312,6 +317,7 @@ namespace empinquiry
         {
             // Tell the DataPager the new page properties
             MyDataPager.SetPageProperties(e.StartRowIndex, e.MaximumRows, false);
+            lv_search.SelectedIndex = -1;
 
             // Rebind the data for the new page
             showSearchData();

@@ -198,6 +198,75 @@
                             <td><asp:Label ID="Label1" runat="server" Text='Active'></asp:Label></td>
                         </tr>
                     </AlternatingItemTemplate>--%>
+                    <SelectedItemTemplate>
+                        <tr style="background-color: lightcyan">
+                            <td>
+                                <asp:Label ID="lbl_empId" runat="server" Text='<%#Eval("employee_id")%>'></asp:Label></td>
+                            <td>
+                                <asp:Label ID="lbl_name" runat="server"
+                                    Text='<%# String.Format("{0}, {1}", Eval("surname"),Eval("first_name")) %>'>
+                                </asp:Label>
+                            </td>
+                            <td>
+                                <asp:Label ID="lbl_known_as_firstname" runat="server" Text='<%#Eval("known_as_first")%>'></asp:Label></td>
+                            <td>
+                                <asp:Label ID="lbl_known_as_surname" runat="server" Text='<%#Eval("known_as")%>'></asp:Label></td>
+                            <td>
+                                <asp:Label ID="lbl_former_name" runat="server" Text='<%#Eval("former_name")%>'></asp:Label></td>
+                            <td>
+                                <asp:Label ID="lbl_user_id" runat="server" Text='<%#Eval("user_id")%>'></asp:Label></td>
+                            <td>
+                                <asp:Label ID="lbl_email_address" runat="server" Text='<%#Eval("e_mail_address")%>'></asp:Label></td>
+                            <td>
+                                <asp:Label ID="lbl_phone" runat="server"
+                                    Text='<%# String.Format("{0}-{1}", Eval("telephone_area"), Eval("telephone_no"))%>'>
+                                </asp:Label></td>
+                            <td>
+                                <asp:Label ID="lbl_postal_code" runat="server" Text='<%#Eval("postal_code")%>'></asp:Label></td>
+                            <td>
+                                <asp:Label ID="lbl_jobcode" runat="server" Text='<%#Eval("job_code") %>'></asp:Label></td>
+                            <td>
+                                <asp:Label ID="lbl_jobdesc" runat="server" Text='<%#Eval("description_text") %>'></asp:Label></td>
+                            <%--<td>
+                                <asp:Label ID="lbl_group_code" runat="server" Text='<%#Eval("emp_group_code")%>'></asp:Label></td>
+                            <td>
+                                <asp:Label ID="lbl_location_code" runat="server" Text='<%#Eval("location_code")%>'></asp:Label></td>
+
+                            <td>
+                                <asp:Label ID="lbl_review_date" runat="server" 
+                                    Text='<%#Bind("record_change_date","{0:MMMM dd, yyyy}") %>'></asp:Label>
+                            </td>--%>
+                            <td>
+                                <%--<%# Eval("emp_activity_code") %>--%>
+                                <asp:Button
+                                    ID="btnDetails"
+                                    Width="100px" Height="40px"
+                                    CssClass="btn btn-primary"
+                                    runat="server"
+                                    Text='<%#Eval("emp_activity_code")%>'
+                                    CommandName="ViewDetails"
+                                    CommandArgument='<%# Eval("employee_id") + ";" + Eval("emp_activity_code") +";"+Eval("emp_group_code")+";"+Eval("location_code")+";"+Eval("record_change_date") %>'
+                                    Visible='<%# Eval("emp_activity_code").ToString() == "ONLEAVE" ||
+                                        Eval("emp_activity_code").ToString() == "DECEASED" || 
+                                        Eval("emp_activity_code").ToString() == "INACTIVE" || 
+                                        Eval("emp_activity_code").ToString() == "ONLEAVE" || 
+                                        Eval("emp_activity_code").ToString() == "OTHER" || 
+                                        Eval("emp_activity_code").ToString() == "RESIGNED" || 
+                                        Eval("emp_activity_code").ToString() == "RETIRED" || 
+                                        Eval("emp_activity_code").ToString() == "TERMINAT" ||
+                                        Eval("emp_activity_code").ToString() == "ACTIVE"
+                                        %>' />
+
+                               <%-- <asp:Label
+                                    ID="lbl_activity_code"
+                                    runat="server"
+                                    Text='<%#Eval("emp_activity_code")%>'
+                                    Visible='<%# Eval("emp_activity_code").ToString() == "ACTIVE" %>'></asp:Label>--%>
+
+                            </td>
+                        </tr>
+
+                    </SelectedItemTemplate>
                     <EmptyDataTemplate>
                         We didn't find any data.
                     </EmptyDataTemplate>
