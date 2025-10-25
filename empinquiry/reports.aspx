@@ -94,8 +94,8 @@
                             <tr>
                                 <th>Emp Id</th>
                                 <th>Name</th>
-                                <th>Known as firstname</th>
-                                <th>Known as surname</th>
+                                <th>Known as </th>
+                                <%--<th>Known as surname</th>--%>
                                 <th>Former Name</th>
                                 <th>UserID</th>
                                 <th>Email</th>
@@ -121,9 +121,10 @@
                                 </asp:Label>
                             </td>
                             <td>
-                                <asp:Label ID="lbl_known_as_firstname" runat="server" Text='<%#Eval("known_as_first")%>'></asp:Label></td>
-                            <td>
-                                <asp:Label ID="lbl_known_as_surname" runat="server" Text='<%#Eval("known_as")%>'></asp:Label></td>
+                                <asp:Label ID="lbl_known_as" runat="server" 
+                                    Text='<%# String.Format("{0}, {1}", Eval("known_as"),Eval("known_as_first")) %>'></asp:Label></td>
+                            <%--<td>
+                                <asp:Label ID="lbl_known_as_surname" runat="server" Text='<%#Eval("known_as")%>'></asp:Label></td>--%>
                             <td>
                                 <asp:Label ID="lbl_former_name" runat="server" Text='<%#Eval("former_name")%>'></asp:Label></td>
                             <td>
@@ -208,9 +209,10 @@
                                 </asp:Label>
                             </td>
                             <td>
-                                <asp:Label ID="lbl_known_as_firstname" runat="server" Text='<%#Eval("known_as_first")%>'></asp:Label></td>
-                            <td>
-                                <asp:Label ID="lbl_known_as_surname" runat="server" Text='<%#Eval("known_as")%>'></asp:Label></td>
+                                <asp:Label ID="lbl_known_as" runat="server" 
+                                    Text='<%# String.Format("{0}, {1}", Eval("known_as"),Eval("known_as_first")) %>'></asp:Label></td>
+                            <%--<td>
+                                <asp:Label ID="lbl_known_as_surname" runat="server" Text='<%#Eval("known_as")%>'></asp:Label></td>--%>
                             <td>
                                 <asp:Label ID="lbl_former_name" runat="server" Text='<%#Eval("former_name")%>'></asp:Label></td>
                             <td>
