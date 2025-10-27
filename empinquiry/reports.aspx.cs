@@ -155,8 +155,10 @@ namespace empinquiry
 
             query += " ORDER BY emp.employee_id";
 
+            
             DataSource_search.SelectCommand = query;
             lv_search.DataBind();
+            lv_search.SelectedIndex = -1;
         }
 
         protected void btn_clear_Click(object sender, EventArgs e)
@@ -293,14 +295,12 @@ namespace empinquiry
                 // Inject into a Literal or Modal placeholder
                 litDetails.Text = detailsHtml;
 
-                lv_search.SelectedIndex = e.Item.DataItemIndex % 25;
-
-
                 // Show modal (custom CSS modal)
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "ShowModal",
                     "document.getElementById('detailsModal').style.display = 'block';", true);
 
                 showSearchData();
+                lv_search.SelectedIndex = e.Item.DataItemIndex % 25;
             }
 
         }
