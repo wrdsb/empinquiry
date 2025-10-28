@@ -93,8 +93,8 @@
                             </tr>
                             <tr>
                                 <th>Emp Id</th>
-                                <th>Name</th>
-                                <th>Known as </th>
+                                <th>Name (Surname, Firstname)</th>
+                                <th>Known as (Surname, Firstname)</th>
                                 <%--<th>Known as surname</th>--%>
                                 <th>Former Name</th>
                                 <th>UserID</th>
@@ -180,7 +180,7 @@
                             </td>
                         </tr>
                     </ItemTemplate>
-                    <%--  <AlternatingItemTemplate>
+                    <%-- TODO ======TODO  <AlternatingItemTemplate>
                         <tr style="background-color:#e6e6e6">
                             <td><asp:Label ID="lbl_name" runat="server" 
                                 Text='<%# String.Format("{0}, {1}", Eval("victim_surname"),Eval("victim_firstname")) %>'>
