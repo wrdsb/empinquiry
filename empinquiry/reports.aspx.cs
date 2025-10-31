@@ -52,11 +52,12 @@ namespace empinquiry
             string query = "";
             string firstname = tb_firstname.Text;
             string surname = tb_surname.Text;
-            string knownas = tb_preferredname.Text;
+            string knownasfirstname = tb_preferredfirstname.Text;
             string pal = tb_pal.Text;
             string email = tb_email.Text;
             string phone = tb_phone.Text;
             string area = string.Empty;
+            string knownassurname = tb_preferredsurname.Text;
             if (phone.Length > 0) // work around to split area code from phone number
             {
                 if (phone.Length > 3)
@@ -78,7 +79,7 @@ namespace empinquiry
             string formername = tb_formername.Text;
 
             if (string.IsNullOrEmpty(surname) &&
-                string.IsNullOrEmpty(knownas) &&
+                string.IsNullOrEmpty(knownasfirstname) &&
                 string.IsNullOrEmpty(pal) &&
                 string.IsNullOrEmpty(email) &&
                 string.IsNullOrEmpty(phone) &&
@@ -86,8 +87,9 @@ namespace empinquiry
                 string.IsNullOrEmpty(firstname) &&
                 string.IsNullOrEmpty(job) &&
                 string.IsNullOrEmpty(status) &&
-                string.IsNullOrEmpty(formername))
-                return;
+                string.IsNullOrEmpty(formername) &&
+                string.IsNullOrEmpty(knownassurname))
+            return;
 
             /*
              * WHERE empos.home_location_ind = 'Y' 
@@ -106,12 +108,14 @@ namespace empinquiry
                     emp.emp_activity_code,
                     emp.e_mail_address,  
                     emp.former_name,
+                    emp.known_as,
 
                     job.description_text,
                     job.job_code,
 
                     empos.emp_group_code,
                     empos.location_code,
+                    empos.record_change_date,
 
                     usr.user_id 
 
@@ -129,13 +133,14 @@ namespace empinquiry
 
             query += string.IsNullOrEmpty(firstname) ? "" : "emp.first_name LIKE '%" + firstname + "%' AND ";
             query += string.IsNullOrEmpty(surname) ? "" : "emp.surname LIKE '%" + surname + "%' AND ";
-            query += string.IsNullOrEmpty(knownas) ? "" : "emp.known_as_first LIKE '%" + knownas + "%' AND ";
+            query += string.IsNullOrEmpty(knownasfirstname) ? "" : "emp.known_as_first LIKE '%" + knownasfirstname + "%' AND ";
             query += string.IsNullOrEmpty(status) ? "" : "emp.emp_activity_code = '" + status + "' AND ";
             query += string.IsNullOrEmpty(empid) ? "" : "emp.employee_id ='" + empid + "' AND ";
             query += string.IsNullOrEmpty(email) ? "" : "emp.e_mail_address LIKE '%" + email + "%' AND ";
             query += string.IsNullOrEmpty(phone) ? "" : "emp.telephone_no LIKE '%" + phone + "%' AND ";
             query += string.IsNullOrEmpty(area) ? "" : "emp.telephone_area LIKE '%" + area + "%' AND ";
             query += string.IsNullOrEmpty(formername) ? "" : "emp.former_name LIKE '%" + formername + "%' AND ";
+            query += string.IsNullOrEmpty(knownassurname) ? "" : "emp.known_as LIKE '%" + knownassurname + "%' AND ";
 
             query += string.IsNullOrEmpty(job) ? "" : "job.description_abbr = '" + job + "' AND ";
 
@@ -150,8 +155,10 @@ namespace empinquiry
 
             query += " ORDER BY emp.employee_id";
 
+            
             DataSource_search.SelectCommand = query;
             lv_search.DataBind();
+            lv_search.SelectedIndex = -1;
         }
 
         protected void btn_clear_Click(object sender, EventArgs e)
@@ -181,7 +188,13 @@ namespace empinquiry
                 // Access the individual values
                 string empid = args[0];
                 string status = args[1];
+                string groupcode = args[2];
+                string locationcode = args[3];
+                string recordchangedate = args[4];
 
+                groupcode = string.IsNullOrEmpty(groupcode) ? "" : groupcode;
+                locationcode = string.IsNullOrEmpty(locationcode) ? "" : locationcode;
+                recordchangedate = string.IsNullOrEmpty(recordchangedate) ? "" : Convert.ToDateTime(recordchangedate).ToString("MMMM dd, yyyy");
 
                 string query = "";
                 string leaveStartDate = string.Empty;
@@ -251,15 +264,30 @@ namespace empinquiry
 
                     detailsHtml = $"<table class='table table-sm'>" +
                                         $"<tr><td>Employee ID</td><td>{empid}</td></tr>" +
+                                        $"<tr><td>Group Code</td><td>{groupcode}</td></tr>" +
+                                        $"<tr><td>Location Code</td><td>{locationcode}</td></tr>" +
+                                        $"<tr><td>Record change date</td><td>{recordchangedate}</td></tr>" +
                                         $"<tr><td>Leave start date</td><td>{formatstartdate}</td></tr>" +
                                         $"<tr><td>Leave end date</td><td>{formatenddate}</td></tr>" +
                                         $"</table>";
+                }
+                else if(status == "ACTIVE")
+                {
+                    detailsHtml = $"<table class='table table-sm'>" +
+                                         $"<tr><td>Employee ID</td><td>{empid}</td></tr>" +
+                                         $"<tr><td>Group Code</td><td>{groupcode}</td></tr>" +
+                                         $"<tr><td>Location Code</td><td>{locationcode}</td></tr>" +
+                                         $"<tr><td>Record change date</td><td>{recordchangedate}</td></tr>" +
+                                         $"</table>";
                 }
                 else
                 {
                     string formatdate = string.IsNullOrEmpty(terminationDate) ? "" : Convert.ToDateTime(terminationDate).ToString("MMMM dd, yyyy");
                     detailsHtml = $"<table class='table table-sm'>" +
                                          $"<tr><td>Employee ID</td><td>{empid}</td></tr>" +
+                                         $"<tr><td>Group Code</td><td>{groupcode}</td></tr>" +
+                                         $"<tr><td>Location Code</td><td>{locationcode}</td></tr>" +
+                                         $"<tr><td>Record change date</td><td>{recordchangedate}</td></tr>" +
                                          $"<tr><td>Last official date</td><td>{formatdate}</td></tr>" +
                                          $"</table>";
                 }
@@ -270,6 +298,9 @@ namespace empinquiry
                 // Show modal (custom CSS modal)
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "ShowModal",
                     "document.getElementById('detailsModal').style.display = 'block';", true);
+
+                showSearchData();
+                lv_search.SelectedIndex = e.Item.DataItemIndex % 25;
             }
 
         }
@@ -286,6 +317,7 @@ namespace empinquiry
         {
             // Tell the DataPager the new page properties
             MyDataPager.SetPageProperties(e.StartRowIndex, e.MaximumRows, false);
+            lv_search.SelectedIndex = -1;
 
             // Rebind the data for the new page
             showSearchData();
