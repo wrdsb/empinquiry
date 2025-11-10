@@ -41,7 +41,16 @@ namespace empinquiry
 
         protected void btn_search_Click(object sender, EventArgs e)
         {
+            btn_search.Focus();
+            btn_clear.Enabled = false;
+            if(btn_search.Text == Resource.NextInquiry)
+            {
+                Response.Redirect("default.aspx");
+                return;
+            }
             showSearchData();
+            btn_search.Text = Resource.NextInquiry;
+            
         }
 
 
