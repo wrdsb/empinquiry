@@ -17,11 +17,13 @@ namespace empinquiry
         static string connectionString = ConfigurationManager.ConnectionStrings["SQLDB"].ConnectionString;
         protected void Application_Start(object sender, EventArgs e)
         {
+            Loggers.Log("Application Started");
             ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
         }
 
         void Application_Error(object sender, EventArgs e)
         {
+            Loggers.Log("Application Error Occurred");
             HttpUnhandledException httpUnhandledException = new HttpUnhandledException(Server.GetLastError().Message, Server.GetLastError());
             // Error Logged into the table “hd_empinquiry_error_log” 
             ErrorProvider empinquiryLoginError = new ErrorProvider(httpUnhandledException.InnerException.InnerException, "empinquiry Exception Raised");
