@@ -41,40 +41,45 @@ namespace empinquiry
             else
             {
                 //Authenticated. Compare Azure Login Email with email from the DB
+                //Logger.Log("User authenticated via Azure AD. Proceeding with application login.");
                 string emailAddress = User.Identity.Name;
                 //emailAddress = "meenakshi_durairaj@wrdsb.ca"; //For testing purpose, hardcoded email address
+                Loggers.Log("Authenticated user's email: " + emailAddress);
                 if (emailAddress != null)
-                {                 
-                        authenticateWithDBtable(emailAddress);
-                 
-                }               
+                {
+                    Loggers.Log("Proceeding to authenticate user with database records.");
+                    authenticateWithDBtable(emailAddress);
+                    
+                }
             }
 
         }
 
-       
+
         public void Logout(object sender, EventArgs e)
         {
+            Loggers.Log("User initiated logout.");
             Session.Clear();
             Session.Abandon();
 
             FormsAuthentication.SignOut();
             FormsAuthentication.RedirectToLoginPage();
-
+            Loggers.Log("User session cleared and signed out from Forms Authentication.");
             Request.GetOwinContext().Authentication.SignOut();
             HttpContext.Current.GetOwinContext().Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationType);
             Response.Redirect("https://login.microsoftonline.com/common/oauth2/v2.0/logout?");
+            Loggers.Log("User signed out from OWIN and redirected to Azure AD logout.");
         }
-         
-       
+
+
 
         protected void authenticateWithDBtable(string email)
-        {                     
+        {
             if (email != null)
             {
                 try
                 {
-                    string query = "";     
+                    string query = "";
                     query = string.Format("SELECT username, employee_id, surname, first_name, location_code, school_code, location_desc, email_address, emp_group_code FROM hd_wrdsb_employee_view WHERE email_address='{0}' AND home_loc_ind='Y' AND activity_code IN ('ACTIVE','ONLEAVE')", email);
                     string connString = ConfigurationManager.ConnectionStrings["SQLDB"].ConnectionString;
                     SqlConnection con = new SqlConnection(connString);
@@ -137,7 +142,7 @@ namespace empinquiry
 
                     // Only admin users are allowed to access the application 
 
-                    if (admin == "True") 
+                    if (admin == "True")
                     {
                         bool isCookiePersistent = false;
                         System.Web.Configuration.AuthenticationSection authSection = (System.Web.Configuration.AuthenticationSection)ConfigurationManager.GetSection("system.web/authentication");
@@ -183,8 +188,8 @@ namespace empinquiry
 
 
 
-            }
+        }
 
-     
+
     }
 }
