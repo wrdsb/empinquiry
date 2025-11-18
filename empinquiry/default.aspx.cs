@@ -64,6 +64,7 @@ namespace empinquiry
 
         protected void btn_submit_Click(object sender, EventArgs e)
         {
+            //Loggers.Log("Submitting audit record for user: " + Session["username"]);
             var employeeId = Session["ein"];
             var surName = Session["surname"];
             var firstName = Session["firstname"];
@@ -86,10 +87,9 @@ namespace empinquiry
             }
             catch (Exception ex)
             {
+                Loggers.Log("Error inserting audit record: " + ex.Message);
                 throw new Exception("Error inserting audit record: " + ex.Message);
             }
-
-
             Session["auditComplete"] = true;
             Response.Redirect("reports.aspx");
 

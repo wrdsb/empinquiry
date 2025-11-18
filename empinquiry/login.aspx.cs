@@ -44,31 +44,26 @@ namespace empinquiry
                 //Logger.Log("User authenticated via Azure AD. Proceeding with application login.");
                 string emailAddress = User.Identity.Name;
                 //emailAddress = "meenakshi_durairaj@wrdsb.ca"; //For testing purpose, hardcoded email address
-                Loggers.Log("Authenticated user's email: " + emailAddress);
+                //Loggers.Log("User authenticated via email: " + emailAddress);
                 if (emailAddress != null)
                 {
-                    Loggers.Log("Proceeding to authenticate user with database records.");
-                    authenticateWithDBtable(emailAddress);
-                    
+                    authenticateWithDBtable(emailAddress);                   
                 }
             }
-
         }
 
 
         public void Logout(object sender, EventArgs e)
         {
-            Loggers.Log("User initiated logout.");
+            //Loggers.Log("User initiated logout.");
             Session.Clear();
             Session.Abandon();
 
             FormsAuthentication.SignOut();
             FormsAuthentication.RedirectToLoginPage();
-            Loggers.Log("User session cleared and signed out from Forms Authentication.");
             Request.GetOwinContext().Authentication.SignOut();
             HttpContext.Current.GetOwinContext().Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationType);
             Response.Redirect("https://login.microsoftonline.com/common/oauth2/v2.0/logout?");
-            Loggers.Log("User signed out from OWIN and redirected to Azure AD logout.");
         }
 
 
@@ -83,10 +78,12 @@ namespace empinquiry
                     query = string.Format("SELECT username, employee_id, surname, first_name, location_code, school_code, location_desc, email_address, emp_group_code FROM hd_wrdsb_employee_view WHERE email_address='{0}' AND home_loc_ind='Y' AND activity_code IN ('ACTIVE','ONLEAVE')", email);
                     string connString = ConfigurationManager.ConnectionStrings["SQLDB"].ConnectionString;
                     SqlConnection con = new SqlConnection(connString);
+                    //Loggers.Log("ConnectionString ....." + connString);
                     SqlCommand cmd = new SqlCommand(query, con);
+                    Loggers.Log("Trying to open database connectionstring");
                     con.Open();
+                    //Loggers.Log("Database connection opened successfully.");
                     SqlDataReader reader = cmd.ExecuteReader();
-
 
                     if (reader.HasRows)
                     {
@@ -114,7 +111,7 @@ namespace empinquiry
 
 
                     // employee inquiry searcher needs to be a admin so validate if user is admin
-
+              
                     string admin = string.Empty;
                     string empId = Session["ein"].ToString().Trim();
                     query = string.Format("SELECT admin FROM hd_empinquiry_user WHERE employee_id = '{0}'", empId);
@@ -144,6 +141,7 @@ namespace empinquiry
 
                     if (admin == "True")
                     {
+                        //Loggers.Log("User is verified as admin. Setting up Forms Authentication ticket.");
                         bool isCookiePersistent = false;
                         System.Web.Configuration.AuthenticationSection authSection = (System.Web.Configuration.AuthenticationSection)ConfigurationManager.GetSection("system.web/authentication");
 
@@ -169,15 +167,18 @@ namespace empinquiry
                         Response.Redirect(FormsAuthentication.GetRedirectUrl(Session["username"].ToString().ToLower(), false), false);
 
                         Context.ApplicationInstance.CompleteRequest();
+                        
                     }
                     else
                     {
+                        Loggers.Log("User is not an admin. Access denied.");
                         throw new Exception("The user is not authorized to access the Employee Inquiry application. Please contact administrator for assistance.");
                     }
 
                 }
                 catch (Exception ex)
                 {
+                    Loggers.Log("Exception Errors: " + ex.Message);
                     loginErrors.InnerHtml = ex.Message;
                     loginErrors.InnerText = ex.Message;
                     loginErrors.Visible = true;

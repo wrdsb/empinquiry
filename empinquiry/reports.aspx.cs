@@ -41,10 +41,12 @@ namespace empinquiry
 
         protected void btn_search_Click(object sender, EventArgs e)
         {
+            //Loggers.Log("Performing search operation from reports page by user: " + Session["username"]);
             btn_search.Focus();
             btn_clear.Enabled = false;
             if(btn_search.Text == Resource.NextInquiry)
             {
+                //Loggers.Log("Redirecting to default.aspx for next inquiry by user: " + Session["username"]);
                 Response.Redirect("default.aspx");
                 return;
             }
@@ -57,56 +59,59 @@ namespace empinquiry
 
         protected void showSearchData()
         {
+            //Loggers.Log("Building search query from reports page by user: " + Session["username"]);
 
-            string query = "";
-            string firstname = tb_firstname.Text;
-            string surname = tb_surname.Text;
-            string knownasfirstname = tb_preferredfirstname.Text;
-            string pal = tb_pal.Text;
-            string email = tb_email.Text;
-            string phone = tb_phone.Text;
-            string area = string.Empty;
-            string knownassurname = tb_preferredsurname.Text;
-            if (phone.Length > 0) // work around to split area code from phone number
+            try
             {
-                if (phone.Length > 3)
+                string query = "";
+                string firstname = tb_firstname.Text;
+                string surname = tb_surname.Text;
+                string knownasfirstname = tb_preferredfirstname.Text;
+                string pal = tb_pal.Text;
+                string email = tb_email.Text;
+                string phone = tb_phone.Text;
+                string area = string.Empty;
+                string knownassurname = tb_preferredsurname.Text;
+                if (phone.Length > 0) // work around to split area code from phone number
                 {
-                    area = phone.Substring(0, 3);
-                    phone = phone.Substring(3);
+                    if (phone.Length > 3)
+                    {
+                        area = phone.Substring(0, 3);
+                        phone = phone.Substring(3);
+                    }
+                    else
+                    {
+                        area = phone;
+                        phone = string.Empty;
+                    }
                 }
-                else
-                {
-                    area = phone;
-                    phone = string.Empty;
-                }
-            }
 
-            string empid = tb_empId.Text;
-            string job = ddl_job.SelectedValue;
-            job = job.Replace("'", "''"); // replace single quote with double quote to avoid SQL error
-            string status = ddl_status.SelectedValue;
-            string formername = tb_formername.Text;
+                string empid = tb_empId.Text;
+                string job = ddl_job.SelectedValue;
+                job = job.Replace("'", "''"); // replace single quote with double quote to avoid SQL error
+                string status = ddl_status.SelectedValue;
+                string formername = tb_formername.Text;
 
-            if (string.IsNullOrEmpty(surname) &&
-                string.IsNullOrEmpty(knownasfirstname) &&
-                string.IsNullOrEmpty(pal) &&
-                string.IsNullOrEmpty(email) &&
-                string.IsNullOrEmpty(phone) &&
-                string.IsNullOrEmpty(empid) &&
-                string.IsNullOrEmpty(firstname) &&
-                string.IsNullOrEmpty(job) &&
-                string.IsNullOrEmpty(status) &&
-                string.IsNullOrEmpty(formername) &&
-                string.IsNullOrEmpty(knownassurname))
-            return;
+                if (string.IsNullOrEmpty(surname) &&
+                    string.IsNullOrEmpty(knownasfirstname) &&
+                    string.IsNullOrEmpty(pal) &&
+                    string.IsNullOrEmpty(email) &&
+                    string.IsNullOrEmpty(phone) &&
+                    string.IsNullOrEmpty(empid) &&
+                    string.IsNullOrEmpty(firstname) &&
+                    string.IsNullOrEmpty(job) &&
+                    string.IsNullOrEmpty(status) &&
+                    string.IsNullOrEmpty(formername) &&
+                    string.IsNullOrEmpty(knownassurname))
+                    return;
 
-            /*
-             * WHERE empos.home_location_ind = 'Y' 
-                    AND empos.position_start_date <= getdate()
-                    AND (empos.position_end_date >= getdate() or empos.position_end_date is null) AND
-             * */
+                /*
+                 * WHERE empos.home_location_ind = 'Y' 
+                        AND empos.position_start_date <= getdate()
+                        AND (empos.position_end_date >= getdate() or empos.position_end_date is null) AND
+                 * */
 
-            query = @"SELECT 
+                query = @"SELECT 
                     emp.employee_id,
                     emp.surname,
                     emp.first_name,
@@ -140,34 +145,42 @@ namespace empinquiry
 
 
 
-            query += string.IsNullOrEmpty(firstname) ? "" : "emp.first_name LIKE '%" + firstname + "%' AND ";
-            query += string.IsNullOrEmpty(surname) ? "" : "emp.surname LIKE '%" + surname + "%' AND ";
-            query += string.IsNullOrEmpty(knownasfirstname) ? "" : "emp.known_as_first LIKE '%" + knownasfirstname + "%' AND ";
-            query += string.IsNullOrEmpty(status) ? "" : "emp.emp_activity_code = '" + status + "' AND ";
-            query += string.IsNullOrEmpty(empid) ? "" : "emp.employee_id ='" + empid + "' AND ";
-            query += string.IsNullOrEmpty(email) ? "" : "emp.e_mail_address LIKE '%" + email + "%' AND ";
-            query += string.IsNullOrEmpty(phone) ? "" : "emp.telephone_no LIKE '%" + phone + "%' AND ";
-            query += string.IsNullOrEmpty(area) ? "" : "emp.telephone_area LIKE '%" + area + "%' AND ";
-            query += string.IsNullOrEmpty(formername) ? "" : "emp.former_name LIKE '%" + formername + "%' AND ";
-            query += string.IsNullOrEmpty(knownassurname) ? "" : "emp.known_as LIKE '%" + knownassurname + "%' AND ";
+                query += string.IsNullOrEmpty(firstname) ? "" : "emp.first_name LIKE '%" + firstname + "%' AND ";
+                query += string.IsNullOrEmpty(surname) ? "" : "emp.surname LIKE '%" + surname + "%' AND ";
+                query += string.IsNullOrEmpty(knownasfirstname) ? "" : "emp.known_as_first LIKE '%" + knownasfirstname + "%' AND ";
+                query += string.IsNullOrEmpty(status) ? "" : "emp.emp_activity_code = '" + status + "' AND ";
+                query += string.IsNullOrEmpty(empid) ? "" : "emp.employee_id ='" + empid + "' AND ";
+                query += string.IsNullOrEmpty(email) ? "" : "emp.e_mail_address LIKE '%" + email + "%' AND ";
+                query += string.IsNullOrEmpty(phone) ? "" : "emp.telephone_no LIKE '%" + phone + "%' AND ";
+                query += string.IsNullOrEmpty(area) ? "" : "emp.telephone_area LIKE '%" + area + "%' AND ";
+                query += string.IsNullOrEmpty(formername) ? "" : "emp.former_name LIKE '%" + formername + "%' AND ";
+                query += string.IsNullOrEmpty(knownassurname) ? "" : "emp.known_as LIKE '%" + knownassurname + "%' AND ";
 
-            query += string.IsNullOrEmpty(job) ? "" : "job.description_abbr = '" + job + "' AND ";
+                query += string.IsNullOrEmpty(job) ? "" : "job.description_abbr = '" + job + "' AND ";
 
-            query += string.IsNullOrEmpty(pal) ? "" : "usr.user_id LIKE '%" + pal + "%' AND ";
+                query += string.IsNullOrEmpty(pal) ? "" : "usr.user_id LIKE '%" + pal + "%' AND ";
 
-            query += @" empos.home_location_ind = 'Y' 
+                query += @" empos.home_location_ind = 'Y' 
                         AND 
                         empos.position_start_date <= getdate() 
                         AND 
                         (empos.position_end_date is null or empos.POSITION_END_DATE = emp.TERMINATION_DATE)";
 
 
-            query += " ORDER BY emp.employee_id";
+                query += " ORDER BY emp.employee_id";
+                //Loggers.Log("Search query built: " + query);
 
-            
-            DataSource_search.SelectCommand = query;
-            lv_search.DataBind();
-            lv_search.SelectedIndex = -1;
+                DataSource_search.SelectCommand = query;
+                lv_search.DataBind();
+                lv_search.SelectedIndex = -1;
+            }
+            catch (Exception ex)
+            {
+                Loggers.Log("Error occurred while building search query from reports page by user: " + Session["username"] + " . Error: " + ex.Message);
+                Error error = new Error();
+                error.handleError(ex, "Error occurred while performing search operation from reports page by user: " + Session["username"]);
+                ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('An error occurred while performing the search. Please try again later.');", true);
+            }
         }
 
         protected void btn_clear_Click(object sender, EventArgs e)
@@ -188,128 +201,140 @@ namespace empinquiry
         {
             if (e.CommandName == "ViewDetails")
             {
-                // Retrieve the single string from the CommandArgument
-                string commandArgs = e.CommandArgument.ToString();
-
-                // Split the string using the semicolon separator
-                string[] args = commandArgs.Split(';');
-
-                // Access the individual values
-                string empid = args[0];
-                string status = args[1];
-                string groupcode = args[2];
-                string locationcode = args[3];
-                string recordchangedate = args[4];
-
-                groupcode = string.IsNullOrEmpty(groupcode) ? "" : groupcode;
-                locationcode = string.IsNullOrEmpty(locationcode) ? "" : locationcode;
-                recordchangedate = string.IsNullOrEmpty(recordchangedate) ? "" : Convert.ToDateTime(recordchangedate).ToString("MMMM dd, yyyy");
-
-                string query = "";
-                string leaveStartDate = string.Empty;
-                string leaveEndDate = string.Empty;
-                string terminationDate = string.Empty;
-
-                if (status == "ONLEAVE")
+                try
                 {
-                    // Query to get leave details for the employee
-                    query = string.Format("SELECT " +
-                        "leave_start_date," +
-                        "leave_end_date " +
-                        "FROM ec_employee_leaves " +
-                        "WHERE leave_start_date <= getdate() " +
-                        "AND (leave_end_date >= getdate() or leave_end_date is null) " +
-                        "AND employee_id = {0}", empid);
-                }
-                else
-                {
-                    // Query to get termination details for the employee
-                    query = string.Format("SELECT " +
-                        "termination_date " +
-                        "FROM ec_employee " +
-                        "WHERE employee_id = {0}  ", empid);
-                }
+                    // Retrieve the single string from the CommandArgument
+                    string commandArgs = e.CommandArgument.ToString();
 
-                string connString = ConfigurationManager.ConnectionStrings["SQLDB"].ConnectionString;
-                SqlConnection con = new SqlConnection(connString);
-                SqlCommand cmd = new SqlCommand(query, con);
-                con.Open();
-                SqlDataReader reader = cmd.ExecuteReader();
+                    // Split the string using the semicolon separator
+                    string[] args = commandArgs.Split(';');
 
-                if (reader.HasRows)
-                {
+                    // Access the individual values
+                    string empid = args[0];
+                    string status = args[1];
+                    string groupcode = args[2];
+                    string locationcode = args[3];
+                    string recordchangedate = args[4];
+
+                    groupcode = string.IsNullOrEmpty(groupcode) ? "" : groupcode;
+                    locationcode = string.IsNullOrEmpty(locationcode) ? "" : locationcode;
+                    recordchangedate = string.IsNullOrEmpty(recordchangedate) ? "" : Convert.ToDateTime(recordchangedate).ToString("MMMM dd, yyyy");
+
+                    //Loggers.Log("Fetching additional details for Employee ID: " + empid + " with status: " + status);
+
+                    string query = "";
+                    string leaveStartDate = string.Empty;
+                    string leaveEndDate = string.Empty;
+                    string terminationDate = string.Empty;
+
                     if (status == "ONLEAVE")
                     {
-                        while (reader.Read())
+                        // Query to get leave details for the employee
+                        query = string.Format("SELECT " +
+                            "leave_start_date," +
+                            "leave_end_date " +
+                            "FROM ec_employee_leaves " +
+                            "WHERE leave_start_date <= getdate() " +
+                            "AND (leave_end_date >= getdate() or leave_end_date is null) " +
+                            "AND employee_id = {0}", empid);
+                    }
+                    else
+                    {
+                        // Query to get termination details for the employee
+                        query = string.Format("SELECT " +
+                            "termination_date " +
+                            "FROM ec_employee " +
+                            "WHERE employee_id = {0}  ", empid);
+                    }
+
+                    string connString = ConfigurationManager.ConnectionStrings["SQLDB"].ConnectionString;
+                    SqlConnection con = new SqlConnection(connString);
+                    SqlCommand cmd = new SqlCommand(query, con);
+                    con.Open();
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    if (reader.HasRows)
+                    {
+                        if (status == "ONLEAVE")
                         {
-                            leaveStartDate = reader["leave_start_date"].ToString().Trim();
-                            leaveEndDate = reader["leave_end_date"].ToString().Trim();
+                            while (reader.Read())
+                            {
+                                leaveStartDate = reader["leave_start_date"].ToString().Trim();
+                                leaveEndDate = reader["leave_end_date"].ToString().Trim();
+
+                            }
+                        }
+                        else
+                        {
+                            while (reader.Read())
+                            {
+                                terminationDate = reader["termination_date"].ToString().Trim();
+                            }
 
                         }
                     }
                     else
                     {
-                        while (reader.Read())
-                        {
-                            terminationDate = reader["termination_date"].ToString().Trim();
-                        }
-
+                        //throw new Exception("Incorrect Value or Format.");
                     }
+                    reader.Close();
+                    con.Close();
+
+                    string detailsHtml = string.Empty;
+                    if (status == "ONLEAVE")
+                    {
+
+                        string formatstartdate = string.IsNullOrEmpty(leaveStartDate) ? "" : Convert.ToDateTime(leaveStartDate).ToString("MMMM dd, yyyy");
+                        string formatenddate = string.IsNullOrEmpty(leaveEndDate) ? "" : Convert.ToDateTime(leaveEndDate).ToString("MMMM dd, yyyy");
+
+
+                        detailsHtml = $"<table class='table table-sm'>" +
+                                            $"<tr><td>Employee ID</td><td>{empid}</td></tr>" +
+                                            $"<tr><td>Group Code</td><td>{groupcode}</td></tr>" +
+                                            $"<tr><td>Location Code</td><td>{locationcode}</td></tr>" +
+                                            $"<tr><td>Record change date</td><td>{recordchangedate}</td></tr>" +
+                                            $"<tr><td>Leave start date</td><td>{formatstartdate}</td></tr>" +
+                                            $"<tr><td>Leave end date</td><td>{formatenddate}</td></tr>" +
+                                            $"</table>";
+                    }
+                    else if (status == "ACTIVE")
+                    {
+                        detailsHtml = $"<table class='table table-sm'>" +
+                                             $"<tr><td>Employee ID</td><td>{empid}</td></tr>" +
+                                             $"<tr><td>Group Code</td><td>{groupcode}</td></tr>" +
+                                             $"<tr><td>Location Code</td><td>{locationcode}</td></tr>" +
+                                             $"<tr><td>Record change date</td><td>{recordchangedate}</td></tr>" +
+                                             $"</table>";
+                    }
+                    else
+                    {
+                        string formatdate = string.IsNullOrEmpty(terminationDate) ? "" : Convert.ToDateTime(terminationDate).ToString("MMMM dd, yyyy");
+                        detailsHtml = $"<table class='table table-sm'>" +
+                                             $"<tr><td>Employee ID</td><td>{empid}</td></tr>" +
+                                             $"<tr><td>Group Code</td><td>{groupcode}</td></tr>" +
+                                             $"<tr><td>Location Code</td><td>{locationcode}</td></tr>" +
+                                             $"<tr><td>Record change date</td><td>{recordchangedate}</td></tr>" +
+                                             $"<tr><td>Last official date</td><td>{formatdate}</td></tr>" +
+                                             $"</table>";
+                    }
+
+                    // Inject into a Literal or Modal placeholder
+                    litDetails.Text = detailsHtml;
+
+                    // Show modal (custom CSS modal)
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "ShowModal",
+                        "document.getElementById('detailsModal').style.display = 'block';", true);
+
+                    showSearchData();
+                    lv_search.SelectedIndex = e.Item.DataItemIndex % 25;
                 }
-                else
+                catch (Exception ex)
                 {
-                    //throw new Exception("Incorrect Value or Format.");
+                    Loggers.Log("Error occurred while fetching additional details from reports page by user: " + Session["username"] + " . Error: " + ex.Message);
+                    Error error = new Error();
+                    error.handleError(ex, "Error occurred while fetching additional details from reports page by user: " + Session["username"]);
+                    ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('An error occurred while fetching the details. Please try again later.');", true);
                 }
-                reader.Close();
-                con.Close();
-
-                string detailsHtml = string.Empty;
-                if (status == "ONLEAVE")
-                {
-
-                    string formatstartdate = string.IsNullOrEmpty(leaveStartDate) ? "" : Convert.ToDateTime(leaveStartDate).ToString("MMMM dd, yyyy");
-                    string formatenddate = string.IsNullOrEmpty(leaveEndDate) ? "" : Convert.ToDateTime(leaveEndDate).ToString("MMMM dd, yyyy");
-
-
-                    detailsHtml = $"<table class='table table-sm'>" +
-                                        $"<tr><td>Employee ID</td><td>{empid}</td></tr>" +
-                                        $"<tr><td>Group Code</td><td>{groupcode}</td></tr>" +
-                                        $"<tr><td>Location Code</td><td>{locationcode}</td></tr>" +
-                                        $"<tr><td>Record change date</td><td>{recordchangedate}</td></tr>" +
-                                        $"<tr><td>Leave start date</td><td>{formatstartdate}</td></tr>" +
-                                        $"<tr><td>Leave end date</td><td>{formatenddate}</td></tr>" +
-                                        $"</table>";
-                }
-                else if(status == "ACTIVE")
-                {
-                    detailsHtml = $"<table class='table table-sm'>" +
-                                         $"<tr><td>Employee ID</td><td>{empid}</td></tr>" +
-                                         $"<tr><td>Group Code</td><td>{groupcode}</td></tr>" +
-                                         $"<tr><td>Location Code</td><td>{locationcode}</td></tr>" +
-                                         $"<tr><td>Record change date</td><td>{recordchangedate}</td></tr>" +
-                                         $"</table>";
-                }
-                else
-                {
-                    string formatdate = string.IsNullOrEmpty(terminationDate) ? "" : Convert.ToDateTime(terminationDate).ToString("MMMM dd, yyyy");
-                    detailsHtml = $"<table class='table table-sm'>" +
-                                         $"<tr><td>Employee ID</td><td>{empid}</td></tr>" +
-                                         $"<tr><td>Group Code</td><td>{groupcode}</td></tr>" +
-                                         $"<tr><td>Location Code</td><td>{locationcode}</td></tr>" +
-                                         $"<tr><td>Record change date</td><td>{recordchangedate}</td></tr>" +
-                                         $"<tr><td>Last official date</td><td>{formatdate}</td></tr>" +
-                                         $"</table>";
-                }
-
-                // Inject into a Literal or Modal placeholder
-                litDetails.Text = detailsHtml;
-
-                // Show modal (custom CSS modal)
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "ShowModal",
-                    "document.getElementById('detailsModal').style.display = 'block';", true);
-
-                showSearchData();
-                lv_search.SelectedIndex = e.Item.DataItemIndex % 25;
             }
 
         }

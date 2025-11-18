@@ -12,6 +12,8 @@ namespace empinquiry
 
         public static void Log(string message)
         {
+            if (!Global.log)
+                return;
             try
             {
                 string logDir = HttpContext.Current.Server.MapPath("~/Logs/");

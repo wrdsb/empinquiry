@@ -15,9 +15,10 @@ namespace empinquiry
     public class Global : System.Web.HttpApplication
     {
         static string connectionString = ConfigurationManager.ConnectionStrings["SQLDB"].ConnectionString;
+        public static bool log = false;
         protected void Application_Start(object sender, EventArgs e)
         {
-            Loggers.Log("Application Started");
+            log = Convert.ToBoolean(WebConfigurationManager.AppSettings["Log"]);
             ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
         }
 

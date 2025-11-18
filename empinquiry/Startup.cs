@@ -8,7 +8,7 @@ namespace empinquiry
     {
         public void Configuration(IAppBuilder app)
         {
-            Loggers.Log("Owin Startup Configuration called.");
+            //Loggers.Log("Owin Startup Configuration called.");
             ConfigureAuth(app);
         }
     }
