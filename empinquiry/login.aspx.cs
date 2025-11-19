@@ -64,7 +64,7 @@ namespace empinquiry
                 try
                 {
                     string query = "";
-                    query = string.Format("SELECT username, employee_id, surname, first_name, email_address FROM hd_wrdsb_employee_view WHERE email_address='{0}' AND home_loc_ind='Y' AND activity_code IN ('ACTIVE','ONLEAVE')", email);
+                    query = string.Format("SELECT username, employee_id, surname, first_name, email_address FROM hd_wrdsb_employee_view WHERE email_address='{0}' AND home_loc_ind='Y' AND activity_code IN ('ACTIVE')", email);
                     string connString = ConfigurationManager.ConnectionStrings["SQLDB"].ConnectionString;
                     SqlConnection con = new SqlConnection(connString);
                     //Loggers.Log("ConnectionString ....." + connString);
@@ -164,6 +164,10 @@ namespace empinquiry
                 catch (Exception ex)
                 {
                     Loggers.Log("Exception Errors: " + ex.Message);
+                    Loggers.Log("Stack Trace: " + ex.StackTrace);
+                    Loggers.Log("Source: " + ex.Source);
+                    Loggers.Log("Inner Exception: " + ex.InnerException);
+                    Loggers.Log("Target Site: " + ex.TargetSite);
                     loginErrors.InnerHtml = ex.Message;
                     loginErrors.InnerText = ex.Message;
                     loginErrors.Visible = true;
