@@ -174,8 +174,10 @@ namespace empinquiry
             catch (Exception ex)
             {
                 Loggers.Log("Error occurred while building search query from reports page by user: " + Session["username"] + " . Error: " + ex.Message);
-                Error error = new Error();
-                error.handleError(ex, "Error occurred while performing search operation from reports page by user: " + Session["username"]);
+                Loggers.Log("Stack Trace: " + ex.StackTrace);
+                Loggers.Log("Inner Exception: " + (ex.InnerException != null ? ex.InnerException.Message : "N/A"));
+                Loggers.Log("Source: " + ex.Source);
+                Loggers.Log("Target Site: " + ex.TargetSite.ToString());
                 ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('An error occurred while performing the search. Please try again later.');", true);
             }
         }
@@ -328,8 +330,9 @@ namespace empinquiry
                 catch (Exception ex)
                 {
                     Loggers.Log("Error occurred while fetching additional details from reports page by user: " + Session["username"] + " . Error: " + ex.Message);
-                    Error error = new Error();
-                    error.handleError(ex, "Error occurred while fetching additional details from reports page by user: " + Session["username"]);
+                    Loggers.Log("Stack Trace: " + ex.StackTrace);
+                    Loggers.Log("Inner Exception: " + (ex.InnerException != null ? ex.InnerException.Message : "N/A"));
+                    Loggers.Log("Source: " + ex.Source);
                     ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('An error occurred while fetching the details. Please try again later.');", true);
                 }
             }
