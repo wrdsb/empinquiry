@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Net.Mail;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -44,7 +41,7 @@ namespace empinquiry
             //Loggers.Log("Performing search operation from reports page by user: " + Session["username"]);
             btn_search.Focus();
             btn_clear.Enabled = false;
-            if(btn_search.Text == Resource.NextInquiry)
+            if (btn_search.Text == Resource.NextInquiry)
             {
                 //Loggers.Log("Redirecting to default.aspx for next inquiry by user: " + Session["username"]);
                 Response.Redirect("default.aspx");
@@ -52,7 +49,7 @@ namespace empinquiry
             }
             showSearchData();
             btn_search.Text = Resource.NextInquiry;
-            
+
         }
 
 
@@ -164,7 +161,7 @@ namespace empinquiry
                         AND 
                         empos.position_start_date <= getdate() 
                         AND 
-                        (empos.position_end_date is null or empos.POSITION_END_DATE = emp.TERMINATION_DATE)";
+                        (empos.position_end_date IS NULL OR empos.position_end_date = emp.termination_date)";
 
 
                 query += " ORDER BY emp.employee_id";
