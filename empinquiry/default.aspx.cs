@@ -1,29 +1,15 @@
-﻿using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin;
-using Microsoft.Owin.Security;
-using Microsoft.Owin.Security.Cookies;
-using Microsoft.Owin.Security.OpenIdConnect;
-using Owin;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Globalization;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 
 namespace empinquiry
 {
     public partial class _default : System.Web.UI.Page
     {
-
-
         protected void Page_Load(object sender, EventArgs e)
         {
             Response.Cache.SetCacheability(HttpCacheability.NoCache);
@@ -44,14 +30,12 @@ namespace empinquiry
             {
                 Session.Clear();
                 Session.Abandon();
-
                 Response.Redirect("login.aspx");
             }
 
 
             if (!Page.IsPostBack)
             {
-                //lbl_name.Text = Session["firstname"].ToString();
                 Session["auditComplete"] = false;
             }
 
@@ -64,6 +48,7 @@ namespace empinquiry
 
         protected void btn_submit_Click(object sender, EventArgs e)
         {
+            //Loggers.Log("Submitting audit record for user: " + Session["username"]);
             var employeeId = Session["ein"];
             var surName = Session["surname"];
             var firstName = Session["firstname"];
@@ -75,8 +60,6 @@ namespace empinquiry
             {
                 var query = "INSERT INTO hd_empinquiry_audit " +
                 "VALUES ('" + employeeId + "','" + firstName + "','" + surName + "','" + email + "','" + userId + "','" + purpose + "','" + currenDate + "')";
-
-
                 string connString = ConfigurationManager.ConnectionStrings["SQLDB_HDHRP"].ConnectionString;
                 SqlConnection con = new SqlConnection(connString);
                 SqlCommand cmd = new SqlCommand(query, con);
@@ -86,10 +69,9 @@ namespace empinquiry
             }
             catch (Exception ex)
             {
+                Loggers.Log("Error inserting audit record: " + ex.Message);
                 throw new Exception("Error inserting audit record: " + ex.Message);
             }
-
-
             Session["auditComplete"] = true;
             Response.Redirect("reports.aspx");
 
