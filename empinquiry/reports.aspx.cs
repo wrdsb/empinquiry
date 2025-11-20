@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
 using System.Web;
 using System.Web.UI;
@@ -47,14 +48,14 @@ namespace empinquiry
                 Response.Redirect("default.aspx");
                 return;
             }
+            GenerateQuery();
             showSearchData();
+            BindTotalRecordCount();
             btn_search.Text = Resource.NextInquiry;
 
         }
 
-
-
-        protected void showSearchData()
+        void GenerateQuery()
         {
             //Loggers.Log("Building search query from reports page by user: " + Session["username"]);
 
@@ -166,10 +167,7 @@ namespace empinquiry
 
                 query += " ORDER BY emp.employee_id";
                 //Loggers.Log("Search query built: " + query);
-
-                DataSource_search.SelectCommand = query;
-                lv_search.DataBind();
-                lv_search.SelectedIndex = -1;
+                Global.searchQuery = query;
             }
             catch (Exception ex)
             {
@@ -177,8 +175,46 @@ namespace empinquiry
                 Loggers.Log("Stack Trace: " + ex.StackTrace);
                 Loggers.Log("Inner Exception: " + (ex.InnerException != null ? ex.InnerException.Message : "N/A"));
                 Loggers.Log("Source: " + ex.Source);
-                Loggers.Log("Target Site: " + ex.TargetSite.ToString());
-                ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('An error occurred while performing the search. Please try again later.');", true);
+                ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('An error occurred while building the search query. Please try again later.');", true);
+            }
+        }
+
+        protected void showSearchData()
+        {
+            try 
+            {
+                DataSource_search.SelectCommand = Global.searchQuery;
+                lv_search.DataBind();
+                lv_search.SelectedIndex = -1;             
+            }
+            catch(Exception ex)
+            {
+                Loggers.Log("Error occurred while binding search query " + Session["username"] + " . Error: " + ex.Message);
+                Loggers.Log("Stack Trace: " + ex.StackTrace);
+                Loggers.Log("Inner Exception: " + (ex.InnerException != null ? ex.InnerException.Message : "N/A"));
+                Loggers.Log("Source: " + ex.Source);
+                ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('An error occurred while binding search query. Please try again later.');", true);
+            }
+
+        }
+
+        void BindTotalRecordCount()
+        {
+            try
+            {
+                SQLProvider SqlDB = new SQLProvider();
+                bool success;
+                DataTable dt = SqlDB.GetDataTable(Global.searchQuery, out success);
+                int count = dt.Rows.Count;
+                lblCount.Text = "Total Records: " + count.ToString();
+            }
+            catch (Exception ex)
+            {
+                Loggers.Log("Error occurred while fetching total record count from reports page by user: " + Session["username"] + " . Error: " + ex.Message);
+                Loggers.Log("Stack Trace: " + ex.StackTrace);
+                Loggers.Log("Inner Exception: " + (ex.InnerException != null ? ex.InnerException.Message : "N/A"));
+                Loggers.Log("Source: " + ex.Source);
+                ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('An error occurred while fetching total record count. Please try again later.');", true);
             }
         }
 

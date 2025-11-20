@@ -283,8 +283,12 @@
                             LastPageText="Last" />
                         <asp:NumericPagerField ButtonCount="5" />
                     </Fields>
-                </asp:DataPager>
-            </div>
+                </asp:DataPager>  
+                <!-- Add multiple &nbsp; for more space -->
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <asp:Label ID="lblCount" runat="server" CssClass="text-info"></asp:Label>
+               
+           </div>        
         </div>
     </div>
 

@@ -14,11 +14,15 @@ namespace empinquiry
 {
     public class Global : System.Web.HttpApplication
     {
+        public static string connStr { get { return connectionString; } }
+        public static string searchQuery { get; set; }
+        public static bool log { get { return logFile; } }
+
         static string connectionString = ConfigurationManager.ConnectionStrings["SQLDB"].ConnectionString;
-        public static bool log = false;
+        static bool logFile = false;
         protected void Application_Start(object sender, EventArgs e)
         {
-            log = Convert.ToBoolean(WebConfigurationManager.AppSettings["Log"]);
+            logFile = Convert.ToBoolean(WebConfigurationManager.AppSettings["Log"]);
             ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
         }
 
