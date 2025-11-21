@@ -89,6 +89,7 @@ namespace empinquiry
                 job = job.Replace("'", "''"); // replace single quote with double quote to avoid SQL error
                 string status = ddl_status.SelectedValue;
                 string formername = tb_formername.Text;
+                string groupcode = tb_grpcode.Text;
 
                 if (string.IsNullOrEmpty(surname) &&
                     string.IsNullOrEmpty(knownasfirstname) &&
@@ -100,7 +101,8 @@ namespace empinquiry
                     string.IsNullOrEmpty(job) &&
                     string.IsNullOrEmpty(status) &&
                     string.IsNullOrEmpty(formername) &&
-                    string.IsNullOrEmpty(knownassurname))
+                    string.IsNullOrEmpty(knownassurname) &&
+                    string.IsNullOrEmpty(groupcode))
                     return;
 
                 /*
@@ -157,6 +159,8 @@ namespace empinquiry
                 query += string.IsNullOrEmpty(job) ? "" : "job.description_abbr = '" + job + "' AND ";
 
                 query += string.IsNullOrEmpty(pal) ? "" : "usr.user_id LIKE '%" + pal + "%' AND ";
+
+                query += string.IsNullOrEmpty(groupcode) ? "" : "empos.emp_group_code LIKE '%" + groupcode + "%' AND ";
 
                 query += @" empos.home_location_ind = 'Y' 
                         AND 
@@ -247,11 +251,11 @@ namespace empinquiry
                     // Access the individual values
                     string empid = args[0];
                     string status = args[1];
-                    string groupcode = args[2];
-                    string locationcode = args[3];
-                    string recordchangedate = args[4];
+                    //string groupcode = args[2];
+                    string locationcode = args[2];
+                    string recordchangedate = args[3];
 
-                    groupcode = string.IsNullOrEmpty(groupcode) ? "" : groupcode;
+                    //groupcode = string.IsNullOrEmpty(groupcode) ? "" : groupcode;
                     locationcode = string.IsNullOrEmpty(locationcode) ? "" : locationcode;
                     recordchangedate = string.IsNullOrEmpty(recordchangedate) ? "" : Convert.ToDateTime(recordchangedate).ToString("MMMM dd, yyyy");
 
@@ -325,7 +329,7 @@ namespace empinquiry
 
                         detailsHtml = $"<table class='table table-sm'>" +
                                             $"<tr><td>Employee ID</td><td>{empid}</td></tr>" +
-                                            $"<tr><td>Group Code</td><td>{groupcode}</td></tr>" +
+                                            //$"<tr><td>Group Code</td><td>{groupcode}</td></tr>" +
                                             $"<tr><td>Location Code</td><td>{locationcode}</td></tr>" +
                                             $"<tr><td>Record change date</td><td>{recordchangedate}</td></tr>" +
                                             $"<tr><td>Leave start date</td><td>{formatstartdate}</td></tr>" +
@@ -336,7 +340,7 @@ namespace empinquiry
                     {
                         detailsHtml = $"<table class='table table-sm'>" +
                                              $"<tr><td>Employee ID</td><td>{empid}</td></tr>" +
-                                             $"<tr><td>Group Code</td><td>{groupcode}</td></tr>" +
+                                             //$"<tr><td>Group Code</td><td>{groupcode}</td></tr>" +
                                              $"<tr><td>Location Code</td><td>{locationcode}</td></tr>" +
                                              $"<tr><td>Record change date</td><td>{recordchangedate}</td></tr>" +
                                              $"</table>";
@@ -346,7 +350,7 @@ namespace empinquiry
                         string formatdate = string.IsNullOrEmpty(terminationDate) ? "" : Convert.ToDateTime(terminationDate).ToString("MMMM dd, yyyy");
                         detailsHtml = $"<table class='table table-sm'>" +
                                              $"<tr><td>Employee ID</td><td>{empid}</td></tr>" +
-                                             $"<tr><td>Group Code</td><td>{groupcode}</td></tr>" +
+                                             //$"<tr><td>Group Code</td><td>{groupcode}</td></tr>" +
                                              $"<tr><td>Location Code</td><td>{locationcode}</td></tr>" +
                                              $"<tr><td>Record change date</td><td>{recordchangedate}</td></tr>" +
                                              $"<tr><td>Last official date</td><td>{formatdate}</td></tr>" +
@@ -417,6 +421,7 @@ namespace empinquiry
                 Global.searchQuery = Global.searchQuery + " , emp.employee_id ASC"; // to maintain consistent order
                 DataSource_search.SelectCommand = Global.searchQuery;
                 lv_search.DataBind();
+                lv_search.SelectedIndex = -1;
             }
         }
     }
