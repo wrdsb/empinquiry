@@ -165,7 +165,7 @@ namespace empinquiry
                         (empos.position_end_date IS NULL OR empos.position_end_date = emp.termination_date)";
 
 
-                query += " ORDER BY emp.employee_id";
+                query += " ORDER BY emp.employee_id ASC";
                 //Loggers.Log("Search query built: " + query);
                 Global.searchQuery = query;
             }
@@ -391,6 +391,33 @@ namespace empinquiry
 
             // Rebind the data for the new page
             showSearchData();
+        }
+
+        protected void lv_search_Sorting(object sender, ListViewSortEventArgs e)
+        {
+            string sortColumn = e.SortExpression;
+            if (sortColumn == "job_code")
+            {
+                // Determine sort direction
+                string lastSortColumn = ViewState["SortColumn"] as string;
+                string lastDirection = ViewState["SortDirection"] as string ?? "ASC";
+
+                string newDirection = "ASC";
+
+                if (sortColumn == lastSortColumn && lastDirection == "ASC")
+                    newDirection = "DESC";
+
+                // Save sort state
+                ViewState["SortColumn"] = sortColumn;
+                ViewState["SortDirection"] = newDirection;
+
+                // Modify SELECT query 
+                Global.searchQuery = Global.searchQuery.Split(new string[] { " ORDER BY " }, StringSplitOptions.None)[0];
+                Global.searchQuery = Global.searchQuery + " ORDER BY " + sortColumn + " " + newDirection;
+                Global.searchQuery = Global.searchQuery + " , emp.employee_id ASC"; // to maintain consistent order
+                DataSource_search.SelectCommand = Global.searchQuery;
+                lv_search.DataBind();
+            }
         }
     }
 }

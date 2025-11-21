@@ -85,7 +85,7 @@
         <div class="row">
             <div class="col-md-12" style="min-height: 200px;">
                 <asp:ListView ID="lv_search" runat="server" DataSourceID="DataSource_search" OnItemCommand="lv_search_ItemCommand"
-                    OnPagePropertiesChanging="lv_search_PagePropertiesChanging">
+                    OnPagePropertiesChanging="lv_search_PagePropertiesChanging" OnSorting ="lv_search_Sorting">
                     <LayoutTemplate>
                         <table class="table table-responsive table-bordered">
                             <tr>
@@ -101,7 +101,11 @@
                                 <th>Email</th>
                                 <th>Phone</th>
                                 <th>Postal code</th>
-                                <th>Job code</th>
+                                <th> 
+                                    <asp:LinkButton ID="lnkSortJobCode" runat="server" CommandName="Sort" CommandArgument="job_code">
+                                        Job code 
+                                    </asp:LinkButton>
+                                </th>
                                 <th>Job Desc</th>
                                 <%--<th>Group code</th>
                                 <th>Location code</th>
