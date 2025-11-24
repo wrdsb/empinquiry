@@ -12,6 +12,8 @@ namespace empinquiry
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if(IsPostBack)
+                return;
 
             if (Session["auditComplete"] == null || Convert.ToBoolean(Session["auditComplete"]) == false)
             {
@@ -42,20 +44,27 @@ namespace empinquiry
             //Loggers.Log("Performing search operation from reports page by user: " + Session["username"]);
             btn_search.Focus();
             btn_clear.Enabled = false;
+            if(!GenerateQuery())
+            {
+                //ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Please enter at least one search criteria.');", true);
+                btn_clear.Enabled = true;
+                return;
+            }
             if (btn_search.Text == Resource.NextInquiry)
             {
                 //Loggers.Log("Redirecting to default.aspx for next inquiry by user: " + Session["username"]);
                 Response.Redirect("default.aspx");
                 return;
             }
-            GenerateQuery();
+            
             showSearchData();
             BindTotalRecordCount();
             btn_search.Text = Resource.NextInquiry;
+            Session["auditComplete"] = null;// reset audit flag to force re-login for next inquiry
 
         }
 
-        void GenerateQuery()
+        bool GenerateQuery()
         {
             //Loggers.Log("Building search query from reports page by user: " + Session["username"]);
 
@@ -103,7 +112,7 @@ namespace empinquiry
                     string.IsNullOrEmpty(formername) &&
                     string.IsNullOrEmpty(knownassurname) &&
                     string.IsNullOrEmpty(groupcode))
-                    return;
+                    return false;
 
                 /*
                  * WHERE empos.home_location_ind = 'Y' 
@@ -162,9 +171,9 @@ namespace empinquiry
 
                 query += string.IsNullOrEmpty(groupcode) ? "" : "empos.emp_group_code LIKE '%" + groupcode + "%' AND ";
 
-                query += @" empos.home_location_ind = 'Y' 
-                        AND 
-                        empos.position_start_date <= getdate() 
+                //query += @" empos.home_location_ind = 'Y' 
+                //        AND 
+                query += @" empos.position_start_date <= getdate() 
                         AND 
                         (empos.position_end_date IS NULL OR empos.position_end_date = emp.termination_date)";
 
@@ -172,6 +181,7 @@ namespace empinquiry
                 query += " ORDER BY emp.employee_id ASC";
                 //Loggers.Log("Search query built: " + query);
                 Global.searchQuery = query;
+                return true;
             }
             catch (Exception ex)
             {
@@ -180,6 +190,7 @@ namespace empinquiry
                 Loggers.Log("Inner Exception: " + (ex.InnerException != null ? ex.InnerException.Message : "N/A"));
                 Loggers.Log("Source: " + ex.Source);
                 ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('An error occurred while building the search query. Please try again later.');", true);
+                return false;
             }
         }
 
