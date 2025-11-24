@@ -19,27 +19,14 @@ namespace empinquiry
 
         public SqlConnection GetConnection()
         {
-            try
+            //
+            //Default parameters for connection object
+            //
+            SqlConnection SqlConn = new SqlConnection
             {
-                if (!String.IsNullOrEmpty(ConnectionString))
-                {
-                    return new SqlConnection(ConnectionString);
-                }
-                else
-                {
-                    // sql connection needs passed parameter
-                    Configuration ThisConfig;
-                    ThisConfig = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-                    return new SqlConnection(ThisConfig.ConnectionStrings.ConnectionStrings["SqlDB"].ToString());
-                }
-            }
-            catch (Exception Ex)
-            {
-                Error error = new Error();
-                error.handleError(Ex, "SQL GetConnection Error");
-
-                return null;
-            }
+                ConnectionString = (ConnectionString != "") ? ConnectionString : Global.connStr
+            };
+            return SqlConn;
         }
 
         public SqlCommand GetCommand()

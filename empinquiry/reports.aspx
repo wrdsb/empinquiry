@@ -50,6 +50,10 @@
                              <asp:TableCell>
                                  <asp:TextBox ID="tb_phone" runat="server" Width="150px" CssClass="form-control"></asp:TextBox>
                              </asp:TableCell>
+                            <asp:TableCell>Group Code</asp:TableCell>
+                            <asp:TableCell>
+                                <asp:TextBox ID="tb_grpcode" runat="server" Width="150px" CssClass="form-control"></asp:TextBox>
+                            </asp:TableCell>
                             <asp:TableCell>Job</asp:TableCell>
                             <asp:TableCell>
                                 <asp:DropDownList ID="ddl_job" runat="server" CssClass="form-control" Width="150px" Height="34px"
@@ -85,7 +89,7 @@
         <div class="row">
             <div class="col-md-12" style="min-height: 200px;">
                 <asp:ListView ID="lv_search" runat="server" DataSourceID="DataSource_search" OnItemCommand="lv_search_ItemCommand"
-                    OnPagePropertiesChanging="lv_search_PagePropertiesChanging">
+                    OnPagePropertiesChanging="lv_search_PagePropertiesChanging" OnSorting ="lv_search_Sorting">
                     <LayoutTemplate>
                         <table class="table table-responsive table-bordered">
                             <tr>
@@ -100,11 +104,15 @@
                                 <th>UserID</th>
                                 <th>Email</th>
                                 <th>Phone</th>
-                                <th>Postal code</th>
-                                <th>Job code</th>
+                                <th>Postal code</th>                         
+                                <th> 
+                                    <asp:LinkButton ID="lnkSortJobCode" runat="server" CommandName="Sort" CommandArgument="job_code">
+                                        Job code 
+                                    </asp:LinkButton>
+                                </th>
                                 <th>Job Desc</th>
-                                <%--<th>Group code</th>
-                                <th>Location code</th>
+                                <th>Group code</th>
+                                <%--<th>Location code</th>
                                 <th>Record change date</th>--%>
                                 <th>Status</th>
                             </tr>
@@ -141,8 +149,9 @@
                                 <asp:Label ID="lbl_jobcode" runat="server" Text='<%#Eval("job_code") %>'></asp:Label></td>
                             <td>
                                 <asp:Label ID="lbl_jobdesc" runat="server" Text='<%#Eval("description_text") %>'></asp:Label></td>
-                            <%--<td>
+                            <td>
                                 <asp:Label ID="lbl_group_code" runat="server" Text='<%#Eval("emp_group_code")%>'></asp:Label></td>
+                            <%--
                             <td>
                                 <asp:Label ID="lbl_location_code" runat="server" Text='<%#Eval("location_code")%>'></asp:Label></td>
 
@@ -159,7 +168,7 @@
                                     runat="server"
                                     Text='<%#Eval("emp_activity_code")%>'
                                     CommandName="ViewDetails"
-                                    CommandArgument='<%# Eval("employee_id") + ";" + Eval("emp_activity_code") +";"+Eval("emp_group_code")+";"+Eval("location_code")+";"+Eval("record_change_date") %>'
+                                    CommandArgument='<%# Eval("employee_id") + ";" + Eval("emp_activity_code") + ";" + Eval("location_code") + ";" + Eval("record_change_date") %>'
                                     Visible='<%# Eval("emp_activity_code").ToString() == "ONLEAVE" ||
                                         Eval("emp_activity_code").ToString() == "DECEASED" || 
                                         Eval("emp_activity_code").ToString() == "INACTIVE" || 
@@ -229,8 +238,9 @@
                                 <asp:Label ID="lbl_jobcode" runat="server" Text='<%#Eval("job_code") %>'></asp:Label></td>
                             <td>
                                 <asp:Label ID="lbl_jobdesc" runat="server" Text='<%#Eval("description_text") %>'></asp:Label></td>
-                            <%--<td>
+                            <td>
                                 <asp:Label ID="lbl_group_code" runat="server" Text='<%#Eval("emp_group_code")%>'></asp:Label></td>
+                            <%--
                             <td>
                                 <asp:Label ID="lbl_location_code" runat="server" Text='<%#Eval("location_code")%>'></asp:Label></td>
 
@@ -247,7 +257,7 @@
                                     runat="server"
                                     Text='<%#Eval("emp_activity_code")%>'
                                     CommandName="ViewDetails"
-                                    CommandArgument='<%# Eval("employee_id") + ";" + Eval("emp_activity_code") +";"+Eval("emp_group_code")+";"+Eval("location_code")+";"+Eval("record_change_date") %>'
+                                    CommandArgument='<%# Eval("employee_id") + ";" + Eval("emp_activity_code") + ";" + Eval("location_code") + ";" + Eval("record_change_date") %>'
                                     Visible='<%# Eval("emp_activity_code").ToString() == "ONLEAVE" ||
                                         Eval("emp_activity_code").ToString() == "DECEASED" || 
                                         Eval("emp_activity_code").ToString() == "INACTIVE" || 
@@ -283,8 +293,12 @@
                             LastPageText="Last" />
                         <asp:NumericPagerField ButtonCount="5" />
                     </Fields>
-                </asp:DataPager>
-            </div>
+                </asp:DataPager>  
+                <!-- Add multiple &nbsp; for more space -->
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <asp:Label ID="lblCount" runat="server" CssClass="text-info"></asp:Label>
+               
+           </div>        
         </div>
     </div>
 

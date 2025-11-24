@@ -19,6 +19,7 @@ build/
 [Bb]in/
 [Oo]bj/
 PublishProfiles/
+Logs/
 
 # Enable "build/" folder in the NuGet Packages folder since NuGet packages use it for MSBuild targets
 !packages/*/build/

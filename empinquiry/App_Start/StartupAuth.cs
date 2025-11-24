@@ -92,7 +92,6 @@ namespace empinquiry
             //});
 
 
-
             app.UseOpenIdConnectAuthentication(
 
                               new OpenIdConnectAuthenticationOptions
@@ -124,6 +123,7 @@ namespace empinquiry
                                       }
                                   }
                               });
+            //Loggers.Log("OpenID Connect authentication configured.");
             // This makes any middleware defined above this line run before the Authorization rule is applied in web.config
             app.UseStageMarker(PipelineStage.Authenticate);
 

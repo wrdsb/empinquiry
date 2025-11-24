@@ -14,21 +14,25 @@ namespace empinquiry
 {
     public class Global : System.Web.HttpApplication
     {
+        public static string connStr { get { return connectionString; } }
+        public static string searchQuery { get; set; }
+        public static bool log { get { return logFile; } }
+
         static string connectionString = ConfigurationManager.ConnectionStrings["SQLDB"].ConnectionString;
+        static bool logFile = false;
         protected void Application_Start(object sender, EventArgs e)
         {
+            logFile = Convert.ToBoolean(WebConfigurationManager.AppSettings["Log"]);
             ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
         }
 
         void Application_Error(object sender, EventArgs e)
         {
+            Loggers.Log("Application Error Occurred");
             HttpUnhandledException httpUnhandledException = new HttpUnhandledException(Server.GetLastError().Message, Server.GetLastError());
-            // Error Logged into the table “hd_empinquiry_error_log” 
-            ErrorProvider empinquiryLoginError = new ErrorProvider(httpUnhandledException.InnerException.InnerException, "empinquiry Exception Raised");
-            empinquiryLoginError.LogError(connectionString);
-
-            Email email = new Email();
-            email.SendEmail(WebConfigurationManager.AppSettings["EmailAddressNotify"].ToString(), "empinquiry Exception Raised", httpUnhandledException.GetHtmlErrorMessage());
+            Loggers.Log("Application Error Occurred : " + httpUnhandledException.InnerException.InnerException.Source + "\n" + httpUnhandledException.GetHtmlErrorMessage());
+            Loggers.Log("Application Error Occurred : " + httpUnhandledException.InnerException.InnerException.Message);
+            Loggers.Log("Application Error Occurred : " + httpUnhandledException.InnerException.InnerException.StackTrace);                     
         }
 
         void Application_AuthenticateRequest(Object sender, EventArgs e)
@@ -49,12 +53,9 @@ namespace empinquiry
             }
             catch (Exception ex)
             {
-                // Error Logged into the table “hd_empinquiry_error_log” 
-                ErrorProvider empinquiryLoginError = new ErrorProvider(ex, "empinquiry Exception");
-                empinquiryLoginError.LogError(connectionString);
-
-                Error error = new Error();
-                error.handleError(ex, "empinquiry Exception");
+                Loggers.Log("Application_AuthenticateRequest: " + ex.Message);
+                Loggers.Log("Application_AuthenticateRequest: " + ex.StackTrace);
+                Loggers.Log("Application_AuthenticateRequest: Cookie Value: " + authCookie.Value);
                 return;
             }
 

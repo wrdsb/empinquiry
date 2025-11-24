@@ -1,20 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Security;
-using System.Web.UI.WebControls;
 using System.Configuration;
-using System.Data;
-using System.Web.Configuration;
 using Microsoft.Owin.Security.OpenIdConnect;
 using Microsoft.Owin.Security;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.AspNet.Identity;
-using Owin;
-using System.Net.Http;
-using Microsoft.IdentityModel.Clients.ActiveDirectory;
-using Amazon.Runtime.Internal.Util;
 using System.Data.SqlClient;
 using Microsoft.Owin.Security.Cookies;
 
@@ -41,47 +30,49 @@ namespace empinquiry
             else
             {
                 //Authenticated. Compare Azure Login Email with email from the DB
+                //Logger.Log("User authenticated via Azure AD. Proceeding with application login.");
                 string emailAddress = User.Identity.Name;
                 //emailAddress = "meenakshi_durairaj@wrdsb.ca"; //For testing purpose, hardcoded email address
+                //Loggers.Log("User authenticated via email: " + emailAddress);
                 if (emailAddress != null)
-                {                 
-                        authenticateWithDBtable(emailAddress);
-                 
-                }               
+                {
+                    authenticateWithDBtable(emailAddress);
+                }
             }
-
         }
 
-       
+
         public void Logout(object sender, EventArgs e)
         {
+            //Loggers.Log("User initiated logout.");
             Session.Clear();
             Session.Abandon();
 
             FormsAuthentication.SignOut();
             FormsAuthentication.RedirectToLoginPage();
-
             Request.GetOwinContext().Authentication.SignOut();
             HttpContext.Current.GetOwinContext().Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationType);
             Response.Redirect("https://login.microsoftonline.com/common/oauth2/v2.0/logout?");
         }
-         
-       
+
+
 
         protected void authenticateWithDBtable(string email)
-        {                     
+        {
             if (email != null)
             {
                 try
                 {
-                    string query = "";     
-                    query = string.Format("SELECT username, employee_id, surname, first_name, location_code, school_code, location_desc, email_address, emp_group_code FROM hd_wrdsb_employee_view WHERE email_address='{0}' AND home_loc_ind='Y' AND activity_code IN ('ACTIVE','ONLEAVE')", email);
+                    string query = "";
+                    query = string.Format("SELECT username, employee_id, surname, first_name, email_address FROM hd_wrdsb_employee_view WHERE email_address='{0}' AND home_loc_ind='Y' AND activity_code IN ('ACTIVE')", email);
                     string connString = ConfigurationManager.ConnectionStrings["SQLDB"].ConnectionString;
                     SqlConnection con = new SqlConnection(connString);
+                    //Loggers.Log("ConnectionString ....." + connString);
                     SqlCommand cmd = new SqlCommand(query, con);
+                    Loggers.Log("Trying to open database connectionstring");
                     con.Open();
+                    Loggers.Log("Executing query to fetch user details for email: " + email);
                     SqlDataReader reader = cmd.ExecuteReader();
-
 
                     if (reader.HasRows)
                     {
@@ -90,11 +81,7 @@ namespace empinquiry
                             Session["ein"] = reader["employee_id"].ToString().Trim();
                             Session["surname"] = reader["surname"].ToString().Trim();
                             Session["firstname"] = reader["first_name"].ToString().Trim();
-                            Session["location_code"] = reader["location_code"].ToString().Trim();
-                            Session["school_code"] = reader["school_code"].ToString().Trim();
-                            Session["location_desc"] = reader["location_desc"].ToString().Trim();
                             Session["email"] = reader["email_address"].ToString().ToLower().Trim();
-                            Session["group_code"] = reader["emp_group_code"].ToString().Trim();
                             Session["username"] = reader["username"].ToString().Trim();
                         }
                     }
@@ -110,7 +97,7 @@ namespace empinquiry
 
                     // employee inquiry searcher needs to be a admin so validate if user is admin
 
-                    string admin = string.Empty;
+                    bool admin = false;
                     string empId = Session["ein"].ToString().Trim();
                     query = string.Format("SELECT admin FROM hd_empinquiry_user WHERE employee_id = '{0}'", empId);
                     connString = ConfigurationManager.ConnectionStrings["SQLDB_HDHRP"].ConnectionString;
@@ -122,7 +109,7 @@ namespace empinquiry
                     {
                         while (reader.Read())
                         {
-                            admin = reader["admin"].ToString().Trim();
+                            admin = Convert.ToBoolean(reader["admin"]);
                         }
                     }
                     else
@@ -137,8 +124,9 @@ namespace empinquiry
 
                     // Only admin users are allowed to access the application 
 
-                    if (admin == "True") 
+                    if (admin)
                     {
+                        //Loggers.Log("User is verified as admin. Setting up Forms Authentication ticket.");
                         bool isCookiePersistent = false;
                         System.Web.Configuration.AuthenticationSection authSection = (System.Web.Configuration.AuthenticationSection)ConfigurationManager.GetSection("system.web/authentication");
 
@@ -164,15 +152,22 @@ namespace empinquiry
                         Response.Redirect(FormsAuthentication.GetRedirectUrl(Session["username"].ToString().ToLower(), false), false);
 
                         Context.ApplicationInstance.CompleteRequest();
+
                     }
                     else
                     {
+                        Loggers.Log("User is not an admin. Access denied.");
                         throw new Exception("The user is not authorized to access the Employee Inquiry application. Please contact administrator for assistance.");
                     }
 
                 }
                 catch (Exception ex)
                 {
+                    Loggers.Log("Exception Errors: " + ex.Message);
+                    Loggers.Log("Stack Trace: " + ex.StackTrace);
+                    Loggers.Log("Source: " + ex.Source);
+                    Loggers.Log("Inner Exception: " + ex.InnerException);
+                    Loggers.Log("Target Site: " + ex.TargetSite);
                     loginErrors.InnerHtml = ex.Message;
                     loginErrors.InnerText = ex.Message;
                     loginErrors.Visible = true;
@@ -180,11 +175,6 @@ namespace empinquiry
                     logout2.Visible = true;
                 }
             }
-
-
-
-            }
-
-     
+        }
     }
 }
