@@ -177,6 +177,24 @@ namespace empinquiry
         protected global::System.Web.UI.WebControls.Label lblCount;
 
         /// <summary>
+        /// ch_home_location control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox ch_home_location;
+
+        /// <summary>
+        /// lbl_homeloc control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_homeloc;
+
+        /// <summary>
         /// litDetails control.
         /// </summary>
         /// <remarks>

@@ -43,11 +43,10 @@ namespace empinquiry
         {
             //Loggers.Log("Performing search operation from reports page by user: " + Session["username"]);
             btn_search.Focus();
-            btn_clear.Enabled = false;
+            
             if(!GenerateQuery())
             {
                 //ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Please enter at least one search criteria.');", true);
-                btn_clear.Enabled = true;
                 return;
             }
             if (btn_search.Text == Resource.NextInquiry)
@@ -56,11 +55,13 @@ namespace empinquiry
                 Response.Redirect("default.aspx");
                 return;
             }
-            
+            btn_clear.Enabled = false;
             showSearchData();
             BindTotalRecordCount();
             btn_search.Text = Resource.NextInquiry;
             Session["auditComplete"] = null;// reset audit flag to force re-login for next inquiry
+            lbl_homeloc.Visible = true;
+            ch_home_location.Visible = true;
 
         }
 
@@ -139,6 +140,7 @@ namespace empinquiry
                     empos.emp_group_code,
                     empos.location_code,
                     empos.record_change_date,
+                    empos.home_location_ind,
 
                     usr.user_id 
 
@@ -430,10 +432,27 @@ namespace empinquiry
                 Global.searchQuery = Global.searchQuery.Split(new string[] { " ORDER BY " }, StringSplitOptions.None)[0];
                 Global.searchQuery = Global.searchQuery + " ORDER BY " + sortColumn + " " + newDirection;
                 Global.searchQuery = Global.searchQuery + " , emp.employee_id ASC"; // to maintain consistent order
-                DataSource_search.SelectCommand = Global.searchQuery;
-                lv_search.DataBind();
-                lv_search.SelectedIndex = -1;
+                showSearchData();
             }
         }
+
+        
+
+        protected void home_location_CheckedChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(Global.searchQuery))
+                return;
+            if (ch_home_location.Checked)
+            {
+                Global.searchQuery = Global.searchQuery.Replace("WHERE ", "WHERE empos.home_location_ind = 'Y' AND ");
+            }
+            else
+            {
+                Global.searchQuery = Global.searchQuery.Replace("empos.home_location_ind = 'Y' AND ", " ");
+            }
+            showSearchData();
+            BindTotalRecordCount();
+
+        }   
     }
 }

@@ -12,7 +12,7 @@
                             <asp:TableCell>Emp Id</asp:TableCell>
                             <asp:TableCell>
                                 <asp:TextBox ID="tb_empId" runat="server" Width="150px" CssClass="form-control"></asp:TextBox>
-                            </asp:TableCell>
+                            </asp:TableCell>                       
                             <asp:TableCell>Surname</asp:TableCell>
                             <asp:TableCell>
                                 <asp:TextBox ID="tb_surname" runat="server" Width="150px" CssClass="form-control"></asp:TextBox>
@@ -20,15 +20,15 @@
                             <asp:TableCell>First Name</asp:TableCell>
                             <asp:TableCell>
                                 <asp:TextBox ID="tb_firstname" runat="server" Width="150px" CssClass="form-control"></asp:TextBox>
-                            </asp:TableCell>
+                            </asp:TableCell>                           
                             <asp:TableCell>Former Name</asp:TableCell>
                             <asp:TableCell>
                                 <asp:TextBox ID="tb_formername" runat="server" Width="150px" CssClass="form-control"></asp:TextBox>
                             </asp:TableCell>
                         </asp:TableRow>
                         <asp:TableRow>
-                            <asp:TableCell>Known as firstname</asp:TableCell>
-                            <asp:TableCell>
+                             <asp:TableCell>Known as firstname</asp:TableCell>
+                             <asp:TableCell>
                                 <asp:TextBox ID="tb_preferredfirstname" runat="server" Width="150px" CssClass="form-control"></asp:TextBox>
                             </asp:TableCell>
                             <asp:TableCell>Known as surname</asp:TableCell>
@@ -87,7 +87,7 @@
         <!-- For Grid -->
 
         <div class="row">
-            <div class="col-md-12" style="min-height: 200px;">
+            <div class="col-md-12" style="min-height: 200px;">               
                 <asp:ListView ID="lv_search" runat="server" DataSourceID="DataSource_search" OnItemCommand="lv_search_ItemCommand"
                     OnPagePropertiesChanging="lv_search_PagePropertiesChanging" OnSorting ="lv_search_Sorting">
                     <LayoutTemplate>
@@ -112,6 +112,7 @@
                                 </th>
                                 <th>Job Desc</th>
                                 <th>Group code</th>
+                                <th>Home</th>
                                 <%--<th>Location code</th>
                                 <th>Record change date</th>--%>
                                 <th>Status</th>
@@ -151,6 +152,8 @@
                                 <asp:Label ID="lbl_jobdesc" runat="server" Text='<%#Eval("description_text") %>'></asp:Label></td>
                             <td>
                                 <asp:Label ID="lbl_group_code" runat="server" Text='<%#Eval("emp_group_code")%>'></asp:Label></td>
+                            <td>
+                                <asp:Label ID="lbl_homelocation" runat="server" Text='<%#Eval("home_location_ind")%>'></asp:Label></td>
                             <%--
                             <td>
                                 <asp:Label ID="lbl_location_code" runat="server" Text='<%#Eval("location_code")%>'></asp:Label></td>
@@ -240,6 +243,8 @@
                                 <asp:Label ID="lbl_jobdesc" runat="server" Text='<%#Eval("description_text") %>'></asp:Label></td>
                             <td>
                                 <asp:Label ID="lbl_group_code" runat="server" Text='<%#Eval("emp_group_code")%>'></asp:Label></td>
+                            <td>
+                                <asp:Label ID="lbl_homelocation" runat="server" Text='<%#Eval("home_location_ind")%>'></asp:Label></td>
                             <%--
                             <td>
                                 <asp:Label ID="lbl_location_code" runat="server" Text='<%#Eval("location_code")%>'></asp:Label></td>
@@ -295,9 +300,11 @@
                     </Fields>
                 </asp:DataPager>  
                 <!-- Add multiple &nbsp; for more space -->
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                <asp:Label ID="lblCount" runat="server" CssClass="text-info"></asp:Label>
-               
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <asp:Label ID="lblCount" runat="server" CssClass="text-info"></asp:Label>     
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <asp:CheckBox ID="ch_home_location" runat="server" AutoPostBack ="true" OnCheckedChanged ="home_location_CheckedChanged" Visible="false"  />
+                <asp:Label ID="lbl_homeloc" runat ="server" Text="Home Location Filter" Visible="false" ></asp:Label>                
            </div>        
         </div>
     </div>
