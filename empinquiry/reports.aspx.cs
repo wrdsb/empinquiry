@@ -43,28 +43,23 @@ namespace empinquiry
 
         protected void btn_search_Click(object sender, EventArgs e)
         {
-            //Loggers.Log("Performing search operation from reports page by user: " + Session["username"]);
             btn_search.Focus();
-            
-            if(!GenerateQuery())
+            //if (btn_search.Text == Resource.NextInquiry) // commented for time being
+            //{
+            //    //Loggers.Log("Redirecting to default.aspx for next inquiry by user: " + Session["username"]);
+            //    Response.Redirect("default.aspx");
+            //    return;
+            //}
+            if (!GenerateQuery())
             {
-                //ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Please enter at least one search criteria.');", true);
                 return;
             }
-            if (btn_search.Text == Resource.NextInquiry)
-            {
-                //Loggers.Log("Redirecting to default.aspx for next inquiry by user: " + Session["username"]);
-                Response.Redirect("default.aspx");
-                return;
-            }
-            btn_clear.Enabled = false;
+            //btn_clear.Enabled = false;
             showSearchData();
             BindTotalRecordCount();
-            btn_search.Text = Resource.NextInquiry;
-            Session["auditComplete"] = null;// reset audit flag to force re-login for next inquiry
-            //lbl_homeloc.Visible = true;
-            //ch_home_location.Visible = true;
-
+            //btn_search.Text = Resource.NextInquiry;
+            //Session["auditComplete"] = null;
+            
         }
 
         bool GenerateQuery()
@@ -176,8 +171,8 @@ namespace empinquiry
                 query += string.IsNullOrEmpty(formername) ? "" : "emp.former_name LIKE '%" + formername + "%' AND ";
                 query += string.IsNullOrEmpty(knownassurname) ? "" : "emp.known_as LIKE '%" + knownassurname + "%' AND ";
 
-                query += string.IsNullOrEmpty(job) ? "" : "job.description_text = '" + job + "' AND ";
-                query += string.IsNullOrEmpty(jobcode) ? "" : "job.job_code = '" + jobcode + "' AND ";
+                query += string.IsNullOrEmpty(job) ? "" : "job.description_text LIKE '%" + job + "%' AND ";
+                query += string.IsNullOrEmpty(jobcode) ? "" : "job.job_code LIKE '%" + jobcode + "%' AND ";
 
                 query += string.IsNullOrEmpty(pal) ? "" : "usr.user_id LIKE '%" + pal + "%' AND ";
 
