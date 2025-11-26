@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
@@ -453,6 +454,26 @@ namespace empinquiry
             showSearchData();
             BindTotalRecordCount();
 
-        }   
+        }
+        [System.Web.Services.WebMethod]
+        public static List<string> GetGroupCode(string prefix)
+        {
+            List<string> result = new List<string>();
+
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLDB"].ConnectionString))
+            {
+                //SqlCommand cmd = new SqlCommand("SELECT TOP 20 Name FROM Items WHERE Name LIKE @p + '%'", con);
+                SqlCommand cmd = new SqlCommand("SELECT DISTINCT TOP 20 emp_group_code AS Name FROM ec_employee_positions WHERE emp_group_code LIKE @p + '%'", con);
+                cmd.Parameters.AddWithValue("@p", prefix);
+                con.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    result.Add(dr["Name"].ToString());
+                }
+            }
+            return result;
+        }
+
     }
 }

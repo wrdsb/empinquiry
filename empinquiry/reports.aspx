@@ -1,6 +1,31 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="reports.aspx.cs" Inherits="empinquiry.reports" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+
+    <script>
+
+        $(function () {
+            $(".search_groupcode").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "reports.aspx/GetGroupCode",
+                        type: "POST",
+                        data: JSON.stringify({ prefix: request.term }),
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+                            response(data.d);
+                        }
+                    });
+                },
+                minLength: 2
+            });
+        });
+
+    </script>
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container">
@@ -12,7 +37,7 @@
                             <asp:TableCell>Emp Id</asp:TableCell>
                             <asp:TableCell>
                                 <asp:TextBox ID="tb_empId" runat="server" Width="150px" CssClass="form-control"></asp:TextBox>
-                            </asp:TableCell>                       
+                            </asp:TableCell>
                             <asp:TableCell>Surname</asp:TableCell>
                             <asp:TableCell>
                                 <asp:TextBox ID="tb_surname" runat="server" Width="150px" CssClass="form-control"></asp:TextBox>
@@ -20,15 +45,15 @@
                             <asp:TableCell>First Name</asp:TableCell>
                             <asp:TableCell>
                                 <asp:TextBox ID="tb_firstname" runat="server" Width="150px" CssClass="form-control"></asp:TextBox>
-                            </asp:TableCell>                           
+                            </asp:TableCell>
                             <asp:TableCell>Former Name</asp:TableCell>
                             <asp:TableCell>
                                 <asp:TextBox ID="tb_formername" runat="server" Width="150px" CssClass="form-control"></asp:TextBox>
                             </asp:TableCell>
                         </asp:TableRow>
                         <asp:TableRow>
-                             <asp:TableCell>Known as firstname</asp:TableCell>
-                             <asp:TableCell>
+                            <asp:TableCell>Known as firstname</asp:TableCell>
+                            <asp:TableCell>
                                 <asp:TextBox ID="tb_preferredfirstname" runat="server" Width="150px" CssClass="form-control"></asp:TextBox>
                             </asp:TableCell>
                             <asp:TableCell>Known as surname</asp:TableCell>
@@ -43,16 +68,16 @@
                             <asp:TableCell>
                                 <asp:TextBox ID="tb_email" runat="server" Width="150px" CssClass="form-control"></asp:TextBox>
                             </asp:TableCell>
-                            
+
                         </asp:TableRow>
                         <asp:TableRow>
-                             <asp:TableCell>Phone</asp:TableCell>
-                             <asp:TableCell>
-                                 <asp:TextBox ID="tb_phone" runat="server" Width="150px" CssClass="form-control"></asp:TextBox>
-                             </asp:TableCell>
+                            <asp:TableCell>Phone</asp:TableCell>
+                            <asp:TableCell>
+                                <asp:TextBox ID="tb_phone" runat="server" Width="150px" CssClass="form-control"></asp:TextBox>
+                            </asp:TableCell>
                             <asp:TableCell>Group Code</asp:TableCell>
                             <asp:TableCell>
-                                <asp:TextBox ID="tb_grpcode" runat="server" Width="150px" CssClass="form-control"></asp:TextBox>
+                                <asp:TextBox ID="tb_grpcode" runat="server" Width="150px" CssClass="form-control search_groupcode"></asp:TextBox>
                             </asp:TableCell>
                             <asp:TableCell>Job</asp:TableCell>
                             <asp:TableCell>
@@ -87,9 +112,9 @@
         <!-- For Grid -->
 
         <div class="row">
-            <div class="col-md-12" style="min-height: 200px;">               
+            <div class="col-md-12" style="min-height: 200px;">
                 <asp:ListView ID="lv_search" runat="server" DataSourceID="DataSource_search" OnItemCommand="lv_search_ItemCommand"
-                    OnPagePropertiesChanging="lv_search_PagePropertiesChanging" OnSorting ="lv_search_Sorting">
+                    OnPagePropertiesChanging="lv_search_PagePropertiesChanging" OnSorting="lv_search_Sorting">
                     <LayoutTemplate>
                         <table class="table table-responsive table-bordered">
                             <tr>
@@ -104,8 +129,8 @@
                                 <th>UserID</th>
                                 <th>Email</th>
                                 <th>Phone</th>
-                                <th>Postcode</th>                         
-                                <th> 
+                                <th>Postcode</th>
+                                <th>
                                     <asp:LinkButton ID="lnkSortJobCode" runat="server" CommandName="Sort" CommandArgument="job_code">
                                         Job code 
                                     </asp:LinkButton>
@@ -130,7 +155,7 @@
                                 </asp:Label>
                             </td>
                             <td>
-                                <asp:Label ID="lbl_known_as" runat="server" 
+                                <asp:Label ID="lbl_known_as" runat="server"
                                     Text='<%# String.Format("{0}, {1}", Eval("known_as"),Eval("known_as_first")) %>'></asp:Label></td>
                             <%--<td>
                                 <asp:Label ID="lbl_known_as_surname" runat="server" Text='<%#Eval("known_as")%>'></asp:Label></td>--%>
@@ -183,7 +208,7 @@
                                         Eval("emp_activity_code").ToString() == "ACTIVE"
                                         %>' />
 
-                               <%-- <asp:Label
+                                <%-- <asp:Label
                                     ID="lbl_activity_code"
                                     runat="server"
                                     Text='<%#Eval("emp_activity_code")%>'
@@ -221,7 +246,7 @@
                                 </asp:Label>
                             </td>
                             <td>
-                                <asp:Label ID="lbl_known_as" runat="server" 
+                                <asp:Label ID="lbl_known_as" runat="server"
                                     Text='<%# String.Format("{0}, {1}", Eval("known_as"),Eval("known_as_first")) %>'></asp:Label></td>
                             <%--<td>
                                 <asp:Label ID="lbl_known_as_surname" runat="server" Text='<%#Eval("known_as")%>'></asp:Label></td>--%>
@@ -274,7 +299,7 @@
                                         Eval("emp_activity_code").ToString() == "ACTIVE"
                                         %>' />
 
-                               <%-- <asp:Label
+                                <%-- <asp:Label
                                     ID="lbl_activity_code"
                                     runat="server"
                                     Text='<%#Eval("emp_activity_code")%>'
@@ -298,14 +323,14 @@
                             LastPageText="Last" />
                         <asp:NumericPagerField ButtonCount="5" />
                     </Fields>
-                </asp:DataPager>  
+                </asp:DataPager>
                 <!-- Add multiple &nbsp; for more space -->
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <asp:Label ID="lblCount" runat="server" CssClass="text-info"></asp:Label>     
+                <asp:Label ID="lblCount" runat="server" CssClass="text-info"></asp:Label>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <asp:CheckBox ID="ch_home_location" runat="server" AutoPostBack ="true" OnCheckedChanged ="home_location_CheckedChanged" Visible="false"  />
-                <asp:Label ID="lbl_homeloc" runat ="server" Text="Home Location Filter" Visible="false" ></asp:Label>                
-           </div>        
+                <asp:CheckBox ID="ch_home_location" runat="server" AutoPostBack="true" OnCheckedChanged="home_location_CheckedChanged" Visible="false" />
+                <asp:Label ID="lbl_homeloc" runat="server" Text="Home Location Filter" Visible="false"></asp:Label>
+            </div>
         </div>
     </div>
 
