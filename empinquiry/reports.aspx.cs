@@ -462,8 +462,7 @@ namespace empinquiry
 
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLDB"].ConnectionString))
             {
-                //SqlCommand cmd = new SqlCommand("SELECT TOP 20 Name FROM Items WHERE Name LIKE @p + '%'", con);
-                SqlCommand cmd = new SqlCommand("SELECT DISTINCT TOP 20 emp_group_code AS Name FROM ec_employee_positions WHERE emp_group_code LIKE @p + '%'", con);
+                SqlCommand cmd = new SqlCommand("SELECT DISTINCT emp_group_code AS Name FROM ec_employee_positions WHERE emp_group_code LIKE @p + '%'", con);
                 cmd.Parameters.AddWithValue("@p", prefix);
                 con.Open();
                 SqlDataReader dr = cmd.ExecuteReader();

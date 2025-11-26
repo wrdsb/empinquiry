@@ -20,11 +20,20 @@
                         }
                     });
                 },
-                minLength: 2
+                minLength: 1
             });
         });
 
     </script>
+    <style>
+        .ui-autocomplete {
+            max-height: 200px; /* Adjust height as needed */
+            overflow-y: auto; /* Enable scroll */
+            overflow-x: hidden; /* Hide horizontal scrollbar */
+            border: 1px solid #ccc; /* Optional: nicer border */
+            z-index: 99999 !important; /* Make sure it appears above other controls */
+        }
+    </style>
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
