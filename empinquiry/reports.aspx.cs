@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Reflection.Emit;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -96,8 +97,7 @@ namespace empinquiry
                 }
 
                 string empid = tb_empId.Text;
-                string job = ddl_job.SelectedValue;
-                job = job.Replace("'", "''"); // replace single quote with double quote to avoid SQL error
+                string job = tb_job.Text;
                 string status = ddl_status.SelectedValue;
                 string formername = tb_formername.Text;
                 string groupcode = tb_grpcode.Text;
@@ -115,6 +115,14 @@ namespace empinquiry
                     string.IsNullOrEmpty(knownassurname) &&
                     string.IsNullOrEmpty(groupcode))
                     return false;
+
+                string jobcode = string.Empty;
+                if (job.Contains(" - "))
+                {
+                    jobcode = job.Split(new string[] { " - " }, StringSplitOptions.None)[0];
+                    job = job.Split(new string[] { " - " }, StringSplitOptions.None)[1];
+                }
+                job = job.Replace("'", "''"); // replace single quote with double quote to avoid SQL error
 
                 /*
                  * WHERE empos.home_location_ind = 'Y' 
@@ -168,7 +176,8 @@ namespace empinquiry
                 query += string.IsNullOrEmpty(formername) ? "" : "emp.former_name LIKE '%" + formername + "%' AND ";
                 query += string.IsNullOrEmpty(knownassurname) ? "" : "emp.known_as LIKE '%" + knownassurname + "%' AND ";
 
-                query += string.IsNullOrEmpty(job) ? "" : "job.description_abbr = '" + job + "' AND ";
+                query += string.IsNullOrEmpty(job) ? "" : "job.description_text = '" + job + "' AND ";
+                query += string.IsNullOrEmpty(jobcode) ? "" : "job.job_code = '" + jobcode + "' AND ";
 
                 query += string.IsNullOrEmpty(pal) ? "" : "usr.user_id LIKE '%" + pal + "%' AND ";
 
@@ -239,15 +248,6 @@ namespace empinquiry
         protected void btn_clear_Click(object sender, EventArgs e)
         {
             Response.Redirect("reports.aspx");
-        }
-
-        protected void ddl_job_DataBound(object sender, EventArgs e)
-        {
-            if (ddl_job.Items.Count > 0)
-            {
-                ddl_job.Items.Insert(0, new ListItem("", ""));
-                ddl_job.SelectedIndex = 0;
-            }
         }
 
         protected void lv_search_ItemCommand(object sender, ListViewCommandEventArgs e)
@@ -459,19 +459,60 @@ namespace empinquiry
         public static List<string> GetGroupCode(string prefix)
         {
             List<string> result = new List<string>();
-
-            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLDB"].ConnectionString))
+            try
             {
-                SqlCommand cmd = new SqlCommand("SELECT DISTINCT emp_group_code AS Name FROM ec_employee_positions WHERE emp_group_code LIKE @p + '%'", con);
-                cmd.Parameters.AddWithValue("@p", prefix);
-                con.Open();
-                SqlDataReader dr = cmd.ExecuteReader();
-                while (dr.Read())
+
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLDB"].ConnectionString))
                 {
-                    result.Add(dr["Name"].ToString());
+                    SqlCommand cmd = new SqlCommand("SELECT DISTINCT emp_group_code AS grpcode FROM ec_employee_positions WHERE emp_group_code LIKE @p + '%'", con);
+                    cmd.Parameters.AddWithValue("@p", prefix);
+                    con.Open();
+                    SqlDataReader dr = cmd.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        result.Add(dr["grpcode"].ToString());
+                    }
                 }
+                return result;
             }
-            return result;
+            catch (Exception ex)
+            {
+                Loggers.Log("Error in GetGroupCode autocomplete method: " + ex.Message);
+                return result;
+            }
+        }
+
+        [System.Web.Services.WebMethod]
+        public static List<string> GetJob(string prefix)
+        {
+            List<string> result = new List<string>();
+
+            try
+            {
+
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLDB"].ConnectionString))
+                {
+                    SqlCommand cmd = new SqlCommand("SELECT DISTINCT job_code AS jobcode, description_text AS jobdesc " +
+                                                    "FROM ec_jobs " +
+                                                    "WHERE job_code LIKE @p + '%' OR description_text LIKE @p2 + '%'", con);
+                    cmd.Parameters.AddWithValue("@p", prefix);
+                    cmd.Parameters.AddWithValue("@p2", prefix);
+                    var query = cmd.CommandText;
+                    con.Open();
+                    SqlDataReader dr = cmd.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        result.Add(dr["jobcode"].ToString() + " - " + dr["jobdesc"].ToString());
+                    }
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Loggers.Log("Error in GetJob autocomplete method: " + ex.Message);
+                return result;
+
+            }
         }
 
     }

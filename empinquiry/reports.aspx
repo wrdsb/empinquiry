@@ -24,6 +24,23 @@
             });
         });
 
+        $(function () {
+            $(".search_job").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "reports.aspx/GetJob",
+                        type: "POST",
+                        data: JSON.stringify({ prefix: request.term }),
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+                            response(data.d);
+                        }
+                    });
+                },
+                minLength: 1
+            });
+        });
+
     </script>
     <style>
         .ui-autocomplete {
@@ -90,10 +107,11 @@
                             </asp:TableCell>
                             <asp:TableCell>Job</asp:TableCell>
                             <asp:TableCell>
-                                <asp:DropDownList ID="ddl_job" runat="server" CssClass="form-control" Width="150px" Height="34px"
+                                <%--<asp:DropDownList ID="ddl_job" runat="server" CssClass="form-control" Width="150px" Height="34px"
                                     DataSourceID="SqlDataSource_job" DataTextField="job_code_description" DataValueField="description_abbr"
                                     OnDataBound="ddl_job_DataBound">
-                                </asp:DropDownList>
+                                </asp:DropDownList>--%>
+                                <asp:TextBox ID="tb_job" runat="server" Width="150px" CssClass="form-control search_job"></asp:TextBox>
                             </asp:TableCell>
                             <asp:TableCell>Status</asp:TableCell>
                             <asp:TableCell>
@@ -354,8 +372,6 @@
 
 
     <asp:SqlDataSource ID="DataSource_search" runat="server" ConnectionString="<%$ ConnectionStrings:SQLDB %>"></asp:SqlDataSource>
-    <asp:SqlDataSource ID="SqlDataSource_Job" runat="server" ConnectionString="<%$ ConnectionStrings:SQLDB %>"
-        SelectCommand="SELECT DISTINCT job_code,description_abbr, description_text, job_code + ' - ' + description_text AS job_code_description FROM ec_jobs ORDER BY description_text"></asp:SqlDataSource>
     <asp:SqlDataSource ID="SqlDataSource_status" runat="server" ConnectionString="<%$ ConnectionStrings:SQLDB %>"
         SelectCommand="SELECT DISTINCT(emp_activity_code) FROM ec_employee ORDER BY emp_activity_code"></asp:SqlDataSource>
 </asp:Content>
