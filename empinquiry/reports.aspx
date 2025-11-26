@@ -104,7 +104,7 @@
                                 <th>UserID</th>
                                 <th>Email</th>
                                 <th>Phone</th>
-                                <th>Postal code</th>                         
+                                <th>Postcode</th>                         
                                 <th> 
                                     <asp:LinkButton ID="lnkSortJobCode" runat="server" CommandName="Sort" CommandArgument="job_code">
                                         Job code 
@@ -112,7 +112,7 @@
                                 </th>
                                 <th>Job Desc</th>
                                 <th>Group code</th>
-                                <th>Home</th>
+                                <th>Home loc</th>
                                 <%--<th>Location code</th>
                                 <th>Record change date</th>--%>
                                 <th>Status</th>

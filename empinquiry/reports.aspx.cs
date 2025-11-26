@@ -60,8 +60,8 @@ namespace empinquiry
             BindTotalRecordCount();
             btn_search.Text = Resource.NextInquiry;
             Session["auditComplete"] = null;// reset audit flag to force re-login for next inquiry
-            lbl_homeloc.Visible = true;
-            ch_home_location.Visible = true;
+            //lbl_homeloc.Visible = true;
+            //ch_home_location.Visible = true;
 
         }
 
