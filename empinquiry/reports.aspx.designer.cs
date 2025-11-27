@@ -114,13 +114,13 @@ namespace empinquiry
         protected global::System.Web.UI.WebControls.TextBox tb_grpcode;
 
         /// <summary>
-        /// ddl_job control.
+        /// tb_job control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddl_job;
+        protected global::System.Web.UI.WebControls.TextBox tb_job;
 
         /// <summary>
         /// ddl_status control.
@@ -177,6 +177,24 @@ namespace empinquiry
         protected global::System.Web.UI.WebControls.Label lblCount;
 
         /// <summary>
+        /// ch_home_location control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox ch_home_location;
+
+        /// <summary>
+        /// lbl_homeloc control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_homeloc;
+
+        /// <summary>
         /// litDetails control.
         /// </summary>
         /// <remarks>
@@ -193,15 +211,6 @@ namespace empinquiry
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.SqlDataSource DataSource_search;
-
-        /// <summary>
-        /// SqlDataSource_Job control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource_Job;
 
         /// <summary>
         /// SqlDataSource_status control.

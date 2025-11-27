@@ -1,6 +1,57 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="reports.aspx.cs" Inherits="empinquiry.reports" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+
+    <script>
+
+        $(function () {
+            $(".search_groupcode").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "reports.aspx/GetGroupCode",
+                        type: "POST",
+                        data: JSON.stringify({ prefix: request.term }),
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+                            response(data.d);
+                        }
+                    });
+                },
+                minLength: 1
+            });
+        });
+
+        $(function () {
+            $(".search_job").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "reports.aspx/GetJob",
+                        type: "POST",
+                        data: JSON.stringify({ prefix: request.term }),
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+                            response(data.d);
+                        }
+                    });
+                },
+                minLength: 1
+            });
+        });
+
+    </script>
+    <style>
+        .ui-autocomplete {
+            max-height: 200px; /* Adjust height as needed */
+            overflow-y: auto; /* Enable scroll */
+            overflow-x: hidden; /* Hide horizontal scrollbar */
+            border: 1px solid #ccc; /* Optional: nicer border */
+            z-index: 99999 !important; /* Make sure it appears above other controls */
+        }
+    </style>
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container">
@@ -43,23 +94,24 @@
                             <asp:TableCell>
                                 <asp:TextBox ID="tb_email" runat="server" Width="150px" CssClass="form-control"></asp:TextBox>
                             </asp:TableCell>
-                            
+
                         </asp:TableRow>
                         <asp:TableRow>
-                             <asp:TableCell>Phone</asp:TableCell>
-                             <asp:TableCell>
-                                 <asp:TextBox ID="tb_phone" runat="server" Width="150px" CssClass="form-control"></asp:TextBox>
-                             </asp:TableCell>
+                            <asp:TableCell>Phone</asp:TableCell>
+                            <asp:TableCell>
+                                <asp:TextBox ID="tb_phone" runat="server" Width="150px" CssClass="form-control"></asp:TextBox>
+                            </asp:TableCell>
                             <asp:TableCell>Group Code</asp:TableCell>
                             <asp:TableCell>
-                                <asp:TextBox ID="tb_grpcode" runat="server" Width="150px" CssClass="form-control"></asp:TextBox>
+                                <asp:TextBox ID="tb_grpcode" runat="server" Width="150px" CssClass="form-control search_groupcode"></asp:TextBox>
                             </asp:TableCell>
                             <asp:TableCell>Job</asp:TableCell>
                             <asp:TableCell>
-                                <asp:DropDownList ID="ddl_job" runat="server" CssClass="form-control" Width="150px" Height="34px"
+                                <%--<asp:DropDownList ID="ddl_job" runat="server" CssClass="form-control" Width="150px" Height="34px"
                                     DataSourceID="SqlDataSource_job" DataTextField="job_code_description" DataValueField="description_abbr"
                                     OnDataBound="ddl_job_DataBound">
-                                </asp:DropDownList>
+                                </asp:DropDownList>--%>
+                                <asp:TextBox ID="tb_job" runat="server" Width="150px" CssClass="form-control search_job"></asp:TextBox>
                             </asp:TableCell>
                             <asp:TableCell>Status</asp:TableCell>
                             <asp:TableCell>
@@ -89,7 +141,7 @@
         <div class="row">
             <div class="col-md-12" style="min-height: 200px;">
                 <asp:ListView ID="lv_search" runat="server" DataSourceID="DataSource_search" OnItemCommand="lv_search_ItemCommand"
-                    OnPagePropertiesChanging="lv_search_PagePropertiesChanging" OnSorting ="lv_search_Sorting">
+                    OnPagePropertiesChanging="lv_search_PagePropertiesChanging" OnSorting="lv_search_Sorting">
                     <LayoutTemplate>
                         <table class="table table-responsive table-bordered">
                             <tr>
@@ -104,14 +156,15 @@
                                 <th>UserID</th>
                                 <th>Email</th>
                                 <th>Phone</th>
-                                <th>Postal code</th>                         
-                                <th> 
+                                <th>Postcode</th>
+                                <th>
                                     <asp:LinkButton ID="lnkSortJobCode" runat="server" CommandName="Sort" CommandArgument="job_code">
                                         Job code 
                                     </asp:LinkButton>
                                 </th>
                                 <th>Job Desc</th>
                                 <th>Group code</th>
+                                <th>Home loc</th>
                                 <%--<th>Location code</th>
                                 <th>Record change date</th>--%>
                                 <th>Status</th>
@@ -129,7 +182,7 @@
                                 </asp:Label>
                             </td>
                             <td>
-                                <asp:Label ID="lbl_known_as" runat="server" 
+                                <asp:Label ID="lbl_known_as" runat="server"
                                     Text='<%# String.Format("{0}, {1}", Eval("known_as"),Eval("known_as_first")) %>'></asp:Label></td>
                             <%--<td>
                                 <asp:Label ID="lbl_known_as_surname" runat="server" Text='<%#Eval("known_as")%>'></asp:Label></td>--%>
@@ -151,6 +204,8 @@
                                 <asp:Label ID="lbl_jobdesc" runat="server" Text='<%#Eval("description_text") %>'></asp:Label></td>
                             <td>
                                 <asp:Label ID="lbl_group_code" runat="server" Text='<%#Eval("emp_group_code")%>'></asp:Label></td>
+                            <td style="text-align:center">
+                                <asp:Label ID="lbl_homelocation" runat="server" Text='<%#Eval("home_location_ind")%>'></asp:Label></td>
                             <%--
                             <td>
                                 <asp:Label ID="lbl_location_code" runat="server" Text='<%#Eval("location_code")%>'></asp:Label></td>
@@ -180,7 +235,7 @@
                                         Eval("emp_activity_code").ToString() == "ACTIVE"
                                         %>' />
 
-                               <%-- <asp:Label
+                                <%-- <asp:Label
                                     ID="lbl_activity_code"
                                     runat="server"
                                     Text='<%#Eval("emp_activity_code")%>'
@@ -218,7 +273,7 @@
                                 </asp:Label>
                             </td>
                             <td>
-                                <asp:Label ID="lbl_known_as" runat="server" 
+                                <asp:Label ID="lbl_known_as" runat="server"
                                     Text='<%# String.Format("{0}, {1}", Eval("known_as"),Eval("known_as_first")) %>'></asp:Label></td>
                             <%--<td>
                                 <asp:Label ID="lbl_known_as_surname" runat="server" Text='<%#Eval("known_as")%>'></asp:Label></td>--%>
@@ -240,6 +295,8 @@
                                 <asp:Label ID="lbl_jobdesc" runat="server" Text='<%#Eval("description_text") %>'></asp:Label></td>
                             <td>
                                 <asp:Label ID="lbl_group_code" runat="server" Text='<%#Eval("emp_group_code")%>'></asp:Label></td>
+                            <td>
+                                <asp:Label ID="lbl_homelocation" runat="server" Text='<%#Eval("home_location_ind")%>'></asp:Label></td>
                             <%--
                             <td>
                                 <asp:Label ID="lbl_location_code" runat="server" Text='<%#Eval("location_code")%>'></asp:Label></td>
@@ -269,7 +326,7 @@
                                         Eval("emp_activity_code").ToString() == "ACTIVE"
                                         %>' />
 
-                               <%-- <asp:Label
+                                <%-- <asp:Label
                                     ID="lbl_activity_code"
                                     runat="server"
                                     Text='<%#Eval("emp_activity_code")%>'
@@ -293,12 +350,14 @@
                             LastPageText="Last" />
                         <asp:NumericPagerField ButtonCount="5" />
                     </Fields>
-                </asp:DataPager>  
+                </asp:DataPager>
                 <!-- Add multiple &nbsp; for more space -->
-                &nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:Label ID="lblCount" runat="server" CssClass="text-info"></asp:Label>
-               
-           </div>        
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <asp:CheckBox ID="ch_home_location" runat="server" AutoPostBack="true" OnCheckedChanged="home_location_CheckedChanged" Visible="false" />
+                <asp:Label ID="lbl_homeloc" runat="server" Text="Home Location Filter" Visible="false"></asp:Label>
+            </div>
         </div>
     </div>
 
@@ -313,8 +372,6 @@
 
 
     <asp:SqlDataSource ID="DataSource_search" runat="server" ConnectionString="<%$ ConnectionStrings:SQLDB %>"></asp:SqlDataSource>
-    <asp:SqlDataSource ID="SqlDataSource_Job" runat="server" ConnectionString="<%$ ConnectionStrings:SQLDB %>"
-        SelectCommand="SELECT DISTINCT job_code,description_abbr, description_text, job_code + ' - ' + description_text AS job_code_description FROM ec_jobs ORDER BY description_text"></asp:SqlDataSource>
     <asp:SqlDataSource ID="SqlDataSource_status" runat="server" ConnectionString="<%$ ConnectionStrings:SQLDB %>"
         SelectCommand="SELECT DISTINCT(emp_activity_code) FROM ec_employee ORDER BY emp_activity_code"></asp:SqlDataSource>
 </asp:Content>
