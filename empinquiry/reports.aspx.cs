@@ -471,10 +471,12 @@ namespace empinquiry
             List<string> result = new List<string>();
             try
             {
-
                 using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLDB"].ConnectionString))
                 {
-                    SqlCommand cmd = new SqlCommand("SELECT DISTINCT emp_group_code AS grpcode FROM ec_employee_positions WHERE emp_group_code LIKE @p + '%'", con);
+                    SqlCommand cmd = new SqlCommand("SELECT DISTINCT emp_group_code AS grpcode " +
+                                                    "FROM ec_employee_positions " +
+                                                    "WHERE emp_group_code LIKE '%' + @p + '%' " +
+                                                    "ORDER BY emp_group_code", con);
                     cmd.Parameters.AddWithValue("@p", prefix);
                     con.Open();
                     SqlDataReader dr = cmd.ExecuteReader();
@@ -496,15 +498,14 @@ namespace empinquiry
         public static List<string> GetJob(string prefix)
         {
             List<string> result = new List<string>();
-
             try
             {
-
                 using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLDB"].ConnectionString))
                 {
                     SqlCommand cmd = new SqlCommand("SELECT DISTINCT job_code AS jobcode, description_text AS jobdesc " +
                                                     "FROM ec_jobs " +
-                                                    "WHERE job_code LIKE @p + '%' OR description_text LIKE @p2 + '%'", con);
+                                                    "WHERE job_code LIKE '%' + @p + '%' OR description_text LIKE '%' + @p2 + '%' " +
+                                                    "ORDER BY job_code", con);
                     cmd.Parameters.AddWithValue("@p", prefix);
                     cmd.Parameters.AddWithValue("@p2", prefix);
                     var query = cmd.CommandText;
