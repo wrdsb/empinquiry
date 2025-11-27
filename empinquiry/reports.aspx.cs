@@ -112,12 +112,23 @@ namespace empinquiry
                     return false;
 
                 string jobcode = string.Empty;
-                if (job.Contains(" - "))
+                bool jobQuery_AND = false;
+                if (!string.IsNullOrEmpty(job))
                 {
-                    jobcode = job.Split(new string[] { " - " }, StringSplitOptions.None)[0];
-                    job = job.Split(new string[] { " - " }, StringSplitOptions.None)[1];
+                    job = job.Replace("'", "''"); // replace single quote with double quote to avoid SQL error
+                    if (job.Contains(" - "))
+                    {
+                        jobcode = job.Split(new string[] { " - " }, StringSplitOptions.None)[0];
+                        job = job.Split(new string[] { " - " }, StringSplitOptions.None)[1];
+                        jobQuery_AND = true;
+
+                    }
+                    else
+                    {
+                        jobcode = job;
+                    }
                 }
-                job = job.Replace("'", "''"); // replace single quote with double quote to avoid SQL error
+                    
 
                 /*
                  * WHERE empos.home_location_ind = 'Y' 
@@ -171,8 +182,12 @@ namespace empinquiry
                 query += string.IsNullOrEmpty(formername) ? "" : "emp.former_name LIKE '%" + formername + "%' AND ";
                 query += string.IsNullOrEmpty(knownassurname) ? "" : "emp.known_as LIKE '%" + knownassurname + "%' AND ";
 
-                query += string.IsNullOrEmpty(job) ? "" : "job.description_text LIKE '%" + job + "%' AND ";
-                query += string.IsNullOrEmpty(jobcode) ? "" : "job.job_code LIKE '%" + jobcode + "%' AND ";
+                if(jobQuery_AND)
+                {
+                    query += string.IsNullOrEmpty(job) ? "" : "job.description_text LIKE '%" + job + "%' AND job.job_code LIKE '%" + jobcode + "%' AND ";
+                }
+                else
+                    query += string.IsNullOrEmpty(job) ? "" : "(job.description_text LIKE '%" + job + "%' OR job.job_code LIKE '%" + jobcode + "%') AND ";
 
                 query += string.IsNullOrEmpty(pal) ? "" : "usr.user_id LIKE '%" + pal + "%' AND ";
 
