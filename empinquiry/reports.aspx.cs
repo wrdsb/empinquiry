@@ -44,22 +44,22 @@ namespace empinquiry
         protected void btn_search_Click(object sender, EventArgs e)
         {
             btn_search.Focus();
-            //if (btn_search.Text == Resource.NextInquiry) // commented for time being
-            //{
-            //    //Loggers.Log("Redirecting to default.aspx for next inquiry by user: " + Session["username"]);
-            //    Response.Redirect("default.aspx");
-            //    return;
-            //}
+            if (btn_search.Text == Resource.NextInquiry) 
+            {
+                //Loggers.Log("Redirecting to default.aspx for next inquiry by user: " + Session["username"]);
+                Response.Redirect("default.aspx");
+                return;
+            }
             if (!GenerateQuery())
             {
                 return;
             }
-            //btn_clear.Enabled = false;
+            btn_clear.Enabled = false;
             showSearchData();
             BindTotalRecordCount();
-            //btn_search.Text = Resource.NextInquiry;
-            //Session["auditComplete"] = null;
-            
+            btn_search.Text = Resource.NextInquiry;
+            Session["auditComplete"] = null;
+
         }
 
         bool GenerateQuery()

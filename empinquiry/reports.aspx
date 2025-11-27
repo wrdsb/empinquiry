@@ -204,7 +204,7 @@
                                 <asp:Label ID="lbl_jobdesc" runat="server" Text='<%#Eval("description_text") %>'></asp:Label></td>
                             <td>
                                 <asp:Label ID="lbl_group_code" runat="server" Text='<%#Eval("emp_group_code")%>'></asp:Label></td>
-                            <td>
+                            <td style="text-align:center">
                                 <asp:Label ID="lbl_homelocation" runat="server" Text='<%#Eval("home_location_ind")%>'></asp:Label></td>
                             <%--
                             <td>
