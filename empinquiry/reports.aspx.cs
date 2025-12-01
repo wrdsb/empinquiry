@@ -254,6 +254,19 @@ namespace empinquiry
                 ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('An error occurred while fetching total record count. Please try again later.');", true);
             }
         }
+        void displayControlhomeLocation()
+        {
+            if (lv_search.Items.Count > 0)
+            {
+                ch_home_location.Visible = true;
+                lbl_homeloc.Visible = true;
+            }
+            else
+            {
+                ch_home_location.Visible = false;
+                lbl_homeloc.Visible = false;
+            }
+        }   
 
         protected void btn_clear_Click(object sender, EventArgs e)
         {
