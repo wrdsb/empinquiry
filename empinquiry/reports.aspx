@@ -55,8 +55,8 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container">
-        <div class="row">
-            <div class="col-md-12">
+    <div class="row">
+        <div class="col-md-12">
                 <asp:Panel ID="pnlSearch" runat="server" DefaultButton="btn_search">
                     <asp:Table runat="server">
                         <asp:TableRow>
@@ -295,7 +295,7 @@
                                 <asp:Label ID="lbl_jobdesc" runat="server" Text='<%#Eval("description_text") %>'></asp:Label></td>
                             <td>
                                 <asp:Label ID="lbl_group_code" runat="server" Text='<%#Eval("emp_group_code")%>'></asp:Label></td>
-                            <td>
+                            <td style="text-align:center">
                                 <asp:Label ID="lbl_homelocation" runat="server" Text='<%#Eval("home_location_ind")%>'></asp:Label></td>
                             <%--
                             <td>
@@ -355,8 +355,8 @@
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:Label ID="lblCount" runat="server" CssClass="text-info"></asp:Label>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <asp:CheckBox ID="ch_home_location" runat="server" AutoPostBack="true" OnCheckedChanged="home_location_CheckedChanged" Visible="false" />
-                <asp:Label ID="lbl_homeloc" runat="server" Text="Home Location Filter" Visible="false"></asp:Label>
+                <asp:CheckBox ID="ch_home_location" runat="server" AutoPostBack="true" OnCheckedChanged="home_location_CheckedChanged" Visible="false"/>
+                <asp:Label ID="lbl_homeloc" runat="server" Text="Display Only Home Location Records" Visible="false"></asp:Label>
             </div>
         </div>
     </div>
