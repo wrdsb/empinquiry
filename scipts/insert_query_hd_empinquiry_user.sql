@@ -1,7 +1,7 @@
 SELECT TOP (1000) [employee_id]
 ,[userid]
 ,[admin]
-FROM [HDHRP].[dbo].[hd_empinquiry_user] 
+FROM [HDHRP].[dbo].[hd_empinquiry_user]
 
 /* Authorized person records */
 
@@ -19,6 +19,10 @@ insert into [hd_empinquiry_user] values('31663','RAYMONC', 1)
 insert into [hd_empinquiry_user] values('46367','PARVEZU', 1)
 insert into [hd_empinquiry_user] values('48305','NAKSHAN', 1)
 insert into [hd_empinquiry_user] values('28814','WolfeB', 1)
+
+/* Gave access to employee as per Robert's request */
+insert into [hd_empinquiry_user] values('44473','HIRMIZS', 1)
+
 
 
 
