@@ -160,7 +160,7 @@ namespace empinquiry
                     usr.user_id 
 
                     FROM ec_employee emp 
-                    INNER JOIN hd_ec_users usr
+                    LEFT OUTER JOIN hd_ec_users usr
                     ON (emp.employee_id = usr.employee_id)     
                     INNER JOIN ec_employee_positions empos
                     ON (emp.employee_id = empos.employee_id) 
