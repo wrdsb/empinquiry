@@ -58,6 +58,7 @@ namespace empinquiry
             //btn_clear.Enabled = false;
             showSearchData();
             BindTotalRecordCount();
+            saveSearchDetailsintoDB();
             //btn_search.Text = Resource.NextInquiry;
             //Session["auditComplete"] = null;
 
@@ -537,6 +538,36 @@ namespace empinquiry
                 Loggers.Log("Error in GetJob autocomplete method: " + ex.Message);
                 return result;
 
+            }
+        }
+
+        void saveSearchDetailsintoDB()
+        {
+            //TODO: Need to create table hd_ec_search_audit to log search details
+            //Need to test this method after creating the table
+            try
+            {
+                SQLProvider SqlDB = new SQLProvider();
+                string insertQuery = "INSERT INTO hd_ec_search_audit (username, search_query, search_date) " +
+                                     "VALUES (@username, @search_query, GETDATE())";
+                SqlParameter[] parameters = new SqlParameter[]
+                {
+                    new SqlParameter("@username", SqlDbType.NVarChar) { Value = Session["username"].ToString() },
+                    new SqlParameter("@search_query", SqlDbType.NVarChar) { Value = Global.searchQuery }
+                };
+                bool success;
+                SqlDB.ExecuteNonQuery(insertQuery,out success, parameters);
+                if (!success)
+                {
+                    Loggers.Log("Failed to log search details into database for user: " + Session["username"]);
+                }
+            }
+            catch (Exception ex)
+            {
+                Loggers.Log("Error occurred while saving search details into DB from reports page by user: " + Session["username"] + " . Error: " + ex.Message);
+                Loggers.Log("Stack Trace: " + ex.StackTrace);
+                Loggers.Log("Inner Exception: " + (ex.InnerException != null ? ex.InnerException.Message : "N/A"));
+                Loggers.Log("Source: " + ex.Source);
             }
         }
 
