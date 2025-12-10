@@ -4,7 +4,7 @@ GO
 /*
 Author:		Meenakshi Durairaj 
 Date:		2025-DEC-09
-Purpose:	Table to store search parameters and user details while doing search in the empinq application
+Purpose:	Table to store search parameters while doing search in the empinq application
 */
 
 

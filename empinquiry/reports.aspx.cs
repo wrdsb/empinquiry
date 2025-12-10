@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Reflection.Emit;
 using System.Web;
 using System.Web.UI;
@@ -58,7 +59,7 @@ namespace empinquiry
             //btn_clear.Enabled = false;
             showSearchData();
             BindTotalRecordCount();
-            //saveSearchDetailsintoDB();
+            saveSearchDetailsintoDB();
             //btn_search.Text = Resource.NextInquiry;
             //Session["auditComplete"] = null;
 
@@ -548,21 +549,25 @@ namespace empinquiry
             try
             {
                 SQLProvider SqlDB = new SQLProvider();
-                string searchFilter = Global.searchQuery.Split(new string[] { " WHERE " }, StringSplitOptions.None)[1].Split(new string[] { "empos.position_start_date" }, StringSplitOptions.None)[0];
+                string searchFilter = Global.searchQuery.Split(
+                    new string[] { " WHERE " }, StringSplitOptions.None)[1].Split(
+                    new string[] { " empos.position_start_date " }, StringSplitOptions.None)[0].Replace("AND", " ");
+                string currentDate = DateTime.Now.ToString("MMM/dd/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
                 string insertQuery = "INSERT INTO hd_ec_search_audit (employee_id, userid, search_parameters, search_date) " +
-                                     "VALUES (@employee_id, @username, @search_parameters, GETDATE())";
+                                     "VALUES (@employee_id, @username, @search_parameters, @search_date)";
                 SqlParameter[] parameters = new SqlParameter[]
                 {
                     new SqlParameter("@employee_id", SqlDbType.Int) { Value = Convert.ToInt32(Session["employee_id"]) },
                     new SqlParameter("@username", SqlDbType.NVarChar) { Value = Session["username"].ToString() },
-                    new SqlParameter("@search_parameters", SqlDbType.NVarChar) { Value = searchFilter }
+                    new SqlParameter("@search_parameters", SqlDbType.NVarChar) { Value = searchFilter },
+                    new SqlParameter("@search_date", SqlDbType.NVarChar) { Value = currentDate }
                 };
-                bool success;
+                /*bool success;
                 SqlDB.ExecuteNonQuery(insertQuery,out success, parameters);
                 if (!success)
                 {
                     Loggers.Log("Failed to log search details into database for user: " + Session["username"]);
-                }
+                }*/
             }
             catch (Exception ex)
             {
