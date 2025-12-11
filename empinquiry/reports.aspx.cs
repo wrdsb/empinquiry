@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -15,7 +16,7 @@ namespace empinquiry
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(IsPostBack)
+            if (IsPostBack)
                 return;
 
             if (Session["auditComplete"] == null || Convert.ToBoolean(Session["auditComplete"]) == false)
@@ -65,10 +66,11 @@ namespace empinquiry
 
         }
 
+        string searchFilter = string.Empty;
         bool GenerateQuery()
         {
             //Loggers.Log("Building search query from reports page by user: " + Session["username"]);
-
+            searchFilter = string.Empty;
             try
             {
                 string query = "";
@@ -113,6 +115,27 @@ namespace empinquiry
                     string.IsNullOrEmpty(knownassurname) &&
                     string.IsNullOrEmpty(groupcode))
                     return false;
+                else
+                {
+                    var filtersObj = new
+                    {
+                        Empid = empid,
+                        Surname = surname,
+                        Firstname = firstname,
+                        Former = formername,
+                        Knownfirst = knownasfirstname,
+                        Knownlast = knownassurname,
+                        Pal = pal,
+                        Email = email,
+                        Phone = phone,
+                        Group = groupcode,
+                        Job = job.Replace("'", "''"),
+                        Status = status
+                    };
+
+                    searchFilter = "Search Parameters : " + JsonConvert.SerializeObject(filtersObj);
+
+                }
 
                 string jobcode = string.Empty;
                 bool jobQuery_AND = false;
@@ -131,7 +154,7 @@ namespace empinquiry
                         jobcode = job;
                     }
                 }
-                    
+
 
                 /*
                  * WHERE empos.home_location_ind = 'Y' 
@@ -185,7 +208,7 @@ namespace empinquiry
                 query += string.IsNullOrEmpty(formername) ? "" : "emp.former_name LIKE '%" + formername + "%' AND ";
                 query += string.IsNullOrEmpty(knownassurname) ? "" : "emp.known_as LIKE '%" + knownassurname + "%' AND ";
 
-                if(jobQuery_AND)
+                if (jobQuery_AND)
                 {
                     query += string.IsNullOrEmpty(job) ? "" : "job.description_text LIKE '%" + job + "%' AND job.job_code LIKE '%" + jobcode + "%' AND ";
                 }
@@ -221,13 +244,13 @@ namespace empinquiry
 
         protected void showSearchData()
         {
-            try 
+            try
             {
                 DataSource_search.SelectCommand = Global.searchQuery;
                 lv_search.DataBind();
-                lv_search.SelectedIndex = -1;             
+                lv_search.SelectedIndex = -1;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Loggers.Log("Error occurred while binding search query " + Session["username"] + " . Error: " + ex.Message);
                 Loggers.Log("Stack Trace: " + ex.StackTrace);
@@ -269,7 +292,7 @@ namespace empinquiry
                 ch_home_location.Visible = false;
                 lbl_homeloc.Visible = false;
             }
-        }   
+        }
 
         protected void btn_clear_Click(object sender, EventArgs e)
         {
@@ -463,7 +486,7 @@ namespace empinquiry
             }
         }
 
-        
+
 
         protected void home_location_CheckedChanged(object sender, EventArgs e)
         {
@@ -545,36 +568,27 @@ namespace empinquiry
         void saveSearchDetailsintoDB()
         {
             //TODO: Need to create table hd_ec_search_audit to log search details
-            //Need to test this method after creating the table
+            //Need to modify this method after creating the table
             try
             {
-                SQLProvider SqlDB = new SQLProvider();
-                string searchFilter = Global.searchQuery.Split(
-                    new string[] { " WHERE " }, StringSplitOptions.None)[1].Split(
-                    new string[] { " empos.position_start_date " }, StringSplitOptions.None)[0].Replace("AND", " ");
-                string currentDate = DateTime.Now.ToString("MMM/dd/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
-                string insertQuery = "INSERT INTO hd_ec_search_audit (employee_id, userid, search_parameters, search_date) " +
-                                     "VALUES (@employee_id, @username, @search_parameters, @search_date)";
-                SqlParameter[] parameters = new SqlParameter[]
-                {
-                    new SqlParameter("@employee_id", SqlDbType.Int) { Value = Convert.ToInt32(Session["employee_id"]) },
-                    new SqlParameter("@username", SqlDbType.NVarChar) { Value = Session["username"].ToString() },
-                    new SqlParameter("@search_parameters", SqlDbType.NVarChar) { Value = searchFilter },
-                    new SqlParameter("@search_date", SqlDbType.NVarChar) { Value = currentDate }
-                };
-                /*bool success;
-                SqlDB.ExecuteNonQuery(insertQuery,out success, parameters);
-                if (!success)
-                {
-                    Loggers.Log("Failed to log search details into database for user: " + Session["username"]);
-                }*/
+
+                string currenDate = DateTime.Now.ToString("MMM/dd/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
+
+                var query = "INSERT INTO hd_empinquiry_audit " +
+                "VALUES ('" + Session["ein"] + "','" + Session["firstname"] + "','" + Session["surname"] + "','" +
+                Session["email"] + "','" + Session["username"] + "','" + searchFilter + "','" + currenDate + "')";
+
+                string connString = ConfigurationManager.ConnectionStrings["SQLDB_HDHRP"].ConnectionString;
+                SqlConnection con = new SqlConnection(connString);
+                SqlCommand cmd = new SqlCommand(query, con);
+                con.Open();
+                cmd.ExecuteNonQuery();
+                con.Close();
             }
             catch (Exception ex)
             {
-                Loggers.Log("Error occurred while saving search details into DB from reports page by user: " + Session["username"] + " . Error: " + ex.Message);
-                Loggers.Log("Stack Trace: " + ex.StackTrace);
-                Loggers.Log("Inner Exception: " + (ex.InnerException != null ? ex.InnerException.Message : "N/A"));
-                Loggers.Log("Source: " + ex.Source);
+                Loggers.Log("Error inserting audit record: " + ex.Message);
+                throw new Exception("Error inserting audit record: " + ex.Message);
             }
         }
 
