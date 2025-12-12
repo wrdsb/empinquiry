@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Reflection.Emit;
 using System.Web;
 using System.Web.UI;
@@ -14,7 +16,7 @@ namespace empinquiry
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(IsPostBack)
+            if (IsPostBack)
                 return;
 
             if (Session["auditComplete"] == null || Convert.ToBoolean(Session["auditComplete"]) == false)
@@ -43,29 +45,32 @@ namespace empinquiry
 
         protected void btn_search_Click(object sender, EventArgs e)
         {
-            btn_search.Focus();
-            if (btn_search.Text == Resource.NextInquiry) 
-            {
-                //Loggers.Log("Redirecting to default.aspx for next inquiry by user: " + Session["username"]);
-                Response.Redirect("default.aspx");
-                return;
-            }
+            /* Next Inquiry button functionality is currently commented because of usability concerns */
+            //btn_search.Focus();
+            //if (btn_search.Text == Resource.NextInquiry) 
+            //{
+            //    //Loggers.Log("Redirecting to default.aspx for next inquiry by user: " + Session["username"]);
+            //    Response.Redirect("default.aspx");
+            //    return;
+            //}
             if (!GenerateQuery())
             {
                 return;
             }
-            btn_clear.Enabled = false;
+            //btn_clear.Enabled = false;
             showSearchData();
             BindTotalRecordCount();
-            btn_search.Text = Resource.NextInquiry;
-            Session["auditComplete"] = null;
+            saveSearchDetailsintoDB();
+            //btn_search.Text = Resource.NextInquiry;
+            //Session["auditComplete"] = null;
 
         }
 
+        string searchFilter = string.Empty;
         bool GenerateQuery()
         {
             //Loggers.Log("Building search query from reports page by user: " + Session["username"]);
-
+            searchFilter = string.Empty;
             try
             {
                 string query = "";
@@ -110,6 +115,27 @@ namespace empinquiry
                     string.IsNullOrEmpty(knownassurname) &&
                     string.IsNullOrEmpty(groupcode))
                     return false;
+                else
+                {
+                    var filtersObj = new
+                    {
+                        Empid = empid,
+                        Surname = surname,
+                        Firstname = firstname,
+                        Former = formername,
+                        Knownfirst = knownasfirstname,
+                        Knownlast = knownassurname,
+                        Pal = pal,
+                        Email = email,
+                        Phone = phone,
+                        Group = groupcode,
+                        Job = job.Replace("'", "''"),
+                        Status = status
+                    };
+
+                    searchFilter = "Search Parameters : " + JsonConvert.SerializeObject(filtersObj);
+
+                }
 
                 string jobcode = string.Empty;
                 bool jobQuery_AND = false;
@@ -128,7 +154,7 @@ namespace empinquiry
                         jobcode = job;
                     }
                 }
-                    
+
 
                 /*
                  * WHERE empos.home_location_ind = 'Y' 
@@ -182,7 +208,7 @@ namespace empinquiry
                 query += string.IsNullOrEmpty(formername) ? "" : "emp.former_name LIKE '%" + formername + "%' AND ";
                 query += string.IsNullOrEmpty(knownassurname) ? "" : "emp.known_as LIKE '%" + knownassurname + "%' AND ";
 
-                if(jobQuery_AND)
+                if (jobQuery_AND)
                 {
                     query += string.IsNullOrEmpty(job) ? "" : "job.description_text LIKE '%" + job + "%' AND job.job_code LIKE '%" + jobcode + "%' AND ";
                 }
@@ -218,13 +244,13 @@ namespace empinquiry
 
         protected void showSearchData()
         {
-            try 
+            try
             {
                 DataSource_search.SelectCommand = Global.searchQuery;
                 lv_search.DataBind();
-                lv_search.SelectedIndex = -1;             
+                lv_search.SelectedIndex = -1;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Loggers.Log("Error occurred while binding search query " + Session["username"] + " . Error: " + ex.Message);
                 Loggers.Log("Stack Trace: " + ex.StackTrace);
@@ -266,7 +292,7 @@ namespace empinquiry
                 ch_home_location.Visible = false;
                 lbl_homeloc.Visible = false;
             }
-        }   
+        }
 
         protected void btn_clear_Click(object sender, EventArgs e)
         {
@@ -460,7 +486,7 @@ namespace empinquiry
             }
         }
 
-        
+
 
         protected void home_location_CheckedChanged(object sender, EventArgs e)
         {
@@ -536,6 +562,33 @@ namespace empinquiry
                 Loggers.Log("Error in GetJob autocomplete method: " + ex.Message);
                 return result;
 
+            }
+        }
+
+        void saveSearchDetailsintoDB()
+        {
+            //TODO: Need to create table hd_ec_search_audit to log search details
+            //Need to modify this method after creating the table
+            try
+            {
+
+                string currenDate = DateTime.Now.ToString("MMM/dd/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
+
+                var query = "INSERT INTO hd_empinquiry_audit " +
+                "VALUES ('" + Session["ein"] + "','" + Session["firstname"] + "','" + Session["surname"] + "','" +
+                Session["email"] + "','" + Session["username"] + "','" + searchFilter + "','" + currenDate + "')";
+
+                string connString = ConfigurationManager.ConnectionStrings["SQLDB_HDHRP"].ConnectionString;
+                SqlConnection con = new SqlConnection(connString);
+                SqlCommand cmd = new SqlCommand(query, con);
+                con.Open();
+                cmd.ExecuteNonQuery();
+                con.Close();
+            }
+            catch (Exception ex)
+            {
+                Loggers.Log("Error inserting audit record: " + ex.Message);
+                throw new Exception("Error inserting audit record: " + ex.Message);
             }
         }
 
