@@ -84,6 +84,7 @@ namespace empinquiry
                 string knownassurname = tb_preferredsurname.Text;
                 if (phone.Length > 0) // work around to split area code from phone number
                 {
+                    phone = phone.Replace("'","''"); // replace single quote with double quote to avoid SQL error
                     if (phone.Length > 3)
                     {
                         area = phone.Substring(0, 3);
@@ -115,27 +116,25 @@ namespace empinquiry
                     string.IsNullOrEmpty(knownassurname) &&
                     string.IsNullOrEmpty(groupcode))
                     return false;
-                else
+
+                var filtersObj = new
                 {
-                    var filtersObj = new
-                    {
-                        Empid = empid,
-                        Surname = surname,
-                        Firstname = firstname,
-                        Former = formername,
-                        Knownfirst = knownasfirstname,
-                        Knownlast = knownassurname,
-                        Pal = pal,
-                        Email = email,
-                        Phone = phone,
-                        Group = groupcode,
-                        Job = job.Replace("'", "''"),
-                        Status = status
-                    };
+                    Empid = empid,
+                    Surname = surname,
+                    Firstname = firstname,
+                    Former = formername,
+                    Knownfirst = knownasfirstname,
+                    Knownlast = knownassurname,
+                    Pal = pal,
+                    Email = email,
+                    Phone = phone,
+                    Group = groupcode,
+                    Job = job,
+                    Status = status
+                };
 
-                    searchFilter = "Search Parameters : " + JsonConvert.SerializeObject(filtersObj);
-
-                }
+                searchFilter = "Search Parameters : " + JsonConvert.SerializeObject(filtersObj);
+                searchFilter = searchFilter.Replace("'", "''");// to avoid SQL error
 
                 string jobcode = string.Empty;
                 bool jobQuery_AND = false;
@@ -197,16 +196,16 @@ namespace empinquiry
 
 
 
-                query += string.IsNullOrEmpty(firstname) ? "" : "emp.first_name LIKE '%" + firstname + "%' AND ";
-                query += string.IsNullOrEmpty(surname) ? "" : "emp.surname LIKE '%" + surname + "%' AND ";
-                query += string.IsNullOrEmpty(knownasfirstname) ? "" : "emp.known_as_first LIKE '%" + knownasfirstname + "%' AND ";
+                query += string.IsNullOrEmpty(firstname) ? "" : "emp.first_name LIKE '%" + firstname.Replace("'", "''") + "%' AND ";
+                query += string.IsNullOrEmpty(surname) ? "" : "emp.surname LIKE '%" + surname.Replace("'", "''") + "%' AND ";
+                query += string.IsNullOrEmpty(knownasfirstname) ? "" : "emp.known_as_first LIKE '%" + knownasfirstname.Replace("'", "''") + "%' AND ";
                 query += string.IsNullOrEmpty(status) ? "" : "emp.emp_activity_code = '" + status + "' AND ";
-                query += string.IsNullOrEmpty(empid) ? "" : "emp.employee_id ='" + empid + "' AND ";
-                query += string.IsNullOrEmpty(email) ? "" : "emp.e_mail_address LIKE '%" + email + "%' AND ";
+                query += string.IsNullOrEmpty(empid) ? "" : "emp.employee_id ='" + empid.Replace("'", "''") + "' AND ";
+                query += string.IsNullOrEmpty(email) ? "" : "emp.e_mail_address LIKE '%" + email.Replace("'", "''") + "%' AND ";
                 query += string.IsNullOrEmpty(phone) ? "" : "emp.telephone_no LIKE '%" + phone + "%' AND ";
                 query += string.IsNullOrEmpty(area) ? "" : "emp.telephone_area LIKE '%" + area + "%' AND ";
-                query += string.IsNullOrEmpty(formername) ? "" : "emp.former_name LIKE '%" + formername + "%' AND ";
-                query += string.IsNullOrEmpty(knownassurname) ? "" : "emp.known_as LIKE '%" + knownassurname + "%' AND ";
+                query += string.IsNullOrEmpty(formername) ? "" : "emp.former_name LIKE '%" + formername.Replace("'", "''") + "%' AND ";
+                query += string.IsNullOrEmpty(knownassurname) ? "" : "emp.known_as LIKE '%" + knownassurname.Replace("'", "''") + "%' AND ";
 
                 if (jobQuery_AND)
                 {
@@ -215,9 +214,9 @@ namespace empinquiry
                 else
                     query += string.IsNullOrEmpty(job) ? "" : "(job.description_text LIKE '%" + job + "%' OR job.job_code LIKE '%" + jobcode + "%') AND ";
 
-                query += string.IsNullOrEmpty(pal) ? "" : "usr.user_id LIKE '%" + pal + "%' AND ";
+                query += string.IsNullOrEmpty(pal) ? "" : "usr.user_id LIKE '%" + pal.Replace("'", "''") + "%' AND ";
 
-                query += string.IsNullOrEmpty(groupcode) ? "" : "empos.emp_group_code LIKE '%" + groupcode + "%' AND ";
+                query += string.IsNullOrEmpty(groupcode) ? "" : "empos.emp_group_code LIKE '%" + groupcode.Replace("'", "''") + "%' AND ";
 
                 //query += @" empos.home_location_ind = 'Y' 
                 //        AND 
