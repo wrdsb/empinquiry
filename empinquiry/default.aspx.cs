@@ -55,6 +55,12 @@ namespace empinquiry
             var email = Session["email"];
             var userId = Session["username"];
             var purpose = tb_purpose.Text;
+
+            if(!string.IsNullOrEmpty(purpose))
+            {
+               purpose = purpose.Replace("'", "''");// to avoid SQL error;;
+            }
+
             string currenDate = DateTime.Now.ToString("MMM/dd/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
             try
             {
