@@ -134,7 +134,6 @@ namespace empinquiry
                 };
 
                 searchFilter = "Search Parameters : " + JsonConvert.SerializeObject(filtersObj);
-                searchFilter = searchFilter.Replace("'", "''");// to avoid SQL error
 
                 string jobcode = string.Empty;
                 bool jobQuery_AND = false;
