@@ -48,30 +48,32 @@ namespace empinquiry
 
         protected void btn_submit_Click(object sender, EventArgs e)
         {
-            //Loggers.Log("Submitting audit record for user: " + Session["username"]);
-            var employeeId = Session["ein"];
-            var surName = Session["surname"];
-            var firstName = Session["firstname"];
-            var email = Session["email"];
-            var userId = Session["username"];
-            var purpose = tb_purpose.Text;
-
-            if(!string.IsNullOrEmpty(purpose))
-            {
-               purpose = purpose.Replace("'", "''");// to avoid SQL error;;
-            }
-
-            string currenDate = DateTime.Now.ToString("MMM/dd/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
             try
             {
-                var query = "INSERT INTO hd_empinquiry_audit " +
-                "VALUES ('" + employeeId + "','" + firstName + "','" + surName + "','" + email + "','" + userId + "','" + purpose + "','" + currenDate + "')";
-                string connString = ConfigurationManager.ConnectionStrings["SQLDB_HDHRP"].ConnectionString;
-                SqlConnection con = new SqlConnection(connString);
-                SqlCommand cmd = new SqlCommand(query, con);
-                con.Open();
-                cmd.ExecuteNonQuery();
-                con.Close();
+                string connString = ConfigurationManager.ConnectionStrings["SQLDB_HDHRP"].ConnectionString;            
+                using (SqlConnection con = new SqlConnection(connString))
+                {
+                    con.Open();
+                    var query = "INSERT INTO hd_empinquiry_audit (employee_id, firstname, surname, emailaddress, userid, Purpose, inquiry_date) " +
+                                "VALUES (@empId, @firstName, @surName, @email, @userId, @purpose, @currenDate)";
+
+                    using (SqlCommand cmd = new SqlCommand(query, con))
+                    {
+                        string currenDate = DateTime.Now.ToString("MMM/dd/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
+
+                        cmd.Parameters.AddWithValue("@empId", Session["ein"]);
+                        cmd.Parameters.AddWithValue("@firstName", Session["firstname"]);
+                        cmd.Parameters.AddWithValue("@surName", Session["surname"]);
+                        cmd.Parameters.AddWithValue("@email", Session["email"]);
+                        cmd.Parameters.AddWithValue("@userId", Session["username"]);
+                        cmd.Parameters.AddWithValue("@purpose", tb_purpose.Text);   
+                        cmd.Parameters.AddWithValue("@currenDate", DateTime.Now);
+
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    con.Close();
+                }
             }
             catch (Exception ex)
             {
