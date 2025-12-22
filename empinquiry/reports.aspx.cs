@@ -134,7 +134,6 @@ namespace empinquiry
                 };
 
                 searchFilter = "Search Parameters : " + JsonConvert.SerializeObject(filtersObj);
-                searchFilter = searchFilter.Replace("'", "''");// to avoid SQL error
 
                 string jobcode = string.Empty;
                 bool jobQuery_AND = false;
@@ -566,23 +565,32 @@ namespace empinquiry
 
         void saveSearchDetailsintoDB()
         {
-            //TODO: Need to create table hd_ec_search_audit to log search details
-            //Need to modify this method after creating the table
             try
             {
-
-                string currenDate = DateTime.Now.ToString("MMM/dd/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
-
-                var query = "INSERT INTO hd_empinquiry_audit " +
-                "VALUES ('" + Session["ein"] + "','" + Session["firstname"] + "','" + Session["surname"] + "','" +
-                Session["email"] + "','" + Session["username"] + "','" + searchFilter + "','" + currenDate + "')";
-
                 string connString = ConfigurationManager.ConnectionStrings["SQLDB_HDHRP"].ConnectionString;
-                SqlConnection con = new SqlConnection(connString);
-                SqlCommand cmd = new SqlCommand(query, con);
-                con.Open();
-                cmd.ExecuteNonQuery();
-                con.Close();
+                using (SqlConnection con = new SqlConnection(connString))
+                {
+                    con.Open();
+                    var query = "INSERT INTO hd_empinquiry_audit (employee_id, firstname, surname, emailaddress, userid, Purpose, inquiry_date) " +
+                                "VALUES (@empId, @firstName, @surName, @email, @userId, @purpose, @currenDate)";
+
+                    using (SqlCommand cmd = new SqlCommand(query, con))
+                    {
+                        string currenDate = DateTime.Now.ToString("MMM/dd/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
+
+                        cmd.Parameters.AddWithValue("@empId", Session["ein"]);
+                        cmd.Parameters.AddWithValue("@firstName", Session["firstname"]);
+                        cmd.Parameters.AddWithValue("@surName", Session["surname"]);
+                        cmd.Parameters.AddWithValue("@email", Session["email"]);
+                        cmd.Parameters.AddWithValue("@userId", Session["username"]);
+                        cmd.Parameters.AddWithValue("@purpose", searchFilter);
+                        cmd.Parameters.AddWithValue("@currenDate", DateTime.Now);
+
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    con.Close();
+                }
             }
             catch (Exception ex)
             {
