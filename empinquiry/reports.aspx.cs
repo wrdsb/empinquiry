@@ -584,7 +584,7 @@ namespace empinquiry
                         cmd.Parameters.AddWithValue("@email", Session["email"]);
                         cmd.Parameters.AddWithValue("@userId", Session["username"]);
                         cmd.Parameters.AddWithValue("@purpose", searchFilter);
-                        cmd.Parameters.AddWithValue("@currenDate", currenDate);//DateTime.Now);
+                        cmd.Parameters.AddWithValue("@currenDate", DateTime.Now);
 
                         cmd.ExecuteNonQuery();
                     }
