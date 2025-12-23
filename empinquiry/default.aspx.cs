@@ -59,8 +59,6 @@ namespace empinquiry
 
                     using (SqlCommand cmd = new SqlCommand(query, con))
                     {
-                        string currenDate = DateTime.Now.ToString("MMM/dd/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
-
                         cmd.Parameters.AddWithValue("@empId", Session["ein"]);
                         cmd.Parameters.AddWithValue("@firstName", Session["firstname"]);
                         cmd.Parameters.AddWithValue("@surName", Session["surname"]);
