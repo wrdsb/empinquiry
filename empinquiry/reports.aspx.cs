@@ -59,7 +59,6 @@ namespace empinquiry
             }
             //btn_clear.Enabled = false;
             showSearchData();
-            BindTotalRecordCount();
             saveSearchDetailsintoDB();
             //btn_search.Text = Resource.NextInquiry;
             //Session["auditComplete"] = null;
@@ -278,19 +277,7 @@ namespace empinquiry
                 ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('An error occurred while fetching total record count. Please try again later.');", true);
             }
         }
-        void displayControlhomeLocation()
-        {
-            if (lv_search.Items.Count > 0)
-            {
-                ch_home_location.Visible = true;
-                lbl_homeloc.Visible = true;
-            }
-            else
-            {
-                ch_home_location.Visible = false;
-                lbl_homeloc.Visible = false;
-            }
-        }
+       
 
         protected void btn_clear_Click(object sender, EventArgs e)
         {
@@ -484,24 +471,6 @@ namespace empinquiry
             }
         }
 
-
-
-        protected void home_location_CheckedChanged(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(Global.searchQuery))
-                return;
-            if (ch_home_location.Checked)
-            {
-                Global.searchQuery = Global.searchQuery.Replace("WHERE ", "WHERE empos.home_location_ind = 'Y' AND ");
-            }
-            else
-            {
-                Global.searchQuery = Global.searchQuery.Replace("empos.home_location_ind = 'Y' AND ", " ");
-            }
-            showSearchData();
-            BindTotalRecordCount();
-
-        }
         [System.Web.Services.WebMethod]
         public static List<string> GetGroupCode(string prefix)
         {
@@ -597,5 +566,10 @@ namespace empinquiry
             }
         }
 
+        protected void DataSource_search_Selected(object sender, SqlDataSourceStatusEventArgs e)
+        {
+            int count = e.AffectedRows;
+            lblCount.Text = "Total Records: " + count.ToString();
+        }
     }
 }
