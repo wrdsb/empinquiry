@@ -10,3 +10,8 @@ AND TRY_PARSE(inquiry_date AS DATETIME USING 'en-US') IS NULL;
 
 UPDATE hd_empinquiry_audit
 SET inquiry_date = TRY_PARSE(inquiry_date AS DATETIME USING 'en-US');
+
+--Step 3: Alter Table
+
+ALTER TABLE hd_empinquiry_audit
+ALTER COLUMN inquiry_date DATETIME NULL;
