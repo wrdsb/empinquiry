@@ -64,7 +64,7 @@ namespace empinquiry
                         cmd.Parameters.AddWithValue("@surName", Session["surname"]);
                         cmd.Parameters.AddWithValue("@email", Session["email"]);
                         cmd.Parameters.AddWithValue("@userId", Session["username"]);
-                        cmd.Parameters.AddWithValue("@purpose", tb_purpose.Text);   
+                        cmd.Parameters.AddWithValue("@purpose", tb_purpose.Text.Trim());   
                         cmd.Parameters.AddWithValue("@currenDate", DateTime.Now);
 
                         cmd.ExecuteNonQuery();

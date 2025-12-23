@@ -6,6 +6,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Globalization;
 using System.Reflection.Emit;
+using System.Security.Cryptography;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -66,6 +67,77 @@ namespace empinquiry
         }
 
         string searchFilter = string.Empty;
+        string empid
+        {
+            get { return tb_empId.Text.Trim(); }
+        }
+
+        string surname
+        {
+            get { return tb_surname.Text.Trim(); }
+        }
+
+        string firstname
+        {
+            get { return tb_firstname.Text.Trim(); }
+        }
+
+        string formername
+        {
+            get { return tb_formername.Text.Trim(); }
+        }
+        string knownasfirstname
+        {
+            get { return tb_preferredfirstname.Text.Trim(); }
+        }
+        string knownassurname
+        {
+            get { return tb_preferredsurname.Text.Trim(); }
+        }
+        string pal
+        {
+            get { return tb_pal.Text.Trim(); }
+        }
+        string email
+        {
+            get { return tb_email.Text.Trim(); }
+        }
+     
+        string phone
+        {
+            get { return tb_phone.Text.Trim(); }
+        }
+        string phonewithoutarea
+        {
+            get; set;
+        }
+        string area
+        {
+            get; set;
+        }
+        string groupcode
+        {
+            get { return tb_grpcode.Text.Trim(); }
+        }
+        string job
+        {
+            get { return tb_job.Text.Trim(); }
+        }
+        string jobdesc
+        {
+            get; set;
+        }
+        string jobcode
+        {
+            get; set;
+        }
+        string status
+        {
+            get { return ddl_status.SelectedValue; }
+        }
+
+        
+
         bool GenerateQuery()
         {
             //Loggers.Log("Building search query from reports page by user: " + Session["username"]);
@@ -73,34 +145,22 @@ namespace empinquiry
             try
             {
                 string query = "";
-                string firstname = tb_firstname.Text;
-                string surname = tb_surname.Text;
-                string knownasfirstname = tb_preferredfirstname.Text;
-                string pal = tb_pal.Text;
-                string email = tb_email.Text;
-                string phone = tb_phone.Text;
-                string area = string.Empty;
-                string knownassurname = tb_preferredsurname.Text;
+                 
                 if (phone.Length > 0) // work around to split area code from phone number
                 {
-                    phone = phone.Replace("'","''"); // replace single quote with double quote to avoid SQL error
                     if (phone.Length > 3)
                     {
                         area = phone.Substring(0, 3);
-                        phone = phone.Substring(3);
+                        phonewithoutarea = phone.Substring(3);
                     }
                     else
                     {
                         area = phone;
-                        phone = string.Empty;
+                        phonewithoutarea = string.Empty;
                     }
                 }
 
-                string empid = tb_empId.Text;
-                string job = tb_job.Text;
-                string status = ddl_status.SelectedValue;
-                string formername = tb_formername.Text;
-                string groupcode = tb_grpcode.Text;
+                
 
                 if (string.IsNullOrEmpty(surname) &&
                     string.IsNullOrEmpty(knownasfirstname) &&
@@ -134,15 +194,14 @@ namespace empinquiry
 
                 searchFilter = "Search Parameters : " + JsonConvert.SerializeObject(filtersObj);
 
-                string jobcode = string.Empty;
+                 
                 bool jobQuery_AND = false;
                 if (!string.IsNullOrEmpty(job))
                 {
-                    job = job.Replace("'", "''"); // replace single quote with double quote to avoid SQL error
                     if (job.Contains(" - "))
                     {
                         jobcode = job.Split(new string[] { " - " }, StringSplitOptions.None)[0];
-                        job = job.Split(new string[] { " - " }, StringSplitOptions.None)[1];
+                        jobdesc = job.Split(new string[] { " - " }, StringSplitOptions.None)[1];
                         jobQuery_AND = true;
 
                     }
@@ -194,27 +253,27 @@ namespace empinquiry
 
 
 
-                query += string.IsNullOrEmpty(firstname) ? "" : "emp.first_name LIKE '%" + firstname.Replace("'", "''") + "%' AND ";
-                query += string.IsNullOrEmpty(surname) ? "" : "emp.surname LIKE '%" + surname.Replace("'", "''") + "%' AND ";
-                query += string.IsNullOrEmpty(knownasfirstname) ? "" : "emp.known_as_first LIKE '%" + knownasfirstname.Replace("'", "''") + "%' AND ";
-                query += string.IsNullOrEmpty(status) ? "" : "emp.emp_activity_code = '" + status + "' AND ";
-                query += string.IsNullOrEmpty(empid) ? "" : "emp.employee_id ='" + empid.Replace("'", "''") + "' AND ";
-                query += string.IsNullOrEmpty(email) ? "" : "emp.e_mail_address LIKE '%" + email.Replace("'", "''") + "%' AND ";
-                query += string.IsNullOrEmpty(phone) ? "" : "emp.telephone_no LIKE '%" + phone + "%' AND ";
-                query += string.IsNullOrEmpty(area) ? "" : "emp.telephone_area LIKE '%" + area + "%' AND ";
-                query += string.IsNullOrEmpty(formername) ? "" : "emp.former_name LIKE '%" + formername.Replace("'", "''") + "%' AND ";
-                query += string.IsNullOrEmpty(knownassurname) ? "" : "emp.known_as LIKE '%" + knownassurname.Replace("'", "''") + "%' AND ";
+                query += string.IsNullOrEmpty(firstname) ? "" : "emp.first_name LIKE '%' +@firstname+ '%' AND ";
+                query += string.IsNullOrEmpty(surname) ? "" : "emp.surname LIKE '%' + @surname+ '%' AND ";
+                query += string.IsNullOrEmpty(knownasfirstname) ? "" : "emp.known_as_first LIKE '%' +@knownasfirstname+ '%' AND ";
+                query += string.IsNullOrEmpty(status) ? "" : "emp.emp_activity_code = @status  AND ";
+                query += string.IsNullOrEmpty(empid) ? "" : "emp.employee_id = @empid AND ";
+                query += string.IsNullOrEmpty(email) ? "" : "emp.e_mail_address LIKE '%' +@email+ '%' AND ";
+                query += string.IsNullOrEmpty(phonewithoutarea) ? "" : "emp.telephone_no LIKE '%' + @phonewithoutarea + '%' AND ";
+                query += string.IsNullOrEmpty(area) ? "" : "emp.telephone_area LIKE '%' + @area + '%' AND ";
+                query += string.IsNullOrEmpty(formername) ? "" : "emp.former_name LIKE '%' + @formername + '%' AND ";
+                query += string.IsNullOrEmpty(knownassurname) ? "" : "emp.known_as LIKE '%' + @knownassurname + '%' AND ";
 
                 if (jobQuery_AND)
                 {
-                    query += string.IsNullOrEmpty(job) ? "" : "job.description_text LIKE '%" + job + "%' AND job.job_code LIKE '%" + jobcode + "%' AND ";
+                    query += string.IsNullOrEmpty(job) ? "" : "job.description_text LIKE '%' + @jobdesc + '%' AND job.job_code LIKE '%' + @jobcode + '%' AND ";
                 }
                 else
-                    query += string.IsNullOrEmpty(job) ? "" : "(job.description_text LIKE '%" + job + "%' OR job.job_code LIKE '%" + jobcode + "%') AND ";
+                    query += string.IsNullOrEmpty(job) ? "" : "(job.description_text LIKE '%' + @jobdesc + '%' OR job.job_code LIKE '%' + @jobcode + '%') AND ";
 
-                query += string.IsNullOrEmpty(pal) ? "" : "usr.user_id LIKE '%" + pal.Replace("'", "''") + "%' AND ";
+                query += string.IsNullOrEmpty(pal) ? "" : "usr.user_id LIKE '%' + @pal + '%' AND ";
 
-                query += string.IsNullOrEmpty(groupcode) ? "" : "empos.emp_group_code LIKE '%" + groupcode.Replace("'", "''") + "%' AND ";
+                query += string.IsNullOrEmpty(groupcode) ? "" : "empos.emp_group_code LIKE '%' + @groupcode + '%' AND ";
 
                 //query += @" empos.home_location_ind = 'Y' 
                 //        AND 
@@ -244,6 +303,37 @@ namespace empinquiry
             try
             {
                 DataSource_search.SelectCommand = Global.searchQuery;
+                // Clear old parameters(important!)
+                DataSource_search.SelectParameters.Clear();
+
+                if (!string.IsNullOrEmpty(firstname))
+                    DataSource_search.SelectParameters.Add("firstname", firstname);
+                if(!string.IsNullOrEmpty(surname))
+                    DataSource_search.SelectParameters.Add("surname", surname);
+                if(!string.IsNullOrEmpty(knownasfirstname))
+                    DataSource_search.SelectParameters.Add("knownasfirstname", knownasfirstname);
+                if(!string.IsNullOrEmpty(status))
+                    DataSource_search.SelectParameters.Add("status", status);
+                if(!string.IsNullOrEmpty(empid))
+                    DataSource_search.SelectParameters.Add("empid", empid);
+                if(!string.IsNullOrEmpty(email))
+                    DataSource_search.SelectParameters.Add("email", email);
+                if(!string.IsNullOrEmpty(phonewithoutarea))
+                    DataSource_search.SelectParameters.Add("phonewithoutarea", phonewithoutarea);
+                if(!string.IsNullOrEmpty(area))
+                    DataSource_search.SelectParameters.Add("area", area);
+                if(!string.IsNullOrEmpty(formername))
+                    DataSource_search.SelectParameters.Add("formername", formername);
+                if(!string.IsNullOrEmpty(knownassurname))
+                    DataSource_search.SelectParameters.Add("knownassurname", knownassurname);
+                if(!string.IsNullOrEmpty(jobcode))
+                    DataSource_search.SelectParameters.Add("jobcode", jobcode);
+                if(!string.IsNullOrEmpty(jobdesc))
+                    DataSource_search.SelectParameters.Add("jobdesc", jobdesc);
+                if(!string.IsNullOrEmpty(pal))
+                    DataSource_search.SelectParameters.Add("pal", pal);
+                if(!string.IsNullOrEmpty(groupcode))
+                    DataSource_search.SelectParameters.Add("groupcode", groupcode);
                 lv_search.DataBind();
                 lv_search.SelectedIndex = -1;
             }
