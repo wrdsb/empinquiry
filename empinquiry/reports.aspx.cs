@@ -45,25 +45,14 @@ namespace empinquiry
 
 
         protected void btn_search_Click(object sender, EventArgs e)
-        {
-            /* Next Inquiry button functionality is currently commented because of usability concerns */
-            //btn_search.Focus();
-            //if (btn_search.Text == Resource.NextInquiry) 
-            //{
-            //    //Loggers.Log("Redirecting to default.aspx for next inquiry by user: " + Session["username"]);
-            //    Response.Redirect("default.aspx");
-            //    return;
-            //}
+        {            
             if (!GenerateQuery())
             {
                 return;
             }
-            //btn_clear.Enabled = false;
+            
             showSearchData();
-            saveSearchDetailsintoDB();
-            //btn_search.Text = Resource.NextInquiry;
-            //Session["auditComplete"] = null;
-
+            saveSearchDetailsintoDB();            
         }
 
         string searchFilter = string.Empty;
@@ -128,25 +117,12 @@ namespace empinquiry
             searchFilter = string.Empty;
             Session["area"] = string.Empty;
             Session["phonewithoutarea"] = string.Empty;
+            Session["jobcode"] = string.Empty;
+            Session["jobdesc"] = string.Empty;
+
             try
             {
-                string query = "";
-                 
-                if (phone.Length > 0) // work around to split area code from phone number
-                {
-                    if (phone.Length > 3)
-                    {
-                        Session["area"] = phone.Substring(0, 3);
-                        Session["phonewithoutarea"] = phone.Substring(3);
-                    }
-                    else
-                    {
-                        Session["area"] = phone;
-                        Session["phonewithoutarea"] = string.Empty;
-                    }
-                }
-
-                
+                string query = "";                                 
 
                 if (string.IsNullOrEmpty(surname) &&
                     string.IsNullOrEmpty(knownasfirstname) &&
@@ -180,9 +156,23 @@ namespace empinquiry
 
                 searchFilter = "Search Parameters : " + JsonConvert.SerializeObject(filtersObj);
 
-                 
+                if (!string.IsNullOrEmpty(phone)) // work around to split area code from phone number
+                {
+                    if (phone.Length > 3)
+                    {
+                        Session["area"] = phone.Substring(0, 3);
+                        Session["phonewithoutarea"] = phone.Substring(3);
+                    }
+                    else
+                    {
+                        Session["area"] = phone;
+                        Session["phonewithoutarea"] = string.Empty;
+                    }
+                }
+
+
                 bool jobQuery_AND = false;
-                if (!string.IsNullOrEmpty(job))
+                if (!string.IsNullOrEmpty(job))// work around to split job code from job description
                 {
                     if (job.Contains(" - "))
                     {
