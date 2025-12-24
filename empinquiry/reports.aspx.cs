@@ -107,14 +107,7 @@ namespace empinquiry
         {
             get { return tb_phone.Text.Trim(); }
         }
-        string phonewithoutarea
-        {
-            get; set;
-        }
-        string area
-        {
-            get; set;
-        }
+       
         string groupcode
         {
             get { return tb_grpcode.Text.Trim(); }
@@ -123,21 +116,12 @@ namespace empinquiry
         {
             get { return tb_job.Text.Trim(); }
         }
-        string jobdesc
-        {
-            get; set;
-        }
-        string jobcode
-        {
-            get; set;
-        }
         string status
         {
             get { return ddl_status.SelectedValue; }
         }
 
         
-
         bool GenerateQuery()
         {
             //Loggers.Log("Building search query from reports page by user: " + Session["username"]);
