@@ -59,14 +59,12 @@ namespace empinquiry
 
                     using (SqlCommand cmd = new SqlCommand(query, con))
                     {
-                        string currenDate = DateTime.Now.ToString("MMM/dd/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
-
                         cmd.Parameters.AddWithValue("@empId", Session["ein"]);
                         cmd.Parameters.AddWithValue("@firstName", Session["firstname"]);
                         cmd.Parameters.AddWithValue("@surName", Session["surname"]);
                         cmd.Parameters.AddWithValue("@email", Session["email"]);
                         cmd.Parameters.AddWithValue("@userId", Session["username"]);
-                        cmd.Parameters.AddWithValue("@purpose", tb_purpose.Text);   
+                        cmd.Parameters.AddWithValue("@purpose", tb_purpose.Text.Trim());   
                         cmd.Parameters.AddWithValue("@currenDate", DateTime.Now);
 
                         cmd.ExecuteNonQuery();
