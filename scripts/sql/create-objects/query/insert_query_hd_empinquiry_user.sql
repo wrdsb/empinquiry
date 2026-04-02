@@ -31,6 +31,9 @@ insert into [hd_empinquiry_user] values('46573','PATELPA',1) -- Patel, Parth
 insert into [hd_empinquiry_user] values('46420','KIMPTOA',1) -- Kimpton, Alexander
 insert into [hd_empinquiry_user] values('14426','SandhaE',1) -- Sandham, Elaine
 
+/* Gave access to employee as per Robert's request */
+insert into [hd_empinquiry_user] values('49099','ajiboya', 1) --Amos Ajiboye
+
 
 
 
