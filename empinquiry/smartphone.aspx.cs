@@ -11,6 +11,30 @@ namespace empinquiry
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (IsPostBack)
+                return;
+
+            if (Session["auditComplete"] == null || Convert.ToBoolean(Session["auditComplete"]) == false)
+            {
+                Response.Redirect("Login.aspx");
+            }
+
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            Response.Cache.SetAllowResponseInBrowserHistory(false);
+            Response.Cache.SetExpires(DateTime.UtcNow.AddHours(-1));
+            Response.Cache.SetNoStore();
+
+            if (!Page.IsPostBack)
+            {
+                if (Session["surname"] == null || Session["firstname"] == null)
+                {
+                    Session.Clear();
+                    Session.Abandon();
+
+                    Response.Redirect("login.aspx");
+                }
+
+            }
 
         }
     }
