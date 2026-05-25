@@ -19,7 +19,8 @@ namespace empinquiry
                 lbl_username.Text = Context.User.Identity.Name;
 
                 reports_link.Visible = false;
-                
+                smartphone_link.Visible = false;
+
             }
 
             
@@ -30,6 +31,7 @@ namespace empinquiry
                 if (auditComplete == true)
                 {
                     reports_link.Visible = true;
+                    smartphone_link.Visible = true;
                 }
             }
 
@@ -66,7 +68,10 @@ namespace empinquiry
                     break;
                 case "reports.aspx":
                     reports_link.Attributes["class"] = "active";
-                    break;                
+                    break;   
+                case "smartphone.aspx":
+                    smartphone_link.Attributes["class"] = "active";
+                    break;
             }
         }
         private string GetPageName()

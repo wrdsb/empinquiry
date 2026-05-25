@@ -287,6 +287,7 @@
     <Content Include="default.aspx" />
     <Content Include="Global.asax" />
     <Content Include="reports.aspx" />
+    <Content Include="smartphone.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -339,6 +340,13 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="smartphone.aspx.cs">
+      <DependentUpon>smartphone.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="smartphone.aspx.designer.cs">
+      <DependentUpon>smartphone.aspx</DependentUpon>
     </Compile>
     <Compile Include="SQLProvider.cs" />
     <Compile Include="Startup.cs" />
