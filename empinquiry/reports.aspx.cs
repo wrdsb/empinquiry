@@ -254,9 +254,9 @@ namespace empinquiry
 
                 //query += @" empos.home_location_ind = 'Y' 
                 //        AND 
-                query += @" empos.position_start_date <= getdate() 
-                        AND 
-                        (empos.position_end_date IS NULL OR empos.position_end_date = emp.termination_date)";
+                query += @" empos.position_start_date <= getdate() ";
+                /*AND 
+                (empos.position_end_date IS NULL OR empos.position_end_date = emp.termination_date)";*/ // -- Fix to display all the records of the employee. Ticket # T2605-02406
 
 
                 query += " ORDER BY emp.employee_id ASC";
