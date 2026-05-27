@@ -31,7 +31,10 @@ namespace empinquiry
                 if (auditComplete == true)
                 {
                     reports_link.Visible = true;
-                    smartphone_link.Visible = true;
+
+                    //By default, smartphone tab is set to visible and active here. It's hidden on the reports page. 
+                    smartphone_link.Visible = true; 
+                    smartphone_link.Attributes["class"] = "active"; 
                 }
             }
 
@@ -67,11 +70,9 @@ namespace empinquiry
                     home_link.Attributes["class"] = "active";
                     break;
                 case "reports.aspx":
+                    smartphone_link.Visible = false; // Hide smartphone tab on reports page
                     reports_link.Attributes["class"] = "active";
                     break;   
-                case "smartphone.aspx":
-                    smartphone_link.Attributes["class"] = "active";
-                    break;
             }
         }
         private string GetPageName()

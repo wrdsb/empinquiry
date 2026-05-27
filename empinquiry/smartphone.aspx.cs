@@ -34,6 +34,7 @@ namespace empinquiry
 
                     Response.Redirect("login.aspx");
                 }
+                string empId = Request.QueryString["id"];
 
                 BindGrid();
 

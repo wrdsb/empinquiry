@@ -55,8 +55,8 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container">
-    <div class="row">
-        <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-12">
                 <asp:Panel ID="pnlSearch" runat="server" DefaultButton="btn_search">
                     <asp:Table runat="server">
                         <asp:TableRow>
@@ -175,7 +175,13 @@
                     <ItemTemplate>
                         <tr>
                             <td>
-                                <asp:Label ID="lbl_empId" runat="server" Text='<%#Eval("employee_id")%>'></asp:Label></td>
+                                <asp:HyperLink 
+                                    ID="lbl_empId" 
+                                    runat="server"
+                                    Text='<%# Eval("employee_id") %>'
+                                    NavigateUrl='<%# "smartphone.aspx?id=" + Eval("employee_id") %>'>
+                                </asp:HyperLink>
+                            </td>
                             <td>
                                 <asp:Label ID="lbl_name" runat="server"
                                     Text='<%# String.Format("{0}, {1}", Eval("surname"),Eval("first_name")) %>'>
@@ -204,7 +210,7 @@
                                 <asp:Label ID="lbl_jobdesc" runat="server" Text='<%#Eval("description_text") %>'></asp:Label></td>
                             <td>
                                 <asp:Label ID="lbl_group_code" runat="server" Text='<%#Eval("emp_group_code")%>'></asp:Label></td>
-                            <td style="text-align:center">
+                            <td style="text-align: center">
                                 <asp:Label ID="lbl_homelocation" runat="server" Text='<%#Eval("home_location_ind")%>'></asp:Label></td>
                             <%--
                             <td>
@@ -266,7 +272,13 @@
                     <SelectedItemTemplate>
                         <tr style="background-color: lightcyan">
                             <td>
-                                <asp:Label ID="lbl_empId" runat="server" Text='<%#Eval("employee_id")%>'></asp:Label></td>
+                                <asp:HyperLink 
+                                    ID="lbl_empId" 
+                                    runat="server"
+                                    Text='<%# Eval("employee_id") %>'
+                                    NavigateUrl='<%# "smartphone.aspx?id=" + Eval("employee_id") %>'>
+                                </asp:HyperLink>
+                            </td>
                             <td>
                                 <asp:Label ID="lbl_name" runat="server"
                                     Text='<%# String.Format("{0}, {1}", Eval("surname"),Eval("first_name")) %>'>
@@ -295,7 +307,7 @@
                                 <asp:Label ID="lbl_jobdesc" runat="server" Text='<%#Eval("description_text") %>'></asp:Label></td>
                             <td>
                                 <asp:Label ID="lbl_group_code" runat="server" Text='<%#Eval("emp_group_code")%>'></asp:Label></td>
-                            <td style="text-align:center">
+                            <td style="text-align: center">
                                 <asp:Label ID="lbl_homelocation" runat="server" Text='<%#Eval("home_location_ind")%>'></asp:Label></td>
                             <%--
                             <td>
@@ -356,8 +368,8 @@
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:Label ID="lblCount" runat="server" CssClass="text-info"></asp:Label>
-                
-                
+
+
             </div>
         </div>
     </div>
@@ -372,7 +384,7 @@
     </div>
 
 
-    <asp:SqlDataSource ID="DataSource_search" runat="server" ConnectionString="<%$ ConnectionStrings:SQLDB %>" OnSelected ="DataSource_search_Selected"></asp:SqlDataSource>
+    <asp:SqlDataSource ID="DataSource_search" runat="server" ConnectionString="<%$ ConnectionStrings:SQLDB %>" OnSelected="DataSource_search_Selected"></asp:SqlDataSource>
     <asp:SqlDataSource ID="SqlDataSource_status" runat="server" ConnectionString="<%$ ConnectionStrings:SQLDB %>"
         SelectCommand="SELECT DISTINCT(emp_activity_code) FROM ec_employee ORDER BY emp_activity_code"></asp:SqlDataSource>
 </asp:Content>
