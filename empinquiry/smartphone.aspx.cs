@@ -53,8 +53,8 @@ namespace empinquiry
             // Sample data row
             dt.Rows.Add(DateTime.Now, "555-0199", "Gold", "Phone Case", "Yes", "$50", DateTime.Now.AddMonths(6), "Completed", "N/A");
 
-            gvOrders.DataSource = dt;
-            gvOrders.DataBind();
+            smartphoneOrdersGrid.DataSource = dt;
+            smartphoneOrdersGrid.DataBind();
         }
 
         protected void btnAdd_Click(object sender, EventArgs e)

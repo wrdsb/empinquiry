@@ -18,7 +18,7 @@
             <div class="col-md-12">
 
                  <!-- For Grid -->
-                <asp:GridView ID="gvOrders" runat="server" AutoGenerateColumns="False" CssClass="table table-striped">
+                <asp:GridView ID="smartphoneOrdersGrid" runat="server" AutoGenerateColumns="False" CssClass="table table-striped">
                     <Columns>
                         <asp:BoundField DataField="OrderDate" HeaderText="Order Date" DataFormatString="{0:MM/dd/yyyy}" />
                         <asp:BoundField DataField="Phone" HeaderText="Phone #" />
