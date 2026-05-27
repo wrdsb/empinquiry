@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -34,8 +35,34 @@ namespace empinquiry
                     Response.Redirect("login.aspx");
                 }
 
+                BindGrid();
+
             }
 
+        }
+        private void BindGrid()
+        {
+            // Replace this with your actual data retrieval logic
+            DataTable dt = new DataTable();
+            dt.Columns.AddRange(new DataColumn[9] {
+                new DataColumn("OrderDate"), new DataColumn("Phone"), new DataColumn("Tier"),
+                new DataColumn("Item"), new DataColumn("Rogers"), new DataColumn("BoardPaid"),
+                new DataColumn("EligibleDate"), new DataColumn("Forms"), new DataColumn("Notes")
+            });
+
+            // Sample data row
+            dt.Rows.Add(DateTime.Now, "555-0199", "Gold", "Phone Case", "Yes", "$50", DateTime.Now.AddMonths(6), "Completed", "N/A");
+
+            gvOrders.DataSource = dt;
+            gvOrders.DataBind();
+        }
+
+        protected void btnAdd_Click(object sender, EventArgs e)
+        {
+            // Logic to add a new order
+            // You can collect data from input fields and insert it into your database
+            // After adding, re-bind the grid to show the new data
+            BindGrid();
         }
     }
 }
