@@ -16,6 +16,11 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
+                <asp:Label ID="lblSelectedEmployee"
+                    runat="server"
+                    Font-Bold="true"
+                    ForeColor="LightBlue">
+                </asp:Label>
 
                  <!-- For Grid -->
                 <asp:GridView ID="smartphoneOrdersGrid" runat="server" AutoGenerateColumns="False" CssClass="table table-striped">

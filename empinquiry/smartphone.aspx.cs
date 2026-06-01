@@ -35,6 +35,7 @@ namespace empinquiry
                     Response.Redirect("login.aspx");
                 }
                 string empId = Request.QueryString["id"];
+                lblSelectedEmployee.Text = $"Selected Employee ID is {empId}";
 
                 BindGrid();
 
