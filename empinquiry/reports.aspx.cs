@@ -387,7 +387,24 @@ namespace empinquiry
         protected void btn_clear_Click(object sender, EventArgs e)
         {
             Global.searchQuery = string.Empty;
+            clearSessionValues();
             Response.Redirect("reports.aspx");
+        }
+
+        void clearSessionValues()
+        {
+            Session["empId_text"] = null;
+            Session["surname_text"] = null;
+            Session["firstname_text"] = null;
+            Session["formername_text"] = null;
+            Session["knownasfirstname_text"] = null;
+            Session["knownassurname_text"] = null;
+            Session["pal_text"] = null;
+            Session["email_text"] = null;
+            Session["phone_text"] = null;
+            Session["groupcode_text"] = null;
+            Session["job_text"] = null;
+            Session["status_list"] = null;
         }
 
         protected void lv_search_ItemCommand(object sender, ListViewCommandEventArgs e)

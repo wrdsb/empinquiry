@@ -79,7 +79,25 @@ namespace empinquiry
                 throw new Exception("Error inserting audit record: " + ex.Message);
             }
             Session["auditComplete"] = true;
+            clearSession();
             Response.Redirect("reports.aspx");
+
+        }
+        void clearSession()
+        {   
+            Global.searchQuery = string.Empty;
+            Session["empId_text"] = null;
+            Session["surname_text"] = null;
+            Session["firstname_text"] = null;
+            Session["formername_text"] = null;
+            Session["knownasfirstname_text"] = null;
+            Session["knownassurname_text"] = null;
+            Session["pal_text"] = null;
+            Session["email_text"] = null;
+            Session["phone_text"] = null;
+            Session["groupcode_text"] = null;
+            Session["job_text"] = null;
+            Session["status_list"] = null;
 
         }
     }
