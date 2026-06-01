@@ -175,12 +175,13 @@
                     <ItemTemplate>
                         <tr>
                             <td>
-                                <asp:HyperLink 
-                                    ID="lbl_empId" 
+                                <asp:LinkButton  
+                                    ID="linkButtonEmpId" 
                                     runat="server"
                                     Text='<%# Eval("employee_id") %>'
-                                    NavigateUrl='<%# "smartphone.aspx?id=" + Eval("employee_id") %>'>
-                                </asp:HyperLink>
+                                    CommandArgument='<%# Eval("employee_id") %>'
+                                    OnClick="linkButtonEmpId_click">
+                                </asp:LinkButton>
                             </td>
                             <td>
                                 <asp:Label ID="lbl_name" runat="server"
@@ -272,12 +273,13 @@
                     <SelectedItemTemplate>
                         <tr style="background-color: lightcyan">
                             <td>
-                                <asp:HyperLink 
-                                    ID="lbl_empId" 
-                                    runat="server"
-                                    Text='<%# Eval("employee_id") %>'
-                                    NavigateUrl='<%# "smartphone.aspx?id=" + Eval("employee_id") %>'>
-                                </asp:HyperLink>
+                               <asp:LinkButton  
+                                ID="linkButtonEmpId" 
+                                runat="server"
+                                Text='<%# Eval("employee_id") %>'
+                                CommandArgument='<%# Eval("employee_id") %>'
+                                OnClick="linkButtonEmpId_click">
+                            </asp:LinkButton>
                             </td>
                             <td>
                                 <asp:Label ID="lbl_name" runat="server"

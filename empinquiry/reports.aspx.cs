@@ -39,6 +39,27 @@ namespace empinquiry
 
                     Response.Redirect("login.aspx");
                 }
+                string qry = Global.searchQuery;
+
+                if(!string.IsNullOrEmpty(qry)) // if redirected from smartphone page.
+                {
+                    tb_empId.Text = Session["empId_text"] != null ? Session["empId_text"].ToString() : string.Empty;
+                    tb_surname.Text = Session["surname_text"] != null ? Session["surname_text"].ToString() : string.Empty;
+                    tb_firstname.Text = Session["firstname_text"] != null ? Session["firstname_text"].ToString() : string.Empty;
+                    tb_formername.Text = Session["formername_text"] != null ? Session["formername_text"].ToString() : string.Empty;
+                    tb_preferredfirstname.Text = Session["knownasfirstname_text"] != null ? Session["knownasfirstname_text"].ToString() : string.Empty;
+                    tb_preferredsurname.Text = Session["knownassurname_text"] != null ? Session["knownassurname_text"].ToString() : string.Empty;
+                    tb_pal.Text = Session["pal_text"] != null ? Session["pal_text"].ToString() : string.Empty;
+                    tb_email.Text = Session["email_text"] != null ? Session["email_text"].ToString() : string.Empty;
+                    tb_phone.Text = Session["phone_text"] != null ? Session["phone_text"].ToString() : string.Empty;
+                    tb_grpcode.Text = Session["groupcode_text"] != null ? Session["groupcode_text"].ToString() : string.Empty;
+                    tb_job.Text = Session["job_text"] != null ? Session["job_text"].ToString() : string.Empty;
+
+                    if (Session["status_list"] != null)
+                        ddl_status.SelectedValue = Session["status_list"].ToString();
+
+                    showSearchData();
+                }
 
             }
         }
@@ -365,6 +386,7 @@ namespace empinquiry
 
         protected void btn_clear_Click(object sender, EventArgs e)
         {
+            Global.searchQuery = string.Empty;
             Response.Redirect("reports.aspx");
         }
 
@@ -654,6 +676,31 @@ namespace empinquiry
         {
             int count = e.AffectedRows;
             lblCount.Text = "Total Records: " + count.ToString();
+        }
+        protected void linkButtonEmpId_click(object sender, EventArgs e)
+        {
+            LinkButton btn = (LinkButton)sender;
+
+            Session["empId_text"] = tb_empId.Text.Trim();
+            Session["surname_text"] = tb_surname.Text.Trim();
+            Session["firstname_text"] = tb_firstname.Text.Trim();
+            Session["formername_text"] = tb_formername.Text.Trim();
+            Session["knownasfirstname_text"] = tb_preferredfirstname.Text.Trim();
+            Session["knownassurname_text"] = tb_preferredsurname.Text.Trim();
+            Session["pal_text"] = tb_pal.Text.Trim();
+            Session["email_text"] = tb_email.Text.Trim();
+            Session["phone_text"] = tb_phone.Text.Trim();
+            Session["groupcode_text"] = tb_grpcode.Text.Trim();
+            Session["job_text"] = tb_job.Text.Trim();
+            
+
+            if(!string.IsNullOrEmpty(ddl_status.SelectedValue.ToString().Trim()))
+                Session["status_list"] = ddl_status.SelectedValue.ToString().Trim();
+
+
+            string empId = btn.CommandArgument;
+            // Redirect to smartphone page
+            Response.Redirect("smartphone.aspx?id=" + empId);
         }
     }
 }
