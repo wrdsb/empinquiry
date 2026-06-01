@@ -34,8 +34,9 @@ namespace empinquiry
 
                     Response.Redirect("login.aspx");
                 }
-                string empId = Request.QueryString["id"];
-                lblSelectedEmployee.Text = $"Selected Employee ID is {empId}";
+                string empId = Session["selectedEmpId"].ToString();
+                string empName = $"{Session["selectedFirstname"]} {Session["selectedSurname"]}";
+                lblSelectedEmployee.Text = $"Selected employee record is {empId} - {empName}";
 
                 BindGrid();
 

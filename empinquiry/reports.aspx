@@ -179,7 +179,7 @@
                                     ID="linkButtonEmpId" 
                                     runat="server"
                                     Text='<%# Eval("employee_id") %>'
-                                    CommandArgument='<%# Eval("employee_id") %>'
+                                    CommandArgument='<%# Eval("employee_id") + ";" + Eval("surname") + ";" + Eval("first_name") %>'
                                     OnClick="linkButtonEmpId_click">
                                 </asp:LinkButton>
                             </td>

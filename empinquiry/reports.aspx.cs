@@ -713,11 +713,24 @@ namespace empinquiry
 
             if(!string.IsNullOrEmpty(ddl_status.SelectedValue.ToString().Trim()))
                 Session["status_list"] = ddl_status.SelectedValue.ToString().Trim();
+         
+            // Retrieve the single string from the CommandArgument
+            string commandArgs = btn.CommandArgument;
 
+            // Split the string using the semicolon separator
+            string[] args = commandArgs.Split(';');
 
-            string empId = btn.CommandArgument;
+            // Access the individual values
+            string empId = args[0];
+            string surname = args[1];
+            string firstname = args[2];
+
+            Session["selectedEmpId"] = empId;
+            Session["selectedSurname"] = surname;
+            Session["selectedFirstname"] = firstname;
+
             // Redirect to smartphone page
-            Response.Redirect("smartphone.aspx?id=" + empId);
+            Response.Redirect("smartphone.aspx");
         }
     }
 }
