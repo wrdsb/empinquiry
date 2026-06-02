@@ -129,10 +129,25 @@
 
 
                         <asp:TableRow>
+                            <asp:TableCell>Link Options Form</asp:TableCell>
+                            <asp:TableCell>
+                                <asp:HyperLink
+                                    ID="lnkGoogleFolder"
+                                    runat="server"
+                                    Text="Open Google Folder"
+                                    Target="_blank" NavigateUrl="https://drive.google.com/drive/folders/1b0ClP5MY2XEAMFTpOo46LTmtORJ4UXak">
+                                </asp:HyperLink>
+                            </asp:TableCell>
+                        </asp:TableRow>
+
+
+                        <asp:TableRow>
                             <asp:TableCell>
                                 <asp:Button ID="btn_Add" runat="server" CssClass="btn btn-primary" Text="Submit" OnClick="btnAdd_Click" />
                             </asp:TableCell>
                         </asp:TableRow>
+
+
                     </asp:Table>
                 </asp:Panel>
 
