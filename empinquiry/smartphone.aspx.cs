@@ -36,7 +36,8 @@ namespace empinquiry
                 }
                 string empId = Session["selectedEmpId"].ToString();
                 string empName = $"{Session["selectedFirstname"]} {Session["selectedSurname"]}";
-                lblSelectedEmployee.Text = $"Selected employee record is {empId} - {empName}";
+                lblSelectedEmployee.Text = $"Add smartphone details for employee Id : {empId} | Name : {empName}";
+                Labellist.Text ="List of smartphone orders for employee Id : " + empId + " | Name : " + empName;
 
                 BindGrid();
 
@@ -65,7 +66,28 @@ namespace empinquiry
             // Logic to add a new order
             // You can collect data from input fields and insert it into your database
             // After adding, re-bind the grid to show the new data
+            if(!string.IsNullOrEmpty(tb_phoneNumber.Text))
+            {
+                string phoneNumber = tb_phoneNumber.Text;
+            }
+
+            if (!string.IsNullOrEmpty(tb_orderDate.Text))
+            {
+                DateTime selectedDateTime = DateTime.Parse(tb_orderDate.Text);
+                // Use your selectedDateTime object here
+            }
+
+            
+
             BindGrid();
+        }
+
+        protected void ddl_tier_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Logic to handle tier selection change
+            // You can update the form or perform any necessary actions based on the selected tier
+            string selectedTier = ddl_tier.SelectedValue;
+            // Use your selectedTier variable here
         }
     }
 }

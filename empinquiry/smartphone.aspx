@@ -6,7 +6,7 @@
     <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
 
     <script>
-</script>
+    </script>
 
     <style>
       
@@ -16,13 +16,61 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
+
                 <asp:Label ID="lblSelectedEmployee"
                     runat="server"
-                    Font-Bold="true"
-                    ForeColor="LightBlue">
+                    BackColor="AliceBlue">                                     
                 </asp:Label>
 
-                 <!-- For Grid -->
+                <asp:Panel ID="panelsmart" runat="server" DefaultButton="btn_Add">
+                    <asp:Table runat="server">
+
+                        
+                        <asp:TableRow>
+                            <asp:TableCell>Order Date  </asp:TableCell>
+                            <asp:TableCell>
+                                <asp:TextBox ID="tb_orderDate" Width="300px" runat="server" TextMode="DateTimeLocal"></asp:TextBox>
+                            </asp:TableCell>
+                        </asp:TableRow>
+
+                        
+
+                        <asp:TableRow>
+                            <asp:TableCell>Phone Number</asp:TableCell>
+                            <asp:TableCell>
+                                <asp:TextBox ID="tb_phoneNumber" runat="server" Width="300px" CssClass="form-control"></asp:TextBox>
+                            </asp:TableCell>
+                        </asp:TableRow>
+
+                        
+
+                        <asp:TableRow>
+                            <asp:TableCell>Tier</asp:TableCell>
+                            <asp:TableCell>
+                                <asp:DropDownList ID="ddl_tier" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddl_tier_SelectedIndexChanged">
+                                    <asp:ListItem Text="Tier1" Value="Tier1" />
+                                    <asp:ListItem Text="Tier2" Value="Tier2" />
+                                    <asp:ListItem Text="Tier3" Value="Tier3" />
+                                    <asp:ListItem Text="Tier4" Value="Tier4" />
+                                </asp:DropDownList>
+                            </asp:TableCell>
+                        </asp:TableRow>
+
+                        
+                        <asp:TableRow>
+                            <asp:TableCell>
+                                <asp:Button ID="btn_Add" runat="server" CssClass="btn btn-primary" Text="Submit" OnClick="btnAdd_Click" />
+                            </asp:TableCell>
+                        </asp:TableRow>
+                    </asp:Table>
+                </asp:Panel>
+
+                <asp:Label ID="Labellist"
+                    runat="server"
+                    BackColor="AliceBlue">
+                </asp:Label>
+
+                <!-- For Grid -->
                 <asp:GridView ID="smartphoneOrdersGrid" runat="server" AutoGenerateColumns="False" CssClass="table table-striped">
                     <Columns>
                         <asp:BoundField DataField="OrderDate" HeaderText="Order Date" DataFormatString="{0:MM/dd/yyyy}" />
@@ -43,9 +91,6 @@
                         </asp:TemplateField>
                     </Columns>
                 </asp:GridView>
-                <!-- Add New button -->
-                <asp:Button ID="btnAdd" runat="server" CssClass="btn btn-primary" Text="Add Smartphone Details" OnClick ="btnAdd_Click" />
-
             </div>
         </div>
     </div>
