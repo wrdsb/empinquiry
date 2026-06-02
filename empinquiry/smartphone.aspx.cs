@@ -66,28 +66,31 @@ namespace empinquiry
             // Logic to add a new order
             // You can collect data from input fields and insert it into your database
             // After adding, re-bind the grid to show the new data
-            if(!string.IsNullOrEmpty(tb_phoneNumber.Text))
+           
+            string phoneNumber = !string.IsNullOrEmpty(tb_phoneNumber.Text)? tb_phoneNumber.Text:string.Empty;
+            DateTime? selectedDateTime = null;
+
+            if (DateTime.TryParse(tb_orderDate.Text, out DateTime parsedDate))
             {
-                string phoneNumber = tb_phoneNumber.Text;
+                selectedDateTime = parsedDate;
             }
 
-            if (!string.IsNullOrEmpty(tb_orderDate.Text))
-            {
-                DateTime selectedDateTime = DateTime.Parse(tb_orderDate.Text);
-                // Use your selectedDateTime object here
-            }
+            string selectedTier = ddl_tier.SelectedValue;
+            string selectedItem = ddl_orderedItem.SelectedValue;
 
-            
+
 
             BindGrid();
         }
 
         protected void ddl_tier_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Logic to handle tier selection change
-            // You can update the form or perform any necessary actions based on the selected tier
-            string selectedTier = ddl_tier.SelectedValue;
-            // Use your selectedTier variable here
+           
+        }
+
+        protected void ddl_orderedItem_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -25,15 +25,15 @@
                 <asp:Panel ID="panelsmart" runat="server" DefaultButton="btn_Add">
                     <asp:Table runat="server">
 
-                        
+
                         <asp:TableRow>
                             <asp:TableCell>Order Date  </asp:TableCell>
                             <asp:TableCell>
-                                <asp:TextBox ID="tb_orderDate" Width="300px" runat="server" TextMode="DateTimeLocal"></asp:TextBox>
+                                <asp:TextBox ID="tb_orderDate" Width="300px" runat="server" TextMode="DateTimeLocal" CssClass="form-control"></asp:TextBox>
                             </asp:TableCell>
                         </asp:TableRow>
 
-                        
+
 
                         <asp:TableRow>
                             <asp:TableCell>Phone Number</asp:TableCell>
@@ -42,12 +42,12 @@
                             </asp:TableCell>
                         </asp:TableRow>
 
-                        
+
 
                         <asp:TableRow>
                             <asp:TableCell>Tier</asp:TableCell>
                             <asp:TableCell>
-                                <asp:DropDownList ID="ddl_tier" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddl_tier_SelectedIndexChanged">
+                                <asp:DropDownList ID="ddl_tier" runat="server" AutoPostBack="true" Width="300px" CssClass="form-control" OnSelectedIndexChanged="ddl_tier_SelectedIndexChanged">
                                     <asp:ListItem Text="Tier1" Value="Tier1" />
                                     <asp:ListItem Text="Tier2" Value="Tier2" />
                                     <asp:ListItem Text="Tier3" Value="Tier3" />
@@ -56,7 +56,19 @@
                             </asp:TableCell>
                         </asp:TableRow>
 
-                        
+
+
+                        <asp:TableRow>
+                            <asp:TableCell>Ordered Item</asp:TableCell>
+                            <asp:TableCell>
+                                <asp:DropDownList ID="ddl_orderedItem" runat="server" AutoPostBack="true" Width="300px" CssClass="form-control" OnSelectedIndexChanged="ddl_orderedItem_SelectedIndexChanged">
+                                    <asp:ListItem Text="SIM" Value="SIM" />
+                                    <asp:ListItem Text="Phone" Value="Phone" />
+                                </asp:DropDownList>
+                            </asp:TableCell>
+                        </asp:TableRow>
+
+
                         <asp:TableRow>
                             <asp:TableCell>
                                 <asp:Button ID="btn_Add" runat="server" CssClass="btn btn-primary" Text="Submit" OnClick="btnAdd_Click" />
