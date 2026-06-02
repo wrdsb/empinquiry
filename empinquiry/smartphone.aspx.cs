@@ -77,6 +77,20 @@ namespace empinquiry
 
             string selectedTier = ddl_tier.SelectedValue;
             string selectedItem = ddl_orderedItem.SelectedValue;
+            bool? isRogersYesSelected = null;
+            bool? isBoardYesSelected = null;
+
+            if (rbl_RogersYesNo.SelectedIndex != -1)
+            {
+                isRogersYesSelected = Convert.ToBoolean(rbl_RogersYesNo.SelectedValue);
+                // Use the boolean value here
+            }
+
+            if (rbl_BoardYesNo.SelectedIndex != -1)
+            {
+                isBoardYesSelected = Convert.ToBoolean(rbl_BoardYesNo.SelectedValue);
+                // Use the boolean value here
+            }
 
 
 

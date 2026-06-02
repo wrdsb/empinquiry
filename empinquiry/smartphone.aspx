@@ -9,6 +9,31 @@
     </script>
 
     <style>
+        /* Style the container */
+.custom-radio-list {
+    font-family: Arial, sans-serif;
+    gap: 20px;
+    display: flex;
+}
+
+/* Style the labels (the text next to buttons) */
+.custom-radio-list label {
+    margin-left: 5px;
+    cursor: pointer;
+    color: #333;
+}
+
+/* Style the radio input itself */
+.custom-radio-list input[type="radio"] {
+    cursor: pointer;
+    transform: scale(1.2); /* Make buttons slightly larger */
+}
+
+/* Hover effect on the labels */
+.custom-radio-list label:hover {
+    color: #007bff;
+}
+
       
     </style>
 </asp:Content>
@@ -65,6 +90,30 @@
                                     <asp:ListItem Text="SIM" Value="SIM" />
                                     <asp:ListItem Text="Phone" Value="Phone" />
                                 </asp:DropDownList>
+                            </asp:TableCell>
+                        </asp:TableRow>
+
+
+
+                        <asp:TableRow>
+                            <asp:TableCell>Rogers Account Created</asp:TableCell>
+                            <asp:TableCell>
+                                <asp:RadioButtonList ID="rbl_RogersYesNo" runat="server" RepeatDirection="Horizontal" RepeatLayout="Flow" CssClass="custom-radio-list">
+                                    <asp:ListItem Text="Yes" Value="True"></asp:ListItem>
+                                    <asp:ListItem Text="No" Value="False"></asp:ListItem>
+                                </asp:RadioButtonList>
+                            </asp:TableCell>
+                        </asp:TableRow>
+
+
+
+                        <asp:TableRow>
+                            <asp:TableCell> Board Contribution Paid</asp:TableCell>
+                            <asp:TableCell>
+                                <asp:RadioButtonList ID="rbl_BoardYesNo" runat="server" RepeatDirection="Horizontal" RepeatLayout="Flow" CssClass="custom-radio-list">
+                                    <asp:ListItem Text="Yes" Value="True"></asp:ListItem>
+                                    <asp:ListItem Text="No" Value="False"></asp:ListItem>
+                                </asp:RadioButtonList>
                             </asp:TableCell>
                         </asp:TableRow>
 
