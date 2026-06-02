@@ -68,11 +68,11 @@ namespace empinquiry
             // After adding, re-bind the grid to show the new data
            
             string phoneNumber = !string.IsNullOrEmpty(tb_phoneNumber.Text)? tb_phoneNumber.Text:string.Empty;
-            DateTime? selectedDateTime = null;
+            DateTime? selectedOrderDateTime = null;
 
             if (DateTime.TryParse(tb_orderDate.Text, out DateTime parsedDate))
             {
-                selectedDateTime = parsedDate;
+                selectedOrderDateTime = parsedDate;
             }
 
             string selectedTier = ddl_tier.SelectedValue;
@@ -90,6 +90,13 @@ namespace empinquiry
             {
                 isBoardYesSelected = Convert.ToBoolean(rbl_BoardYesNo.SelectedValue);
                 // Use the boolean value here
+            }
+
+            DateTime? selectedEligibleDateTime = null;
+
+            if (DateTime.TryParse(tb_eligibleDate.Text, out DateTime parsedDate2))
+            {
+                selectedEligibleDateTime = parsedDate2;
             }
 
 

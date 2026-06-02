@@ -87,6 +87,15 @@ namespace empinquiry
         protected global::System.Web.UI.WebControls.RadioButtonList rbl_BoardYesNo;
 
         /// <summary>
+        /// tb_eligibleDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tb_eligibleDate;
+
+        /// <summary>
         /// btn_Add control.
         /// </summary>
         /// <remarks>

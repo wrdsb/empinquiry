@@ -54,7 +54,8 @@
                         <asp:TableRow>
                             <asp:TableCell>Order Date  </asp:TableCell>
                             <asp:TableCell>
-                                <asp:TextBox ID="tb_orderDate" Width="300px" runat="server" TextMode="DateTimeLocal" CssClass="form-control"></asp:TextBox>
+                                <asp:TextBox ID="tb_orderDate" Width="300px" runat="server" TextMode="Date" CssClass="form-control"></asp:TextBox>
+
                             </asp:TableCell>
                         </asp:TableRow>
 
@@ -114,6 +115,15 @@
                                     <asp:ListItem Text="Yes" Value="True"></asp:ListItem>
                                     <asp:ListItem Text="No" Value="False"></asp:ListItem>
                                 </asp:RadioButtonList>
+                            </asp:TableCell>
+                        </asp:TableRow>
+
+
+
+                        <asp:TableRow>
+                            <asp:TableCell>Next Eligible Date</asp:TableCell>
+                            <asp:TableCell>
+                                <asp:TextBox ID="tb_eligibleDate" Width="300px" runat="server" TextMode="Date" CssClass="form-control"></asp:TextBox>
                             </asp:TableCell>
                         </asp:TableRow>
 
