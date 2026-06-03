@@ -259,7 +259,7 @@ namespace empinquiry
                 (empos.position_end_date IS NULL OR empos.position_end_date = emp.termination_date)";*/ // -- Fix to display all the records of the employee. Ticket # T2605-02406
 
 
-                query += " ORDER BY emp.employee_id ASC";
+                query += " ORDER BY emp.employee_id ASC, empos.record_change_date DESC"; // default order by employee id and latest position record change date. Ticket #T2605-02714
                 //Loggers.Log("Search query built: " + query);
                 Global.searchQuery = query;
                 return true;
