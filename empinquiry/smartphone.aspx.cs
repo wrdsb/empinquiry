@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Amazon.Runtime.Documents;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -99,7 +100,7 @@ namespace empinquiry
                 selectedEligibleDateTime = parsedDate2;
             }
 
-
+            string notes = !string.IsNullOrEmpty(tb_notes.Text) ? tb_notes.Text : string.Empty;
 
             BindGrid();
         }

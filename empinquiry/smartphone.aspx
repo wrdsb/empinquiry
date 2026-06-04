@@ -4,37 +4,52 @@
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
-
     <script>
+        function setEligibleDate() {
+
+            var orderDate = document.getElementById('<%= tb_orderDate.ClientID %>').value;
+
+            if (orderDate) {
+
+                var dt = new Date(orderDate);
+
+                dt.setFullYear(dt.getFullYear() + 3);
+
+                var yyyy = dt.getFullYear();
+                var mm = String(dt.getMonth() + 1).padStart(2, '0');
+                var dd = String(dt.getDate()).padStart(2, '0');
+
+                document.getElementById('<%= tb_eligibleDate.ClientID %>').value =
+                    yyyy + '-' + mm + '-' + dd;
+            }
+        }
     </script>
 
     <style>
         /* Style the container */
-.custom-radio-list {
-    font-family: Arial, sans-serif;
-    gap: 20px;
-    display: flex;
-}
+        .custom-radio-list {
+            font-family: Arial, sans-serif;
+            gap: 20px;
+            display: flex;
+        }
 
-/* Style the labels (the text next to buttons) */
-.custom-radio-list label {
-    margin-left: 5px;
-    cursor: pointer;
-    color: #333;
-}
+            /* Style the labels (the text next to buttons) */
+            .custom-radio-list label {
+                margin-left: 5px;
+                cursor: pointer;
+                color: #333;
+            }
 
-/* Style the radio input itself */
-.custom-radio-list input[type="radio"] {
-    cursor: pointer;
-    transform: scale(1.2); /* Make buttons slightly larger */
-}
+            /* Style the radio input itself */
+            .custom-radio-list input[type="radio"] {
+                cursor: pointer;
+                transform: scale(1.2); /* Make buttons slightly larger */
+            }
 
-/* Hover effect on the labels */
-.custom-radio-list label:hover {
-    color: #007bff;
-}
-
-      
+            /* Hover effect on the labels */
+            .custom-radio-list label:hover {
+                color: #007bff;
+            }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -54,7 +69,7 @@
                         <asp:TableRow>
                             <asp:TableCell>Order Date  </asp:TableCell>
                             <asp:TableCell>
-                                <asp:TextBox ID="tb_orderDate" Width="300px" runat="server" TextMode="Date" CssClass="form-control"></asp:TextBox>
+                                <asp:TextBox ID="tb_orderDate" Width="300px" runat="server" TextMode="Date" CssClass="form-control" onchange="setEligibleDate();"></asp:TextBox>
 
                             </asp:TableCell>
                         </asp:TableRow>
@@ -137,6 +152,15 @@
                                     Text="Open Google Folder"
                                     Target="_blank" NavigateUrl="https://drive.google.com/drive/folders/1b0ClP5MY2XEAMFTpOo46LTmtORJ4UXak">
                                 </asp:HyperLink>
+                            </asp:TableCell>
+                        </asp:TableRow>
+
+                        <asp:TableRow>
+                            <asp:TableCell>Notes</asp:TableCell>
+                            <asp:TableCell>
+                                <asp:TextBox ID="tb_notes" runat="server" CssClass="form-control" TextMode="MultiLine"
+                                    MaxLength="400">
+                                </asp:TextBox>
                             </asp:TableCell>
                         </asp:TableRow>
 
