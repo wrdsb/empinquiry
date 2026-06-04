@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web;
+using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Windows.Forms;
 
 namespace empinquiry
 {
@@ -56,52 +58,76 @@ namespace empinquiry
             });
 
             // Sample data row
-            dt.Rows.Add(DateTime.Now, "555-0199", "Gold", "Phone Case", "Yes", "$50", DateTime.Now.AddMonths(6), "Completed", "N/A");
+            //dt.Rows.Add(DateTime.Now, "555-0199", "Gold", "Phone Case", "Yes", "$50", DateTime.Now.AddMonths(6), "Completed", "N/A");
+            //MessageBox.Show($"Table Columns: {dt.Columns.Count} | Values Provided: 9");
+
+            try
+            {
+                DataRow newRow = dt.NewRow();
+
+                newRow["OrderDate"] = selectedOrderDate;
+                newRow["Phone"] = phoneNumber;
+                newRow["Tier"] = selectedTier;
+                newRow["Item"] = selectedItem;
+                newRow["Rogers"] = isRogersYesSelected;
+                newRow["BoardPaid"] = isBoardYesSelected;
+                newRow["EligibleDate"] = selectedEligibleDateTime;
+                newRow["Forms"] = "Forms - TBD";
+                newRow["Notes"] = notes;
+
+                dt.Rows.Add(newRow);
+
+            }
+            catch (Exception ex)
+            {
+                // This will tell you if it's a Type Mismatch or Column Count error
+                MessageBox.Show("Error: " + ex.Message);
+            }
 
             smartphoneOrdersGrid.DataSource = dt;
             smartphoneOrdersGrid.DataBind();
         }
+
+        public DateTime? selectedOrderDate { get; set; }
+        public string phoneNumber { get; set; }
+        public string selectedTier { get; set; }
+        public string selectedItem { get; set; }
+        public string isRogersYesSelected { get; set; }
+        public string isBoardYesSelected { get; set; }
+        public DateTime? selectedEligibleDateTime { get; set; }
+        public string notes { get; set; }
+
 
         protected void btnAdd_Click(object sender, EventArgs e)
         {
             // Logic to add a new order
             // You can collect data from input fields and insert it into your database
             // After adding, re-bind the grid to show the new data
-           
-            string phoneNumber = !string.IsNullOrEmpty(tb_phoneNumber.Text)? tb_phoneNumber.Text:string.Empty;
-            DateTime? selectedOrderDateTime = null;
 
             if (DateTime.TryParse(tb_orderDate.Text, out DateTime parsedDate))
             {
-                selectedOrderDateTime = parsedDate;
+                selectedOrderDate = parsedDate;
             }
 
-            string selectedTier = ddl_tier.SelectedValue;
-            string selectedItem = ddl_orderedItem.SelectedValue;
-            bool? isRogersYesSelected = null;
-            bool? isBoardYesSelected = null;
+            phoneNumber = !string.IsNullOrEmpty(tb_phoneNumber.Text) ? tb_phoneNumber.Text : string.Empty;
 
-            if (rbl_RogersYesNo.SelectedIndex != -1)
-            {
-                isRogersYesSelected = Convert.ToBoolean(rbl_RogersYesNo.SelectedValue);
-                // Use the boolean value here
-            }
+            selectedTier = ddl_tier.SelectedValue;
 
-            if (rbl_BoardYesNo.SelectedIndex != -1)
-            {
-                isBoardYesSelected = Convert.ToBoolean(rbl_BoardYesNo.SelectedValue);
-                // Use the boolean value here
-            }
+            selectedItem = ddl_orderedItem.SelectedValue;
 
-            DateTime? selectedEligibleDateTime = null;
+            isRogersYesSelected = rbl_RogersYesNo.SelectedIndex != -1 ? rbl_RogersYesNo.SelectedValue : string.Empty;
+
+            isBoardYesSelected = rbl_BoardYesNo.SelectedIndex != -1 ? rbl_BoardYesNo.SelectedValue : string.Empty;
 
             if (DateTime.TryParse(tb_eligibleDate.Text, out DateTime parsedDate2))
             {
                 selectedEligibleDateTime = parsedDate2;
             }
 
-            string notes = !string.IsNullOrEmpty(tb_notes.Text) ? tb_notes.Text : string.Empty;
+            notes = !string.IsNullOrEmpty(tb_notes.Text) ? tb_notes.Text : string.Empty;
 
+            // TODO: Add logic to save the collected data to the database
+          
             BindGrid();
         }
 

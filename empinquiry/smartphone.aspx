@@ -115,8 +115,8 @@
                             <asp:TableCell>Rogers Account Created</asp:TableCell>
                             <asp:TableCell>
                                 <asp:RadioButtonList ID="rbl_RogersYesNo" runat="server" RepeatDirection="Horizontal" RepeatLayout="Flow" CssClass="custom-radio-list">
-                                    <asp:ListItem Text="Yes" Value="True"></asp:ListItem>
-                                    <asp:ListItem Text="No" Value="False"></asp:ListItem>
+                                    <asp:ListItem Text="Yes" Value="Yes"></asp:ListItem>
+                                    <asp:ListItem Text="No" Value="No"></asp:ListItem>
                                 </asp:RadioButtonList>
                             </asp:TableCell>
                         </asp:TableRow>
@@ -127,8 +127,8 @@
                             <asp:TableCell> Board Contribution Paid</asp:TableCell>
                             <asp:TableCell>
                                 <asp:RadioButtonList ID="rbl_BoardYesNo" runat="server" RepeatDirection="Horizontal" RepeatLayout="Flow" CssClass="custom-radio-list">
-                                    <asp:ListItem Text="Yes" Value="True"></asp:ListItem>
-                                    <asp:ListItem Text="No" Value="False"></asp:ListItem>
+                                    <asp:ListItem Text="Yes" Value="Yes"></asp:ListItem>
+                                    <asp:ListItem Text="No" Value="No"></asp:ListItem>
                                 </asp:RadioButtonList>
                             </asp:TableCell>
                         </asp:TableRow>
