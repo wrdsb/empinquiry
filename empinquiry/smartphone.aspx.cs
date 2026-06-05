@@ -140,6 +140,7 @@ namespace empinquiry
             // TODO: Add logic to save the collected data to the database
 
             BindGrid();
+            ClearFormControls();
             Labelsubmit.Text = "Submitted successfully!";
         }
 
@@ -150,6 +151,20 @@ namespace empinquiry
 
         protected void ddl_orderedItem_SelectedIndexChanged(object sender, EventArgs e)
         {
+
+        }
+        private void ClearFormControls()
+        {
+            tb_orderDate.Text = string.Empty;
+            tb_phoneNumber.Text = string.Empty;
+            tb_eligibleDate.Text = string.Empty;
+            tb_notes.Text = string.Empty;
+
+            ddl_tier.SelectedIndex = 0;
+            ddl_orderedItem.SelectedIndex = 0;
+
+            rbl_RogersYesNo.SelectedIndex = -1;
+            rbl_BoardYesNo.SelectedIndex = -1;
 
         }
     }
