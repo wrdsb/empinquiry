@@ -142,6 +142,11 @@ namespace empinquiry
             BindGrid();
             ClearFormControls();
             Labelsubmit.Text = "Submitted successfully!";
+
+            Labelsubmit.Style["display"] = "block"; // Ensure it is visible if previously hidden
+
+            // Register the JavaScript function to run after the page loads
+            ClientScript.RegisterStartupScript(this.GetType(), "HideLabelScript", "hideLabel();", true);
         }
 
         protected void ddl_tier_SelectedIndexChanged(object sender, EventArgs e)

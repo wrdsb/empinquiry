@@ -34,6 +34,16 @@
 
     </script>
 
+
+    <script type="text/javascript">
+        function hideLabel() {
+            // Option A: Instant hide after delay
+            setTimeout(function () {
+                document.getElementById('<%= Labelsubmit.ClientID %>').style.display = 'none';
+            }, 5000); // 5000 milliseconds = 5 seconds       
+        }
+</script>
+
     <style>
         /* Style the container */
         .custom-radio-list {
