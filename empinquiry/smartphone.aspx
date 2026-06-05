@@ -56,12 +56,18 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
+                <div class="note">
+                    <asp:Label ID="lblSelectedEmployee"
+                        runat="server"
+                        Font-Bold="true">                       
+                    </asp:Label>
+                </div>
                 <div class="alert-info">
-                <asp:Label ID="lblSelectedEmployee"
-                    runat="server"
-                    BackColor="AliceBlue" Font-Bold="true">                       
-                </asp:Label>
-                    </div>
+                    <asp:Label ID="Labelinfo"
+                        runat="server"
+                        BackColor="AliceBlue" Font-Bold="true">                       
+                    </asp:Label>
+                </div>
 
                 <asp:Panel ID="panelsmart" runat="server" DefaultButton="btn_Add">
                     <asp:Table runat="server">
@@ -186,11 +192,11 @@
                     </asp:Table>
                 </asp:Panel>
                 <div class="alert-info">
-                <asp:Label ID="Labellist"
-                    runat="server"
-                    BackColor="AliceBlue" Font-Bold="true">
-                </asp:Label>
-                    </div>
+                    <asp:Label ID="Labellist"
+                        runat="server"
+                        BackColor="AliceBlue" Font-Bold="true">
+                    </asp:Label>
+                </div>
 
                 <!-- For Grid -->
                 <asp:GridView ID="smartphoneOrdersGrid" runat="server" AutoGenerateColumns="False" CssClass="table table-striped">

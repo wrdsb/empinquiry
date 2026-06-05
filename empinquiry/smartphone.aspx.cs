@@ -39,8 +39,9 @@ namespace empinquiry
                 }
                 string empId = Session["selectedEmpId"].ToString();
                 string empName = $"{Session["selectedFirstname"]} {Session["selectedSurname"]}";
-                lblSelectedEmployee.Text = $"Selected Employee Id : {empId} | Name : {empName}. Please add smartphone orders for selected employee.";
-               
+                lblSelectedEmployee.Text = $"Selected Employee Id : {empId} | Name : {empName}. ";
+                Labelinfo.Text = "Please fill out the form below to add a new smartphone order for the selected employee. After submitting, the order will be displayed in the grid below.";
+
                 BindGrid();
 
             }
@@ -90,7 +91,7 @@ namespace empinquiry
             }
             else
             {
-                Labellist.Text = $"Smartphone orders for employee Id : {Session["selectedEmpId"]} | Name : {Session["selectedFirstname"]} {Session["selectedSurname"]}";
+                Labellist.Text = "Total smart phone orders for the selected employee is [" + dt.Rows.Count + "]. Please review.";
             }
 
 
