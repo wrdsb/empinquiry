@@ -23,6 +23,16 @@
                     yyyy + '-' + mm + '-' + dd;
             }
         }
+
+
+         $(document).on("input", "#tb_phoneNumber", function () 
+         {
+            //console.log("Input detected: " + this.value); // Check F12 console
+            this.value = this.value.replace(/[^0-9\s\-()+]/g, '');
+         });
+
+
+
     </script>
 
     <style>
@@ -86,9 +96,9 @@
                         <asp:TableRow>
                             <asp:TableCell>Phone Number</asp:TableCell>
                             <asp:TableCell>
-                                <asp:TextBox ID="tb_phoneNumber" runat="server" Width="300px" CssClass="form-control"></asp:TextBox>
+                                <asp:TextBox ID="tb_phoneNumber" runat="server" Width="300px" CssClass="form-control" ClientIDMode="Static"></asp:TextBox>
                             </asp:TableCell>
-                            <asp:TableCell>
+                            <%-- <asp:TableCell>
                                 <asp:RegularExpressionValidator
                                     ID="revPhoneNumber"
                                     runat="server"
@@ -97,7 +107,7 @@
                                     ErrorMessage="Phone number cannot contain letters."
                                     ForeColor="Red">
                                 </asp:RegularExpressionValidator>
-                            </asp:TableCell>
+                            </asp:TableCell>--%>
                         </asp:TableRow>
 
 
