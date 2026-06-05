@@ -195,6 +195,12 @@
                             <asp:TableCell>
                                 <asp:Button ID="btn_Add" runat="server" CssClass="btn btn-primary" Text="Submit" OnClick="btnAdd_Click" />
                             </asp:TableCell>
+                            <asp:TableCell>
+                                <asp:Label ID="Labelsubmit"
+                                    runat="server"
+                                    Font-Bold="true" ForeColor="ForestGreen">
+                                </asp:Label>
+                            </asp:TableCell>
                         </asp:TableRow>
 
 

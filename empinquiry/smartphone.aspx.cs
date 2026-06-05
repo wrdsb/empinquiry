@@ -140,6 +140,7 @@ namespace empinquiry
             // TODO: Add logic to save the collected data to the database
 
             BindGrid();
+            Labelsubmit.Text = "Submitted successfully!";
         }
 
         protected void ddl_tier_SelectedIndexChanged(object sender, EventArgs e)
