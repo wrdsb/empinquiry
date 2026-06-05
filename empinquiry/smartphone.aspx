@@ -25,11 +25,10 @@
         }
 
 
-         $(document).on("input", "#tb_phoneNumber", function () 
-         {
+        $(document).on("input", "#tb_phoneNumber", function () {
             //console.log("Input detected: " + this.value); // Check F12 console
             this.value = this.value.replace(/[^0-9\s\-()+]/g, '');
-         });
+        });
 
 
 
