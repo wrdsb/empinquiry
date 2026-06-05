@@ -39,7 +39,7 @@ namespace empinquiry
                 }
                 string empId = Session["selectedEmpId"].ToString();
                 string empName = $"{Session["selectedFirstname"]} {Session["selectedSurname"]}";
-                lblSelectedEmployee.Text = $"Selected Employee Id : {empId} | Name : {empName}. ";
+                lblSelectedEmployee.Text = $"Selected Employee Id : {empId} | Name : {empName}";
                 Labelinfo.Text = "Please fill out the form below to add a new smartphone order for the selected employee. After submitting, the order will be displayed in the grid below.";
 
                 BindGrid();
@@ -85,17 +85,17 @@ namespace empinquiry
             {
                 MessageBox.Show("Error: " + ex.Message);
             }
-            if(dt.Rows.Count == 0)
+            if (dt.Rows.Count == 0)
             {
-                Labellist.Text="No data to display in the grid.";
+                Labellist.Text = "No data to display in the grid.";
             }
             else
             {
-                Labellist.Text = "Total smart phone orders for the selected employee is [" + dt.Rows.Count + "]. Please review.";
+                Labellist.Text = "Please find the list of smartphone orders for the selected employee.";
             }
 
 
-                smartphoneOrdersGrid.DataSource = dt;
+            smartphoneOrdersGrid.DataSource = dt;
             smartphoneOrdersGrid.DataBind();
         }
 
@@ -138,13 +138,13 @@ namespace empinquiry
             notes = !string.IsNullOrEmpty(tb_notes.Text) ? tb_notes.Text : string.Empty;
 
             // TODO: Add logic to save the collected data to the database
-          
+
             BindGrid();
         }
 
         protected void ddl_tier_SelectedIndexChanged(object sender, EventArgs e)
         {
-           
+
         }
 
         protected void ddl_orderedItem_SelectedIndexChanged(object sender, EventArgs e)

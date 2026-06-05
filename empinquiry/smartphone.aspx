@@ -72,10 +72,10 @@
                         Font-Bold="true">                       
                     </asp:Label>
                 </div>
-                <div class="alert-info">
+                <div class="announcement">
                     <asp:Label ID="Labelinfo"
                         runat="server"
-                        BackColor="AliceBlue" Font-Bold="true">                       
+                        Font-Bold="true">                       
                     </asp:Label>
                 </div>
 
@@ -201,10 +201,10 @@
 
                     </asp:Table>
                 </asp:Panel>
-                <div class="alert-info">
+                <div class="announcement">
                     <asp:Label ID="Labellist"
                         runat="server"
-                        BackColor="AliceBlue" Font-Bold="true">
+                        Font-Bold="true">
                     </asp:Label>
                 </div>
 
