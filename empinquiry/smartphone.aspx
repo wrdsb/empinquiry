@@ -56,11 +56,12 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-
+                <div class="alert-info">
                 <asp:Label ID="lblSelectedEmployee"
                     runat="server"
-                    BackColor="AliceBlue">                                     
+                    BackColor="AliceBlue" Font-Bold="true">                       
                 </asp:Label>
+                    </div>
 
                 <asp:Panel ID="panelsmart" runat="server" DefaultButton="btn_Add">
                     <asp:Table runat="server">
@@ -80,6 +81,16 @@
                             <asp:TableCell>Phone Number</asp:TableCell>
                             <asp:TableCell>
                                 <asp:TextBox ID="tb_phoneNumber" runat="server" Width="300px" CssClass="form-control"></asp:TextBox>
+                            </asp:TableCell>
+                            <asp:TableCell>
+                                <asp:RegularExpressionValidator
+                                    ID="revPhoneNumber"
+                                    runat="server"
+                                    ControlToValidate="tb_phoneNumber"
+                                    ValidationExpression="^[0-9+\s\-()]*$"
+                                    ErrorMessage="Phone number cannot contain letters."
+                                    ForeColor="Red">
+                                </asp:RegularExpressionValidator>
                             </asp:TableCell>
                         </asp:TableRow>
 
@@ -174,11 +185,12 @@
 
                     </asp:Table>
                 </asp:Panel>
-
+                <div class="alert-info">
                 <asp:Label ID="Labellist"
                     runat="server"
-                    BackColor="AliceBlue">
+                    BackColor="AliceBlue" Font-Bold="true">
                 </asp:Label>
+                    </div>
 
                 <!-- For Grid -->
                 <asp:GridView ID="smartphoneOrdersGrid" runat="server" AutoGenerateColumns="False" CssClass="table table-striped">
@@ -196,7 +208,7 @@
                         <asp:TemplateField HeaderText="Actions">
                             <ItemTemplate>
                                 <asp:LinkButton ID="btnEdit" runat="server" CommandName="Edit" Text="Edit" CssClass="btn btn-sm btn-primary" />
-                                <asp:LinkButton ID="btnDelete" runat="server" CommandName="Delete" Text="Delete" CssClass="btn btn-sm btn-danger" />
+                                <!--<asp:LinkButton ID="btnDelete" runat="server" CommandName="Delete" Text="Delete" CssClass="btn btn-sm btn-danger" />-->
                             </ItemTemplate>
                         </asp:TemplateField>
                     </Columns>

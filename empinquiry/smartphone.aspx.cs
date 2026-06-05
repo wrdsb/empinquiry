@@ -39,9 +39,8 @@ namespace empinquiry
                 }
                 string empId = Session["selectedEmpId"].ToString();
                 string empName = $"{Session["selectedFirstname"]} {Session["selectedSurname"]}";
-                lblSelectedEmployee.Text = $"Add smartphone details for employee Id : {empId} | Name : {empName}";
-                Labellist.Text ="List of smartphone orders for employee Id : " + empId + " | Name : " + empName;
-
+                lblSelectedEmployee.Text = $"Selected Employee Id : {empId} | Name : {empName}. Please add smartphone orders for selected employee.";
+               
                 BindGrid();
 
             }
@@ -63,28 +62,39 @@ namespace empinquiry
 
             try
             {
-                DataRow newRow = dt.NewRow();
+                if (selectedOrderDate != null)
+                {
+                    DataRow newRow = dt.NewRow();
 
-                newRow["OrderDate"] = selectedOrderDate;
-                newRow["Phone"] = phoneNumber;
-                newRow["Tier"] = selectedTier;
-                newRow["Item"] = selectedItem;
-                newRow["Rogers"] = isRogersYesSelected;
-                newRow["BoardPaid"] = isBoardYesSelected;
-                newRow["EligibleDate"] = selectedEligibleDateTime;
-                newRow["Forms"] = "Forms - TBD";
-                newRow["Notes"] = notes;
+                    newRow["OrderDate"] = selectedOrderDate;
+                    newRow["Phone"] = phoneNumber;
+                    newRow["Tier"] = selectedTier;
+                    newRow["Item"] = selectedItem;
+                    newRow["Rogers"] = isRogersYesSelected;
+                    newRow["BoardPaid"] = isBoardYesSelected;
+                    newRow["EligibleDate"] = selectedEligibleDateTime;
+                    newRow["Forms"] = "Forms - TBD";
+                    newRow["Notes"] = notes;
 
-                dt.Rows.Add(newRow);
+                    dt.Rows.Add(newRow);
+                }
 
             }
             catch (Exception ex)
             {
-                // This will tell you if it's a Type Mismatch or Column Count error
                 MessageBox.Show("Error: " + ex.Message);
             }
+            if(dt.Rows.Count == 0)
+            {
+                Labellist.Text="No data to display in the grid.";
+            }
+            else
+            {
+                Labellist.Text = $"Smartphone orders for employee Id : {Session["selectedEmpId"]} | Name : {Session["selectedFirstname"]} {Session["selectedSurname"]}";
+            }
 
-            smartphoneOrdersGrid.DataSource = dt;
+
+                smartphoneOrdersGrid.DataSource = dt;
             smartphoneOrdersGrid.DataBind();
         }
 
