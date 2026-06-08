@@ -87,11 +87,11 @@ namespace empinquiry
             }
             if (dt.Rows.Count == 0)
             {
-                Labellist.Text = "No data to display in the grid.";
+                lbllist.Text = "No data to display in the grid.";
             }
             else
             {
-                Labellist.Text = "Please find the list of smartphone orders for the selected employee.";
+                lbllist.Text = "Please find the smartphone orders displayed in the grid for the selected employee.";
             }
 
 

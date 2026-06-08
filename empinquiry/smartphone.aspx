@@ -217,7 +217,7 @@
                     </asp:Table>
                 </asp:Panel>
                 <div class="announcement">
-                    <asp:Label ID="Labellist"
+                    <asp:Label ID="lbllist"
                         runat="server"
                         Font-Bold="true">
                     </asp:Label>
