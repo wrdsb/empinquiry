@@ -39,7 +39,7 @@
         function hideLabel() {
             // Option A: Instant hide after delay
             setTimeout(function () {
-                document.getElementById('<%= Labelsubmit.ClientID %>').style.display = 'none';
+                document.getElementById('<%= lblsubmit.ClientID %>').style.display = 'none';
             }, 5000); // 5000 milliseconds = 5 seconds       
         }
 </script>
@@ -206,7 +206,7 @@
                                 <asp:Button ID="btn_Add" runat="server" CssClass="btn btn-primary" Text="Submit" OnClick="btnAdd_Click" />
                             </asp:TableCell>
                             <asp:TableCell>
-                                <asp:Label ID="Labelsubmit"
+                                <asp:Label ID="lblsubmit"
                                     runat="server"
                                     Font-Bold="true" ForeColor="ForestGreen">
                                 </asp:Label>

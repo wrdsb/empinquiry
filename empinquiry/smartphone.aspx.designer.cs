@@ -132,13 +132,13 @@ namespace empinquiry
         protected global::System.Web.UI.WebControls.Button btn_Add;
 
         /// <summary>
-        /// Labelsubmit control.
+        /// lblsubmit control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Labelsubmit;
+        protected global::System.Web.UI.WebControls.Label lblsubmit;
 
         /// <summary>
         /// Labellist control.
