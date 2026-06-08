@@ -24,13 +24,13 @@ namespace empinquiry
         protected global::System.Web.UI.WebControls.Label lblSelectedEmployee;
 
         /// <summary>
-        /// Labelinfo control.
+        /// lblinfo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Labelinfo;
+        protected global::System.Web.UI.WebControls.Label lblinfo;
 
         /// <summary>
         /// panelsmart control.

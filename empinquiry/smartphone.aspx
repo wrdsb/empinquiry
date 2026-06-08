@@ -82,7 +82,7 @@
                     </asp:Label>
                 </div>
                 <div class="announcement">
-                    <asp:Label ID="Labelinfo"
+                    <asp:Label ID="lblinfo"
                         runat="server"
                         Font-Bold="true">                       
                     </asp:Label>
