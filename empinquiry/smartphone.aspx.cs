@@ -52,41 +52,89 @@ namespace empinquiry
         private void BindGrid()
         {
             // Replace this with your actual data retrieval logic
-            DataTable dt = new DataTable();
-            dt.Columns.AddRange(new DataColumn[9] {
-                new DataColumn("OrderDate"), new DataColumn("Phone"), new DataColumn("Tier"),
-                new DataColumn("Item"), new DataColumn("Rogers"), new DataColumn("BoardPaid"),
-                new DataColumn("EligibleDate"), new DataColumn("Forms"), new DataColumn("Notes")
-            });
+            //DataTable dt = new DataTable();
+            //dt.Columns.AddRange(new DataColumn[9] {
+            //    new DataColumn("OrderDate"), new DataColumn("Phone"), new DataColumn("Tier"),
+            //    new DataColumn("Item"), new DataColumn("Rogers"), new DataColumn("BoardPaid"),
+            //    new DataColumn("EligibleDate"), new DataColumn("Forms"), new DataColumn("Notes")
+            //});
 
-            // Sample data row
-            //dt.Rows.Add(DateTime.Now, "555-0199", "Gold", "Phone Case", "Yes", "$50", DateTime.Now.AddMonths(6), "Completed", "N/A");
-            //MessageBox.Show($"Table Columns: {dt.Columns.Count} | Values Provided: 9");
+            //// Sample data row
+            ////dt.Rows.Add(DateTime.Now, "555-0199", "Gold", "Phone Case", "Yes", "$50", DateTime.Now.AddMonths(6), "Completed", "N/A");
+            ////MessageBox.Show($"Table Columns: {dt.Columns.Count} | Values Provided: 9");
+
+            //try
+            //{
+            //    if (selectedOrderDate != null)
+            //    {
+            //        DataRow newRow = dt.NewRow();
+
+            //        newRow["OrderDate"] = selectedOrderDate;
+            //        newRow["Phone"] = phoneNumber;
+            //        newRow["Tier"] = selectedTier;
+            //        newRow["Item"] = selectedItem;
+            //        newRow["Rogers"] = isRogersYesSelected;
+            //        newRow["BoardPaid"] = isBoardYesSelected;
+            //        newRow["EligibleDate"] = selectedEligibleDateTime;
+            //        newRow["Forms"] = "Forms - TBD";
+            //        newRow["Notes"] = notes;
+
+            //        dt.Rows.Add(newRow);
+            //    }
+
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show("Error: " + ex.Message);
+            //}
+
+            GetRecords();
+
+
+
+        }
+        void GetRecords()
+        {
+            string empId = Session["selectedEmpId"].ToString();
+
+            string connString = ConfigurationManager.ConnectionStrings["SQLDB_HDHRP"].ConnectionString;
+
+            DataTable dt = new DataTable();
 
             try
             {
-                if (selectedOrderDate != null)
+                using (SqlConnection conn = new SqlConnection(connString))
                 {
-                    DataRow newRow = dt.NewRow();
+                    string sql = @" SELECT  order_date AS OrderDate
+                                            , phone_number AS Phone
+                                            , tier AS Tier
+                                            , ordered_item AS Item
+                                            , rogers_account_created AS Rogers
+                                            , board_contribution_paid AS BoardPaid
+                                            , next_eligible_date AS EligibleDate
+                                            , form_link AS Forms
+                                            , notes AS Notes
+                                    FROM    [hd_empinquiry_smartphone]
+                                    WHERE   employee_id = @EmployeeID";
 
-                    newRow["OrderDate"] = selectedOrderDate;
-                    newRow["Phone"] = phoneNumber;
-                    newRow["Tier"] = selectedTier;
-                    newRow["Item"] = selectedItem;
-                    newRow["Rogers"] = isRogersYesSelected;
-                    newRow["BoardPaid"] = isBoardYesSelected;
-                    newRow["EligibleDate"] = selectedEligibleDateTime;
-                    newRow["Forms"] = "Forms - TBD";
-                    newRow["Notes"] = notes;
+                    using (SqlCommand cmd = new SqlCommand(sql, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@EmployeeID", empId);
 
-                    dt.Rows.Add(newRow);
+                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                        {
+                            da.Fill(dt);
+                        }
+                    }
                 }
-
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error: " + ex.Message);
             }
+
+            smartphoneOrdersGrid.DataSource = dt;
+            smartphoneOrdersGrid.DataBind();
+
             if (dt.Rows.Count == 0)
             {
                 lbllist.Text = "No data to display in the grid.";
@@ -95,10 +143,6 @@ namespace empinquiry
             {
                 lbllist.Text = "Please find the smartphone orders displayed in the grid for the selected employee.";
             }
-
-
-            smartphoneOrdersGrid.DataSource = dt;
-            smartphoneOrdersGrid.DataBind();
         }
 
         public DateTime? selectedOrderDate { get; set; }
