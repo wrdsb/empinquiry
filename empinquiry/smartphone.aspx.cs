@@ -1,7 +1,9 @@
 ﻿using Amazon.Runtime.Documents;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
@@ -137,7 +139,9 @@ namespace empinquiry
 
             notes = !string.IsNullOrEmpty(tb_notes.Text) ? tb_notes.Text : string.Empty;
 
-            // TODO: Add logic to save the collected data to the database
+            // logic to save the collected data to the database
+
+            SaveRecords();
 
             BindGrid();
             ClearFormControls();
@@ -147,6 +151,69 @@ namespace empinquiry
 
             // Register the JavaScript function to run after the page loads
             ClientScript.RegisterStartupScript(this.GetType(), "HideLabelScript", "hideLabel();", true);
+        }
+
+        void SaveRecords()
+        {
+            try
+            {
+               
+                string sql = @"INSERT INTO [hd_empinquiry_smartphone]
+                (
+                    employee_id
+                    , employee_name
+                    , order_date
+                    , phone_number
+                    , tier
+                    , ordered_item
+                    , rogers_account_created
+                    , board_contribution_paid
+                    , next_eligible_date
+                    , form_link
+                    , notes
+                )
+                VALUES
+                (
+                    @EmployeeID,
+                    @EmployeeName,
+                    @OrderDate,
+                    @PhoneNumber,
+                    @Tier,
+                    @OrderedItem,
+                    @RogersAccountCreated,
+                    @BoardContributionPaid,
+                    @NextEligibleDate,
+                    @FormLink,
+                    @Notes
+                )";
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLDB_HDHRP"].ConnectionString))
+                {
+                    using (SqlCommand cmd = new SqlCommand(sql, con))
+                    {
+                        cmd.Parameters.AddWithValue("@EmployeeID", Session["selectedEmpId"].ToString());
+                        cmd.Parameters.AddWithValue("@EmployeeName", $"{Session["selectedSurname"]}, {Session["selectedFirstname"]}");
+                        cmd.Parameters.AddWithValue("@OrderDate", selectedOrderDate);
+                        cmd.Parameters.AddWithValue("@PhoneNumber", phoneNumber);
+                        cmd.Parameters.AddWithValue("@Tier", selectedTier);
+                        cmd.Parameters.AddWithValue("@OrderedItem", selectedItem);
+                        cmd.Parameters.AddWithValue("@RogersAccountCreated", isRogersYesSelected);
+                        cmd.Parameters.AddWithValue("@BoardContributionPaid", isBoardYesSelected);
+                        cmd.Parameters.AddWithValue("@NextEligibleDate", selectedEligibleDateTime);
+                        cmd.Parameters.AddWithValue("@FormLink", "");
+                        cmd.Parameters.AddWithValue("@Notes", tb_notes.Text);
+
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+                        con.Close();
+                    }
+                }
+            }
+            
+            catch (Exception ex)
+            {
+
+            }
+
         }
 
         protected void ddl_tier_SelectedIndexChanged(object sender, EventArgs e)
