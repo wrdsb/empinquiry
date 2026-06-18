@@ -114,6 +114,7 @@ namespace empinquiry
                                             , next_eligible_date AS EligibleDate
                                             , form_link AS Forms
                                             , notes AS Notes
+                                            , Id
                                     FROM    [hd_empinquiry_smartphone]
                                     WHERE   employee_id = @EmployeeID";
 
@@ -281,6 +282,50 @@ namespace empinquiry
 
             rbl_RogersYesNo.SelectedIndex = -1;
             rbl_BoardYesNo.SelectedIndex = -1;
+
+        }
+
+        protected void btnEdit_Click(object sender, EventArgs e)
+        {
+            LinkButton btn = (LinkButton)sender;
+
+            int rowIndex = Convert.ToInt32(btn.CommandArgument);
+
+            try
+            {
+
+
+                int id = Convert.ToInt32(
+                    smartphoneOrdersGrid.DataKeys[rowIndex].Value);
+
+                // Use this id to retrieve the row from the database
+                string sql = @" SELECT *
+                                FROM hd_empinquiry_smartphone
+                                WHERE Id = @Id";
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLDB_HDHRP"].ConnectionString))
+                {
+                    con.Open();
+                    using (SqlCommand cmd = new SqlCommand(sql, con))
+                    {
+                        cmd.Parameters.AddWithValue("@Id", id);
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.HasRows)
+                            {
+                                while (reader.Read())
+                                {
+                                    tb_orderDate.Text =
+                                        Convert.ToDateTime(reader["order_date"]).ToString("yyyy-MM-dd");
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
 
         }
     }

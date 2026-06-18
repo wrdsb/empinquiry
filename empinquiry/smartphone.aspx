@@ -224,7 +224,7 @@
                 </div>
 
                 <!-- For Grid -->
-                <asp:GridView ID="smartphoneOrdersGrid" runat="server" AutoGenerateColumns="False" CssClass="table table-striped">
+                <asp:GridView ID="smartphoneOrdersGrid" runat="server" DataKeyNames="Id" AutoGenerateColumns="False" CssClass="table table-striped">
                     <Columns>
                         <asp:BoundField DataField="OrderDate" HeaderText="Order Date" DataFormatString="{0:MM/dd/yyyy}" />
                         <asp:BoundField DataField="Phone" HeaderText="Phone #" />
@@ -238,7 +238,12 @@
 
                         <asp:TemplateField HeaderText="Actions">
                             <ItemTemplate>
-                                <asp:LinkButton ID="btnEdit" runat="server" CommandName="Edit" Text="Edit" CssClass="btn btn-sm btn-primary" />
+                                <asp:LinkButton ID="btnEdit" 
+                                    runat="server" 
+                                    CommandArgument='<%# Container.DataItemIndex %>'
+                                    Text="Edit" 
+                                    CssClass="btn btn-sm btn-primary" 
+                                    OnClick ="btnEdit_Click" />
                                 <!--<asp:LinkButton ID="btnDelete" runat="server" CommandName="Delete" Text="Delete" CssClass="btn btn-sm btn-danger" />-->
                             </ItemTemplate>
                         </asp:TemplateField>
