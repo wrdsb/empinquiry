@@ -274,12 +274,12 @@
                         <tr style="background-color: lightcyan">
                             <td>
                                <asp:LinkButton  
-                                ID="linkButtonEmpId" 
-                                runat="server"
-                                Text='<%# Eval("employee_id") %>'
-                                CommandArgument='<%# Eval("employee_id") %>'
-                                OnClick="linkButtonEmpId_click">
-                            </asp:LinkButton>
+                                    ID="linkButtonEmpId" 
+                                    runat="server"
+                                    Text='<%# Eval("employee_id") %>'
+                                    CommandArgument='<%# Eval("employee_id") + ";" + Eval("surname") + ";" + Eval("first_name") %>'
+                                    OnClick="linkButtonEmpId_click">
+                                </asp:LinkButton>
                             </td>
                             <td>
                                 <asp:Label ID="lbl_name" runat="server"
