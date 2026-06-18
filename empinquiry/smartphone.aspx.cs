@@ -106,14 +106,22 @@ namespace empinquiry
                 using (SqlConnection conn = new SqlConnection(connString))
                 {
                     string sql = @" SELECT  order_date AS OrderDate
-                                            , phone_number AS Phone
-                                            , tier AS Tier
-                                            , ordered_item AS Item
-                                            , rogers_account_created AS Rogers
-                                            , board_contribution_paid AS BoardPaid
-                                            , next_eligible_date AS EligibleDate
-                                            , form_link AS Forms
-                                            , notes AS Notes
+                                            , phone_number                          AS Phone
+                                            , tier                                  AS Tier
+                                            , ordered_item                          AS Item
+                                            , CASE
+                                                WHEN rogers_account_created = 1 
+                                                THEN 'Yes'
+                                                ELSE 'No'
+                                              END                                   AS Rogers
+                                            , CASE
+                                                WHEN board_contribution_paid = 1 
+                                                THEN 'Yes'
+                                                ELSE 'No'
+                                              END                                   AS BoardPaid
+                                            , next_eligible_date                    AS EligibleDate
+                                            , form_link                             AS Forms
+                                            , notes                                 AS Notes
                                             , Id
                                     FROM    [hd_empinquiry_smartphone]
                                     WHERE   employee_id = @EmployeeID";
@@ -316,6 +324,17 @@ namespace empinquiry
                                 {
                                     tb_orderDate.Text =
                                         Convert.ToDateTime(reader["order_date"]).ToString("yyyy-MM-dd");
+                                    tb_phoneNumber.Text = reader["phone_number"].ToString();
+                                    ddl_tier.SelectedValue = reader["tier"].ToString();
+                                    ddl_orderedItem.SelectedValue = reader["ordered_item"].ToString();
+                                    rbl_RogersYesNo.SelectedValue =
+                                        reader["rogers_account_created"].ToString() == "True"? "1":"0";
+                                    rbl_BoardYesNo.SelectedValue =
+                                        reader["board_contribution_paid"].ToString() == "True"? "1":"0";
+                                    tb_eligibleDate.Text =
+                                        Convert.ToDateTime(reader["next_eligible_date"])
+                                        .ToString("yyyy-MM-dd");
+                                    tb_notes.Text = reader["notes"].ToString();
                                 }
                             }
                         }
