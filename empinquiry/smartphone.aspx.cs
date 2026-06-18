@@ -105,23 +105,23 @@ namespace empinquiry
             {
                 using (SqlConnection conn = new SqlConnection(connString))
                 {
-                    string sql = @" SELECT  order_date AS OrderDate
-                                            , phone_number                          AS Phone
-                                            , tier                                  AS Tier
-                                            , ordered_item                          AS Item
+                    string sql = @" SELECT  FORMAT(order_date, 'yyyy-MM-dd')            AS OrderDate
+                                            , phone_number                              AS Phone
+                                            , tier                                      AS Tier
+                                            , ordered_item                              AS Item
                                             , CASE
                                                 WHEN rogers_account_created = 1 
                                                 THEN 'Yes'
                                                 ELSE 'No'
-                                              END                                   AS Rogers
+                                              END                                       AS Rogers
                                             , CASE
                                                 WHEN board_contribution_paid = 1 
                                                 THEN 'Yes'
                                                 ELSE 'No'
-                                              END                                   AS BoardPaid
-                                            , next_eligible_date                    AS EligibleDate
-                                            , form_link                             AS Forms
-                                            , notes                                 AS Notes
+                                              END                                       AS BoardPaid
+                                            , FORMAT(next_eligible_date, 'yyyy-MM-dd')  AS EligibleDate
+                                            , form_link                                 AS Forms
+                                            , notes                                     AS Notes
                                             , Id
                                     FROM    [hd_empinquiry_smartphone]
                                     WHERE   employee_id = @EmployeeID";
