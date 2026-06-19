@@ -214,7 +214,47 @@ namespace empinquiry
             ClearFormControls();
             
         }
-        void updateRecords() { }
+        void updateRecords()
+        {
+            try
+            {
+                string sql = @"
+                                UPDATE  hd_empinquiry_smartphone
+                                SET     order_date = @OrderDate
+                                        , phone_number = @PhoneNumber
+                                        , tier = @Tier
+                                        , ordered_item = @OrderedItem
+                                        , rogers_account_created = @RogersAccountCreated
+                                        , board_contribution_paid = @BoardContributionPaid
+                                        , next_eligible_date = @NextEligibleDate
+                                        , notes = @Notes
+                                WHERE   Id = @Id";
+
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLDB_HDHRP"].ConnectionString))
+                {
+                    using (SqlCommand cmd = new SqlCommand(sql, con))
+                    {
+                       
+                        cmd.Parameters.AddWithValue("@OrderDate", selectedOrderDate);
+                        cmd.Parameters.AddWithValue("@PhoneNumber", phoneNumber);
+                        cmd.Parameters.AddWithValue("@Tier", selectedTier);
+                        cmd.Parameters.AddWithValue("@OrderedItem", selectedItem);
+                        cmd.Parameters.AddWithValue("@RogersAccountCreated", isRogersYesSelected);
+                        cmd.Parameters.AddWithValue("@BoardContributionPaid", isBoardYesSelected);
+                        cmd.Parameters.AddWithValue("@NextEligibleDate", selectedEligibleDateTime);
+                        cmd.Parameters.AddWithValue("@Notes", notes);
+                        cmd.Parameters.AddWithValue("@Id", hfId.Value);
+
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+                        con.Close();
+
+
+                    }
+                }
+            }
+            catch (Exception e) { }
+        }
 
         void SaveRecords()
         {
@@ -263,7 +303,7 @@ namespace empinquiry
                         cmd.Parameters.AddWithValue("@BoardContributionPaid", isBoardYesSelected);
                         cmd.Parameters.AddWithValue("@NextEligibleDate", selectedEligibleDateTime);
                         cmd.Parameters.AddWithValue("@FormLink", "");
-                        cmd.Parameters.AddWithValue("@Notes", tb_notes.Text);
+                        cmd.Parameters.AddWithValue("@Notes", notes);
 
                         con.Open();
                         cmd.ExecuteNonQuery();
@@ -302,6 +342,7 @@ namespace empinquiry
             rbl_BoardYesNo.SelectedIndex = -1;
             Session["update"] = false;
             btn_Add.Text = "Add Smartphone Order";
+            hfId.Value = "";
 
         }
 
@@ -352,6 +393,7 @@ namespace empinquiry
                         }
                     }
                 }
+                hfId.Value = id.ToString();
                 Session["update"] = true;
                 btn_Add.Text = "Update Smartphone Order";
 

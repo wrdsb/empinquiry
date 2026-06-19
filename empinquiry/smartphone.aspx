@@ -249,6 +249,7 @@
                         </asp:TemplateField>
                     </Columns>
                 </asp:GridView>
+                <asp:HiddenField ID="hfId" runat="server" />
             </div>
         </div>
     </div>
