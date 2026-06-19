@@ -170,6 +170,8 @@ namespace empinquiry
             // You can collect data from input fields and insert it into your database
             // After adding, re-bind the grid to show the new data
 
+            //MessageBox.Show("update : " + Session["update"]);
+
             if (DateTime.TryParse(tb_orderDate.Text, out DateTime parsedDate))
             {
                 selectedOrderDate = parsedDate;
@@ -193,18 +195,26 @@ namespace empinquiry
             notes = !string.IsNullOrEmpty(tb_notes.Text) ? tb_notes.Text : string.Empty;
 
             // logic to save the collected data to the database
-
-            SaveRecords();
+            if (Convert.ToBoolean( Session["update"]))
+            {
+                updateRecords();
+                lblsubmit.Text = "Updated successfully!";
+                lblsubmit.Style["display"] = "block"; // Ensure it is visible if previously hidden  
+            }
+            else
+            {
+                SaveRecords();
+                lblsubmit.Text = "Submitted successfully!";
+                lblsubmit.Style["display"] = "block"; // Ensure it is visible if previously hidden               
+            }
+            // Register the JavaScript function to run after the page loads
+            ClientScript.RegisterStartupScript(this.GetType(), "HideLabelScript", "hideLabel();", true);
 
             BindGrid();
             ClearFormControls();
-            lblsubmit.Text = "Submitted successfully!";
-
-            lblsubmit.Style["display"] = "block"; // Ensure it is visible if previously hidden
-
-            // Register the JavaScript function to run after the page loads
-            ClientScript.RegisterStartupScript(this.GetType(), "HideLabelScript", "hideLabel();", true);
+            
         }
+        void updateRecords() { }
 
         void SaveRecords()
         {
@@ -290,6 +300,8 @@ namespace empinquiry
 
             rbl_RogersYesNo.SelectedIndex = -1;
             rbl_BoardYesNo.SelectedIndex = -1;
+            Session["update"] = false;
+            btn_Add.Text = "Add Smartphone Order";
 
         }
 
@@ -340,6 +352,9 @@ namespace empinquiry
                         }
                     }
                 }
+                Session["update"] = true;
+                btn_Add.Text = "Update Smartphone Order";
+
             }
             catch (Exception ex)
             {
