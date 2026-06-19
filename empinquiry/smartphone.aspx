@@ -81,12 +81,12 @@
                         Font-Bold="true">                       
                     </asp:Label>
                 </div>
-                <div class="announcement">
+                <%--<div class="announcement">
                     <asp:Label ID="lblinfo"
                         runat="server"
                         Font-Bold="true">                       
                     </asp:Label>
-                </div>
+                </div>--%>
 
                 <asp:Panel ID="panelsmart" runat="server" DefaultButton="btn_Add">
                     <asp:Table runat="server">
@@ -203,7 +203,7 @@
 
                         <asp:TableRow>
                             <asp:TableCell>
-                                <asp:Button ID="btn_Add" runat="server" CssClass="btn btn-primary" Text="Submit" OnClick="btnAdd_Click" />
+                                <asp:Button ID="btn_Add" runat="server" CssClass="btn btn-primary" Text="Add Smartphone Order" OnClick="btnAdd_Click" />
                             </asp:TableCell>
                             <asp:TableCell>
                                 <asp:Label ID="lblsubmit"
