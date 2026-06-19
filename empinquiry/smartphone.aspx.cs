@@ -50,48 +50,8 @@ namespace empinquiry
 
         }
         private void BindGrid()
-        {
-            // Replace this with your actual data retrieval logic
-            //DataTable dt = new DataTable();
-            //dt.Columns.AddRange(new DataColumn[9] {
-            //    new DataColumn("OrderDate"), new DataColumn("Phone"), new DataColumn("Tier"),
-            //    new DataColumn("Item"), new DataColumn("Rogers"), new DataColumn("BoardPaid"),
-            //    new DataColumn("EligibleDate"), new DataColumn("Forms"), new DataColumn("Notes")
-            //});
-
-            //// Sample data row
-            ////dt.Rows.Add(DateTime.Now, "555-0199", "Gold", "Phone Case", "Yes", "$50", DateTime.Now.AddMonths(6), "Completed", "N/A");
-            ////MessageBox.Show($"Table Columns: {dt.Columns.Count} | Values Provided: 9");
-
-            //try
-            //{
-            //    if (selectedOrderDate != null)
-            //    {
-            //        DataRow newRow = dt.NewRow();
-
-            //        newRow["OrderDate"] = selectedOrderDate;
-            //        newRow["Phone"] = phoneNumber;
-            //        newRow["Tier"] = selectedTier;
-            //        newRow["Item"] = selectedItem;
-            //        newRow["Rogers"] = isRogersYesSelected;
-            //        newRow["BoardPaid"] = isBoardYesSelected;
-            //        newRow["EligibleDate"] = selectedEligibleDateTime;
-            //        newRow["Forms"] = "Forms - TBD";
-            //        newRow["Notes"] = notes;
-
-            //        dt.Rows.Add(newRow);
-            //    }
-
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show("Error: " + ex.Message);
-            //}
-
+        {         
             GetRecords();
-
-
-
         }
         void GetRecords()
         {
