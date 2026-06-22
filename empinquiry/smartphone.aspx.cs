@@ -300,6 +300,7 @@ namespace empinquiry
 
             rbl_RogersYesNo.SelectedIndex = -1;
             rbl_BoardYesNo.SelectedIndex = -1;
+
             Session["update"] = false;
             btn_Add.Text = "Add Smartphone Order";
             hfId.Value = "";
@@ -356,6 +357,8 @@ namespace empinquiry
                 hfId.Value = id.ToString();
                 Session["update"] = true;
                 btn_Add.Text = "Update Smartphone Order";
+                lblsubmit.Style["display"] = "none";
+
 
             }
             catch (Exception ex)
