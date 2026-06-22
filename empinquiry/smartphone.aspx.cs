@@ -382,6 +382,19 @@ namespace empinquiry
             {
                 int id = Convert.ToInt32(
                     smartphoneOrdersGrid.DataKeys[rowIndex].Value);
+
+                string sql = @"DELETE FROM hd_empinquiry_smartphone WHERE Id = @Id";
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLDB_HDHRP"].ConnectionString))
+                {
+                    using (SqlCommand cmd = new SqlCommand(sql, con))
+                    {                       
+                        cmd.Parameters.AddWithValue("@Id", id);
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+                        con.Close();
+                    }
+                }
+                BindGrid();
                 
             }
             catch (Exception ex) { }
