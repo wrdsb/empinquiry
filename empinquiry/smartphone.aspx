@@ -202,7 +202,13 @@
                                     Text="Edit"
                                     CssClass="btn btn-sm btn-primary"
                                     OnClick="btnEdit_Click" />
-                                <!--<asp:LinkButton ID="btnDelete" runat="server" CommandName="Delete" Text="Delete" CssClass="btn btn-sm btn-danger" />-->
+                                <asp:LinkButton ID="btnDelete" 
+                                    runat="server" 
+                                    Text="Delete" 
+                                    CssClass="btn btn-sm btn-primary"
+                                    CommandArgument='<%# Container.DataItemIndex %>'
+                                    OnClick ="btnDelete_Click"
+                                    OnClientClick="return confirm('Do you want to delete smartphone order?');" />
                             </ItemTemplate>
                         </asp:TemplateField>
                     </Columns>

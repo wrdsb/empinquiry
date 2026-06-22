@@ -372,5 +372,19 @@ namespace empinquiry
             }
 
         }
+
+        protected void btnDelete_Click(object sender, EventArgs e)
+        {
+            LinkButton btn = (LinkButton)sender;
+            int rowIndex = Convert.ToInt32(btn.CommandArgument);
+
+            try
+            {
+                int id = Convert.ToInt32(
+                    smartphoneOrdersGrid.DataKeys[rowIndex].Value);
+                
+            }
+            catch (Exception ex) { }
+        }
     }
 }
