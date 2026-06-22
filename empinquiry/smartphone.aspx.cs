@@ -163,9 +163,11 @@ namespace empinquiry
             }
             else
             {
-                SaveRecords();
-                lblsubmit.Text = "Submitted successfully!";
-                lblsubmit.Style["display"] = "block"; // Ensure it is visible if previously hidden               
+                if (SaveRecords())
+                {
+                    lblsubmit.Text = "Submitted successfully!";
+                    lblsubmit.Style["display"] = "block"; // Ensure it is visible if previously hidden
+                }
             }
             // Register the JavaScript function to run after the page loads
             ClientScript.RegisterStartupScript(this.GetType(), "HideLabelScript", "hideLabel();", true);
@@ -216,7 +218,7 @@ namespace empinquiry
             catch (Exception e) { }
         }
 
-        void SaveRecords()
+        bool SaveRecords()
         {
             try
             {
@@ -274,8 +276,11 @@ namespace empinquiry
             
             catch (Exception ex)
             {
-
+                lblsubmit.Text = "Missing Order Date !";
+                lblsubmit.Style["display"] = "block"; // Ensure it is visible if previously hidden
+                return false;
             }
+            return true;
 
         }
 

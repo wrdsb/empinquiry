@@ -42,7 +42,7 @@
                 document.getElementById('<%= lblsubmit.ClientID %>').style.display = 'none';
             }, 5000); // 5000 milliseconds = 5 seconds       
         }
-</script>
+    </script>
 
     <style>
         /* Style the container */
@@ -95,36 +95,15 @@
                         <asp:TableRow>
                             <asp:TableCell>Order Date  </asp:TableCell>
                             <asp:TableCell>
-                                <asp:TextBox ID="tb_orderDate" Width="300px" runat="server" TextMode="Date" CssClass="form-control" onchange="setEligibleDate();"></asp:TextBox>
-
+                                <asp:TextBox ID="tb_orderDate" Width="200px" runat="server" TextMode="Date" CssClass="form-control" onchange="setEligibleDate();"></asp:TextBox>
                             </asp:TableCell>
-                        </asp:TableRow>
-
-
-
-                        <asp:TableRow>
                             <asp:TableCell>Phone Number</asp:TableCell>
                             <asp:TableCell>
-                                <asp:TextBox ID="tb_phoneNumber" runat="server" Width="300px" CssClass="form-control" ClientIDMode="Static"></asp:TextBox>
+                                <asp:TextBox ID="tb_phoneNumber" runat="server" Width="200px" CssClass="form-control" ClientIDMode="Static"></asp:TextBox>
                             </asp:TableCell>
-                            <%-- <asp:TableCell>
-                                <asp:RegularExpressionValidator
-                                    ID="revPhoneNumber"
-                                    runat="server"
-                                    ControlToValidate="tb_phoneNumber"
-                                    ValidationExpression="^[0-9+\s\-()]*$"
-                                    ErrorMessage="Phone number cannot contain letters."
-                                    ForeColor="Red">
-                                </asp:RegularExpressionValidator>
-                            </asp:TableCell>--%>
-                        </asp:TableRow>
-
-
-
-                        <asp:TableRow>
                             <asp:TableCell>Tier</asp:TableCell>
                             <asp:TableCell>
-                                <asp:DropDownList ID="ddl_tier" runat="server" AutoPostBack="true" Width="300px" CssClass="form-control" OnSelectedIndexChanged="ddl_tier_SelectedIndexChanged">
+                                <asp:DropDownList ID="ddl_tier" runat="server" AutoPostBack="true" Width="200px" CssClass="form-control" OnSelectedIndexChanged="ddl_tier_SelectedIndexChanged">
                                     <asp:ListItem Text="Tier1" Value="Tier1" />
                                     <asp:ListItem Text="Tier2" Value="Tier2" />
                                     <asp:ListItem Text="Tier3" Value="Tier3" />
@@ -134,52 +113,36 @@
                         </asp:TableRow>
 
 
-
                         <asp:TableRow>
                             <asp:TableCell>Ordered Item</asp:TableCell>
                             <asp:TableCell>
-                                <asp:DropDownList ID="ddl_orderedItem" runat="server" AutoPostBack="true" Width="300px" CssClass="form-control" OnSelectedIndexChanged="ddl_orderedItem_SelectedIndexChanged">
+                                <asp:DropDownList ID="ddl_orderedItem" runat="server" AutoPostBack="true" Width="200px" CssClass="form-control" OnSelectedIndexChanged="ddl_orderedItem_SelectedIndexChanged">
                                     <asp:ListItem Text="SIM" Value="SIM" />
                                     <asp:ListItem Text="Phone" Value="Phone" />
                                 </asp:DropDownList>
                             </asp:TableCell>
-                        </asp:TableRow>
-
-
-
-                        <asp:TableRow>
                             <asp:TableCell>Rogers Account Created</asp:TableCell>
                             <asp:TableCell>
                                 <asp:RadioButtonList ID="rbl_RogersYesNo" runat="server" RepeatDirection="Horizontal" RepeatLayout="Flow" CssClass="custom-radio-list">
-                                    <asp:ListItem Text="Yes" Value= "1" ></asp:ListItem>
-                                    <asp:ListItem Text="No" Value= "0" ></asp:ListItem>
+                                    <asp:ListItem Text="Yes" Value="1"></asp:ListItem>
+                                    <asp:ListItem Text="No" Value="0"></asp:ListItem>
                                 </asp:RadioButtonList>
                             </asp:TableCell>
-                        </asp:TableRow>
-
-
-
-                        <asp:TableRow>
                             <asp:TableCell> Board Contribution Paid</asp:TableCell>
                             <asp:TableCell>
                                 <asp:RadioButtonList ID="rbl_BoardYesNo" runat="server" RepeatDirection="Horizontal" RepeatLayout="Flow" CssClass="custom-radio-list">
-                                    <asp:ListItem Text="Yes" Value= "1" ></asp:ListItem>
+                                    <asp:ListItem Text="Yes" Value="1"></asp:ListItem>
                                     <asp:ListItem Text="No" Value="0"></asp:ListItem>
                                 </asp:RadioButtonList>
                             </asp:TableCell>
                         </asp:TableRow>
 
 
-
                         <asp:TableRow>
                             <asp:TableCell>Next Eligible Date</asp:TableCell>
                             <asp:TableCell>
-                                <asp:TextBox ID="tb_eligibleDate" Width="300px" runat="server" TextMode="Date" CssClass="form-control"></asp:TextBox>
+                                <asp:TextBox ID="tb_eligibleDate" Width="200px" runat="server" TextMode="Date" CssClass="form-control"></asp:TextBox>
                             </asp:TableCell>
-                        </asp:TableRow>
-
-
-                        <asp:TableRow>
                             <asp:TableCell>Link Options Form</asp:TableCell>
                             <asp:TableCell>
                                 <asp:HyperLink
@@ -189,9 +152,6 @@
                                     Target="_blank" NavigateUrl="https://drive.google.com/drive/folders/1b0ClP5MY2XEAMFTpOo46LTmtORJ4UXak">
                                 </asp:HyperLink>
                             </asp:TableCell>
-                        </asp:TableRow>
-
-                        <asp:TableRow>
                             <asp:TableCell>Notes</asp:TableCell>
                             <asp:TableCell>
                                 <asp:TextBox ID="tb_notes" runat="server" CssClass="form-control" TextMode="MultiLine"
@@ -199,7 +159,6 @@
                                 </asp:TextBox>
                             </asp:TableCell>
                         </asp:TableRow>
-
 
                         <asp:TableRow>
                             <asp:TableCell>
@@ -212,7 +171,6 @@
                                 </asp:Label>
                             </asp:TableCell>
                         </asp:TableRow>
-
 
                     </asp:Table>
                 </asp:Panel>
@@ -238,12 +196,12 @@
 
                         <asp:TemplateField HeaderText="Actions">
                             <ItemTemplate>
-                                <asp:LinkButton ID="btnEdit" 
-                                    runat="server" 
+                                <asp:LinkButton ID="btnEdit"
+                                    runat="server"
                                     CommandArgument='<%# Container.DataItemIndex %>'
-                                    Text="Edit" 
-                                    CssClass="btn btn-sm btn-primary" 
-                                    OnClick ="btnEdit_Click" />
+                                    Text="Edit"
+                                    CssClass="btn btn-sm btn-primary"
+                                    OnClick="btnEdit_Click" />
                                 <!--<asp:LinkButton ID="btnDelete" runat="server" CommandName="Delete" Text="Delete" CssClass="btn btn-sm btn-danger" />-->
                             </ItemTemplate>
                         </asp:TemplateField>
