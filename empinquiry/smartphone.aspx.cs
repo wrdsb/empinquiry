@@ -399,5 +399,10 @@ namespace empinquiry
             }
             catch (Exception ex) { }
         }
+
+        protected void btn_Clear_Click(object sender, EventArgs e)
+        {
+            ClearFormControls();
+        }
     }
 }

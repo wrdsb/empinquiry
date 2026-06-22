@@ -128,7 +128,7 @@
                                     <asp:ListItem Text="No" Value="0"></asp:ListItem>
                                 </asp:RadioButtonList>
                             </asp:TableCell>
-                            <asp:TableCell> Board Contribution Paid</asp:TableCell>
+                            <asp:TableCell>Board Contribution Paid</asp:TableCell>
                             <asp:TableCell>
                                 <asp:RadioButtonList ID="rbl_BoardYesNo" runat="server" RepeatDirection="Horizontal" RepeatLayout="Flow" CssClass="custom-radio-list">
                                     <asp:ListItem Text="Yes" Value="1"></asp:ListItem>
@@ -161,6 +161,9 @@
                         </asp:TableRow>
 
                         <asp:TableRow>
+                            <asp:TableCell>
+                                <asp:Button ID="btn_Clear" runat="server" CssClass="btn btn-primary" Text="Clear" OnClick="btn_Clear_Click" />
+                            </asp:TableCell>
                             <asp:TableCell>
                                 <asp:Button ID="btn_Add" runat="server" CssClass="btn btn-primary" Text="Add Smartphone Order" OnClick="btnAdd_Click" />
                             </asp:TableCell>
@@ -202,12 +205,12 @@
                                     Text="Edit"
                                     CssClass="btn btn-sm btn-primary"
                                     OnClick="btnEdit_Click" />
-                                <asp:LinkButton ID="btnDelete" 
-                                    runat="server" 
-                                    Text="Delete" 
+                                <asp:LinkButton ID="btnDelete"
+                                    runat="server"
+                                    Text="Delete"
                                     CssClass="btn btn-sm btn-primary"
                                     CommandArgument='<%# Container.DataItemIndex %>'
-                                    OnClick ="btnDelete_Click"
+                                    OnClick="btnDelete_Click"
                                     OnClientClick="return confirm('Do you want to delete smartphone order?');" />
                             </ItemTemplate>
                         </asp:TemplateField>
