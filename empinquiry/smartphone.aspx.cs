@@ -48,6 +48,9 @@ namespace empinquiry
 
             }
 
+            hideLabel();
+            
+
         }
         private void BindGrid()
         {         
@@ -158,14 +161,14 @@ namespace empinquiry
             if (Convert.ToBoolean( Session["update"]))
             {
                 updateRecords();
-                lblsubmit.Text = "Updated successfully!";
+                lblsubmit.Text = "Smartphone order modified successfully!";
                 lblsubmit.Style["display"] = "block"; // Ensure it is visible if previously hidden  
             }
             else
             {
                 if (SaveRecords())
                 {
-                    lblsubmit.Text = "Submitted successfully!";
+                    lblsubmit.Text = "Smartphone order added successfully!";
                     lblsubmit.Style["display"] = "block"; // Ensure it is visible if previously hidden
                 }
             }
@@ -276,22 +279,29 @@ namespace empinquiry
             
             catch (Exception ex)
             {
-                lblsubmit.Text = "Missing Order Date !";
+                lblsubmit.Text = "Order Date is missing !";
                 lblsubmit.Style["display"] = "block"; // Ensure it is visible if previously hidden
+                tb_orderDate.Focus();
                 return false;
             }
             return true;
 
         }
+        void hideLabel()
+        {
+            lblsubmit.Text = "";
+            lblsubmit.Style["display"] = "none"; // hide
+
+        }
 
         protected void ddl_tier_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            hideLabel();
         }
 
         protected void ddl_orderedItem_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            hideLabel();
         }
         private void ClearFormControls()
         {
@@ -361,8 +371,8 @@ namespace empinquiry
                 }
                 hfId.Value = id.ToString();
                 Session["update"] = true;
-                btn_Add.Text = "Update Smartphone Order";
-                lblsubmit.Style["display"] = "none";
+                btn_Add.Text = "Modify Smartphone Order";
+                hideLabel();
 
 
             }
@@ -395,6 +405,7 @@ namespace empinquiry
                     }
                 }
                 BindGrid();
+                hideLabel();
                 
             }
             catch (Exception ex) { }
@@ -403,6 +414,7 @@ namespace empinquiry
         protected void btn_Clear_Click(object sender, EventArgs e)
         {
             ClearFormControls();
+            hideLabel();
         }
     }
 }

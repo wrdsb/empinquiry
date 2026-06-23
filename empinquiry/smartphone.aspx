@@ -202,7 +202,7 @@
                                 <asp:LinkButton ID="btnEdit"
                                     runat="server"
                                     CommandArgument='<%# Container.DataItemIndex %>'
-                                    Text="Edit"
+                                    Text="Modify"
                                     CssClass="btn btn-sm btn-primary"
                                     OnClick="btnEdit_Click" />
                                 <asp:LinkButton ID="btnDelete"
