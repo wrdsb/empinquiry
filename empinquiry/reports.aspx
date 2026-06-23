@@ -178,6 +178,7 @@
                                 <asp:LinkButton  
                                     ID="linkButtonEmpId" 
                                     runat="server"
+                                    ToolTip ="Smartphone Orders"
                                     Text='<%# Eval("employee_id") %>'
                                     CommandArgument='<%# Eval("employee_id") + ";" + Eval("surname") + ";" + Eval("first_name") %>'
                                     OnClick="linkButtonEmpId_click">
@@ -276,6 +277,7 @@
                                <asp:LinkButton  
                                     ID="linkButtonEmpId" 
                                     runat="server"
+                                    ToolTip ="Smartphone Orders"
                                     Text='<%# Eval("employee_id") %>'
                                     CommandArgument='<%# Eval("employee_id") + ";" + Eval("surname") + ";" + Eval("first_name") %>'
                                     OnClick="linkButtonEmpId_click">
