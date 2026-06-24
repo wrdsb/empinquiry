@@ -211,7 +211,7 @@
                                     CssClass="btn btn-sm btn-primary"
                                     CommandArgument='<%# Container.DataItemIndex %>'
                                     OnClick="btnDelete_Click"
-                                    OnClientClick="return confirm('Do you want to delete smartphone order?');" />
+                                    OnClientClick="return confirm('Are you sure to delete the smartphone order?');" />
                             </ItemTemplate>
                         </asp:TemplateField>
                     </Columns>
