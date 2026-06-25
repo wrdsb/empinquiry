@@ -11,97 +11,115 @@ namespace empinquiry
 {
 
 
-    public partial class Main
+    public partial class smartphoneReport
     {
 
         /// <summary>
-        /// head control.
+        /// panelsmart control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder head;
+        protected global::System.Web.UI.WebControls.Panel panelsmart;
 
         /// <summary>
-        /// form1 control.
+        /// tb_orderDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        protected global::System.Web.UI.WebControls.TextBox tb_orderDate;
 
         /// <summary>
-        /// ScriptManager1 control.
+        /// tb_phoneNumber control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.ScriptManager ScriptManager1;
+        protected global::System.Web.UI.WebControls.TextBox tb_phoneNumber;
 
         /// <summary>
-        /// lbl_username control.
+        /// ddl_tier control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_username;
+        protected global::System.Web.UI.WebControls.DropDownList ddl_tier;
 
         /// <summary>
-        /// LinkButton1 control.
+        /// ddl_orderedItem control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton1;
+        protected global::System.Web.UI.WebControls.DropDownList ddl_orderedItem;
 
         /// <summary>
-        /// home_link control.
+        /// rbl_RogersYesNo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl home_link;
+        protected global::System.Web.UI.WebControls.RadioButtonList rbl_RogersYesNo;
 
         /// <summary>
-        /// reports_link control.
+        /// rbl_BoardYesNo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl reports_link;
+        protected global::System.Web.UI.WebControls.RadioButtonList rbl_BoardYesNo;
 
         /// <summary>
-        /// smartphone_link control.
+        /// tb_eligibleDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl smartphone_link;
+        protected global::System.Web.UI.WebControls.TextBox tb_eligibleDate;
 
         /// <summary>
-        /// smartphoneReport_link control.
+        /// btn_Clear control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl smartphoneReport_link;
+        protected global::System.Web.UI.WebControls.Button btn_Clear;
 
         /// <summary>
-        /// ContentPlaceHolder1 control.
+        /// btn_Add control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder ContentPlaceHolder1;
+        protected global::System.Web.UI.WebControls.Button btn_Add;
+
+        /// <summary>
+        /// smartphoneOrdersGrid control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView smartphoneOrdersGrid;
+
+        /// <summary>
+        /// hfId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfId;
     }
 }

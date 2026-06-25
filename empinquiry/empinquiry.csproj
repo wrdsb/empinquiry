@@ -288,6 +288,7 @@
     <Content Include="Global.asax" />
     <Content Include="reports.aspx" />
     <Content Include="smartphone.aspx" />
+    <Content Include="smartphoneReport.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -347,6 +348,13 @@
     </Compile>
     <Compile Include="smartphone.aspx.designer.cs">
       <DependentUpon>smartphone.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="smartphoneReport.aspx.cs">
+      <DependentUpon>smartphoneReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="smartphoneReport.aspx.designer.cs">
+      <DependentUpon>smartphoneReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="SQLProvider.cs" />
     <Compile Include="Startup.cs" />
