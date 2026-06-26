@@ -36,8 +36,8 @@
 
 
     <script type="text/javascript">
-       
-    </script>
+
+</script>
 
     <style>
         /* Style the container */
@@ -70,16 +70,32 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
+                <asp:Panel ID="pnlDateRange" runat="server" GroupingText="Filter By Date Range">
+                    <!-- Place your web controls inside here -->
+                    <div class="row">
+
+                        <div class="col-md-3">
+                            <asp:Label runat="server">Date Type</asp:Label>
+                            <asp:DropDownList ID="ddl_DateType" runat="server" CssClass="form-control">
+                                <asp:ListItem Text="Order Date" Value="ORDER_DATE"></asp:ListItem>
+                                <asp:ListItem Text="Eligibility Date" Value="NEXT_ELIGIBLE_DATE"></asp:ListItem>
+                            </asp:DropDownList>
+                        </div>
+                        <div class="col-md-3">
+                            <asp:Label runat="server">From Date</asp:Label>
+                            <asp:TextBox ID="tb_orderDate" Width="200px" runat="server" CssClass="form-control" TextMode="Date" onchange="setEligibleDate();"></asp:TextBox>
+                        </div>
+                        <div class="col-md-3">
+                            <asp:Label runat="server">To Date</asp:Label>
+                            <asp:TextBox ID="tb_eligibleDate" Width="200px" runat="server" CssClass="form-control" TextMode="Date"></asp:TextBox>
+                        </div>
+                    </div>
+
+                </asp:Panel>
 
                 <asp:Panel ID="panelsmart" runat="server" DefaultButton="btn_Add">
                     <asp:Table runat="server">
-
-
                         <asp:TableRow>
-                            <asp:TableCell>Order Date  </asp:TableCell>
-                            <asp:TableCell>
-                                <asp:TextBox ID="tb_orderDate" Width="200px" runat="server" TextMode="Date" CssClass="form-control" onchange="setEligibleDate();"></asp:TextBox>
-                            </asp:TableCell>
                             <asp:TableCell>Phone Number</asp:TableCell>
                             <asp:TableCell>
                                 <asp:TextBox ID="tb_phoneNumber" runat="server" Width="200px" CssClass="form-control" ClientIDMode="Static"></asp:TextBox>
@@ -94,7 +110,6 @@
                                 </asp:DropDownList>
                             </asp:TableCell>
                         </asp:TableRow>
-
 
                         <asp:TableRow>
                             <asp:TableCell>Ordered Item</asp:TableCell>
@@ -124,10 +139,10 @@
                         <asp:TableRow>
                             <asp:TableCell>Next Eligible Date</asp:TableCell>
                             <asp:TableCell>
-                                <asp:TextBox ID="tb_eligibleDate" Width="200px" runat="server" TextMode="Date" CssClass="form-control"></asp:TextBox>
+                                
                             </asp:TableCell>
-                            
-                            
+
+
                         </asp:TableRow>
 
                         <asp:TableRow>
@@ -137,12 +152,12 @@
                             <asp:TableCell>
                                 <asp:Button ID="btn_Add" runat="server" CssClass="btn btn-primary" Text="Add Smartphone Order" OnClick="btnAdd_Click" />
                             </asp:TableCell>
-                           
+
                         </asp:TableRow>
 
                     </asp:Table>
                 </asp:Panel>
-             
+
 
                 <!-- For Grid -->
                 <asp:GridView ID="smartphoneOrdersGrid" runat="server" DataKeyNames="Id" AutoGenerateColumns="False" CssClass="table table-striped">
