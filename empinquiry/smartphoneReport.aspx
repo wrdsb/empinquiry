@@ -91,15 +91,15 @@
                     </div>
                 </asp:Panel>
 
-                <asp:Panel ID="panelsmart" runat="server" DefaultButton="btn_Add">
+                <asp:Panel ID="panelsmart" runat="server" GroupingText="Other Filters" DefaultButton="btn_Add">
                     <asp:Table runat="server">
                         <asp:TableRow>
-                            <asp:TableCell>Phone Number</asp:TableCell>
                             <asp:TableCell>
+                                Phone Number                      
                                 <asp:TextBox ID="tb_phoneNumber" runat="server" Width="200px" CssClass="form-control" ClientIDMode="Static"></asp:TextBox>
                             </asp:TableCell>
-                            <asp:TableCell>Tier</asp:TableCell>
                             <asp:TableCell>
+                                Tier
                                 <asp:DropDownList ID="ddl_tier" runat="server" AutoPostBack="true" Width="200px" CssClass="form-control" OnSelectedIndexChanged="ddl_tier_SelectedIndexChanged">
                                     <asp:ListItem Text="Tier1" Value="Tier1" />
                                     <asp:ListItem Text="Tier2" Value="Tier2" />
@@ -107,16 +107,15 @@
                                     <asp:ListItem Text="Tier4" Value="Tier4" />
                                 </asp:DropDownList>
                             </asp:TableCell>
-                        </asp:TableRow>
-
-                        <asp:TableRow>
-                            <asp:TableCell>Ordered Item</asp:TableCell>
                             <asp:TableCell>
-                                <asp:DropDownList ID="ddl_orderedItem" runat="server" AutoPostBack="true" Width="200px" CssClass="form-control" OnSelectedIndexChanged="ddl_orderedItem_SelectedIndexChanged">
-                                    <asp:ListItem Text="SIM" Value="SIM" />
-                                    <asp:ListItem Text="Phone" Value="Phone" />
-                                </asp:DropDownList>
+                                Ordered Item
+                                 <asp:DropDownList ID="ddl_orderedItem" runat="server" AutoPostBack="true" Width="200px" CssClass="form-control" OnSelectedIndexChanged="ddl_orderedItem_SelectedIndexChanged">
+                                     <asp:ListItem Text="SIM" Value="SIM" />
+                                     <asp:ListItem Text="Phone" Value="Phone" />
+                                 </asp:DropDownList>
                             </asp:TableCell>
+                        </asp:TableRow>
+                        <asp:TableRow>
                             <asp:TableCell>Rogers Account Created</asp:TableCell>
                             <asp:TableCell>
                                 <asp:RadioButtonList ID="rbl_RogersYesNo" runat="server" RepeatDirection="Horizontal" RepeatLayout="Flow" CssClass="custom-radio-list">
@@ -132,17 +131,6 @@
                                 </asp:RadioButtonList>
                             </asp:TableCell>
                         </asp:TableRow>
-
-
-                        <asp:TableRow>
-                            <asp:TableCell>Next Eligible Date</asp:TableCell>
-                            <asp:TableCell>
-                                
-                            </asp:TableCell>
-
-
-                        </asp:TableRow>
-
                         <asp:TableRow>
                             <asp:TableCell>
                                 <asp:Button ID="btn_Clear" runat="server" CssClass="btn btn-primary" Text="Clear" OnClick="btn_Clear_Click" />
