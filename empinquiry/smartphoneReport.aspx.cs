@@ -39,10 +39,7 @@ namespace empinquiry
 
                     Response.Redirect("login.aspx");
                 }
-                //string empId = Session["selectedEmpId"].ToString();
-                //string empName = $"{Session["selectedFirstname"]} {Session["selectedSurname"]}";
-                //lblSelectedEmployee.Text = $"Selected Employee Id : {empId} | Name : {empName}";
-                //lblinfo.Text = "Please fill out the form below to add a new smartphone order for the selected employee. After submitting, the order will be displayed in the grid below.";
+               
 
                 BindGrid();
 
@@ -116,13 +113,13 @@ namespace empinquiry
             }
         }
 
-        public DateTime? selectedOrderDate { get; set; }
+        public DateTime? fromDate { get; set; }
         public string phoneNumber { get; set; }
         public string selectedTier { get; set; }
         public string selectedItem { get; set; }
-        public string isRogersYesSelected { get; set; }
-        public string isBoardYesSelected { get; set; }
-        public DateTime? selectedEligibleDateTime { get; set; }
+        public string selectedRogers { get; set; }
+        public string selectedBoard { get; set; }
+        public DateTime? ToDate { get; set; }
         public string notes { get; set; }
 
 
@@ -136,7 +133,7 @@ namespace empinquiry
 
             if (DateTime.TryParse(tb_fromDate.Text, out DateTime parsedDate))
             {
-                selectedOrderDate = parsedDate;
+                fromDate = parsedDate;
             }
 
             phoneNumber = !string.IsNullOrEmpty(tb_phoneNumber.Text) ? tb_phoneNumber.Text : string.Empty;
@@ -145,145 +142,20 @@ namespace empinquiry
 
             selectedItem = ddl_orderedItem.SelectedValue;
 
-            isRogersYesSelected = ddl_RogersYesNo.SelectedIndex != -1 ? ddl_RogersYesNo.SelectedValue : string.Empty;
+            selectedRogers = ddl_RogersYesNo.SelectedValue;
 
-            isBoardYesSelected = ddl_BoardYesNo.SelectedIndex != -1 ? ddl_BoardYesNo.SelectedValue : string.Empty;
+            selectedBoard = ddl_BoardYesNo.SelectedValue;
 
             if (DateTime.TryParse(tb_toDate.Text, out DateTime parsedDate2))
             {
-                selectedEligibleDateTime = parsedDate2;
+                ToDate = parsedDate2;
             }
-
-            
-
-            // logic to save the collected data to the database
-            if (Convert.ToBoolean(Session["update"]))
-            {
-                updateRecords();
-                
-            }
-            else
-            {
-                if (SaveRecords())
-                {
-                    
-                }
-            }
-            // Register the JavaScript function to run after the page loads
-            ClientScript.RegisterStartupScript(this.GetType(), "HideLabelScript", "hideLabel();", true);
 
             BindGrid();
-            ClearFormControls();
-
-        }
-        void updateRecords()
-        {
-            try
-            {
-                string sql = @"
-                                UPDATE  hd_empinquiry_smartphone
-                                SET     order_date = @OrderDate
-                                        , phone_number = @PhoneNumber
-                                        , tier = @Tier
-                                        , ordered_item = @OrderedItem
-                                        , rogers_account_created = @RogersAccountCreated
-                                        , board_contribution_paid = @BoardContributionPaid
-                                        , next_eligible_date = @NextEligibleDate
-                                        , notes = @Notes
-                                WHERE   Id = @Id";
-
-                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLDB_HDHRP"].ConnectionString))
-                {
-                    using (SqlCommand cmd = new SqlCommand(sql, con))
-                    {
-
-                        cmd.Parameters.AddWithValue("@OrderDate", selectedOrderDate);
-                        cmd.Parameters.AddWithValue("@PhoneNumber", phoneNumber);
-                        cmd.Parameters.AddWithValue("@Tier", selectedTier);
-                        cmd.Parameters.AddWithValue("@OrderedItem", selectedItem);
-                        cmd.Parameters.AddWithValue("@RogersAccountCreated", isRogersYesSelected);
-                        cmd.Parameters.AddWithValue("@BoardContributionPaid", isBoardYesSelected);
-                        cmd.Parameters.AddWithValue("@NextEligibleDate", selectedEligibleDateTime);
-                        cmd.Parameters.AddWithValue("@Notes", notes);
-                        cmd.Parameters.AddWithValue("@Id", hfId.Value);
-
-                        con.Open();
-                        cmd.ExecuteNonQuery();
-                        con.Close();
-
-
-                    }
-                }
-            }
-            catch (Exception e) { }
-        }
-
-        bool SaveRecords()
-        {
-            try
-            {
-
-                string sql = @"INSERT INTO [hd_empinquiry_smartphone]
-                (
-                    employee_id
-                    , employee_name
-                    , order_date
-                    , phone_number
-                    , tier
-                    , ordered_item
-                    , rogers_account_created
-                    , board_contribution_paid
-                    , next_eligible_date
-                    , form_link
-                    , notes
-                )
-                VALUES
-                (
-                    @EmployeeID,
-                    @EmployeeName,
-                    @OrderDate,
-                    @PhoneNumber,
-                    @Tier,
-                    @OrderedItem,
-                    @RogersAccountCreated,
-                    @BoardContributionPaid,
-                    @NextEligibleDate,
-                    @FormLink,
-                    @Notes
-                )";
-                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLDB_HDHRP"].ConnectionString))
-                {
-                    using (SqlCommand cmd = new SqlCommand(sql, con))
-                    {
-                        cmd.Parameters.AddWithValue("@EmployeeID", Session["selectedEmpId"].ToString());
-                        cmd.Parameters.AddWithValue("@EmployeeName", $"{Session["selectedSurname"]}, {Session["selectedFirstname"]}");
-                        cmd.Parameters.AddWithValue("@OrderDate", selectedOrderDate);
-                        cmd.Parameters.AddWithValue("@PhoneNumber", phoneNumber);
-                        cmd.Parameters.AddWithValue("@Tier", selectedTier);
-                        cmd.Parameters.AddWithValue("@OrderedItem", selectedItem);
-                        cmd.Parameters.AddWithValue("@RogersAccountCreated", isRogersYesSelected);
-                        cmd.Parameters.AddWithValue("@BoardContributionPaid", isBoardYesSelected);
-                        cmd.Parameters.AddWithValue("@NextEligibleDate", selectedEligibleDateTime);
-                        cmd.Parameters.AddWithValue("@FormLink", "");
-                        cmd.Parameters.AddWithValue("@Notes", notes);
-
-                        con.Open();
-                        cmd.ExecuteNonQuery();
-                        con.Close();
-                    }
-                }
-            }
-
-            catch (Exception ex)
-            {
-               
-                tb_fromDate.Focus();
-                return false;
-            }
-            return true;
-
+            
         }
       
+     
 
         protected void ddl_tier_SelectedIndexChanged(object sender, EventArgs e)
         {
