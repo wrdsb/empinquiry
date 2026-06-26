@@ -13,7 +13,7 @@
 
                 var dt = new Date(fromDate);
 
-                dt.setFullYear(dt.getFullYear() + 3);
+                dt.setMonth(dt.getMonth() + 3);
 
                 var yyyy = dt.getFullYear();
                 var mm = String(dt.getMonth() + 1).padStart(2, '0');
