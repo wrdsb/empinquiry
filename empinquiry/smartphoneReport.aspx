@@ -5,13 +5,13 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
     <script>
-        function setEligibleDate() {
+        function setToDate() {
 
-            var orderDate = document.getElementById('<%= tb_fromDate.ClientID %>').value;
+            var fromDate = document.getElementById('<%= tb_fromDate.ClientID %>').value;
 
-            if (orderDate) {
+            if (fromDate) {
 
-                var dt = new Date(orderDate);
+                var dt = new Date(fromDate);
 
                 dt.setFullYear(dt.getFullYear() + 3);
 
@@ -82,7 +82,7 @@
                         </div>
                         <div class="col-md-3">
                             <asp:Label runat="server">From Date</asp:Label>
-                            <asp:TextBox ID="tb_fromDate" Width="200px" runat="server" CssClass="form-control" TextMode="Date" onchange="setEligibleDate();"></asp:TextBox>
+                            <asp:TextBox ID="tb_fromDate" Width="200px" runat="server" CssClass="form-control" TextMode="Date" onchange="setToDate();"></asp:TextBox>
                         </div>
                         <div class="col-md-3">
                             <asp:Label runat="server">To Date</asp:Label>
