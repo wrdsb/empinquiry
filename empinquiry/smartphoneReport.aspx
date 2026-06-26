@@ -93,7 +93,7 @@
                     </asp:Table>
                 </asp:Panel>
 
-                <asp:Panel ID="panelsmart" runat="server" GroupingText="Other Filters" DefaultButton="btn_Add">
+                <asp:Panel ID="panelsmart" runat="server" GroupingText="Other Filters" DefaultButton="btn_View">
                     <asp:Table runat="server">
                         <asp:TableRow>
                             <asp:TableCell>
@@ -103,6 +103,7 @@
                             <asp:TableCell>
                                 Tier
                                 <asp:DropDownList ID="ddl_tier" runat="server" AutoPostBack="true" Width="150px" CssClass="form-control" OnSelectedIndexChanged="ddl_tier_SelectedIndexChanged">
+                                    <asp:ListItem Text="" Value="" Selected="true"></asp:ListItem>
                                     <asp:ListItem Text="Tier1" Value="Tier1" />
                                     <asp:ListItem Text="Tier2" Value="Tier2" />
                                     <asp:ListItem Text="Tier3" Value="Tier3" />
@@ -112,6 +113,7 @@
                             <asp:TableCell>
                                 Ordered Item
                                  <asp:DropDownList ID="ddl_orderedItem" runat="server" AutoPostBack="true" Width="150px" CssClass="form-control" OnSelectedIndexChanged="ddl_orderedItem_SelectedIndexChanged">
+                                     <asp:ListItem Text="" Value="" Selected="true"></asp:ListItem>
                                      <asp:ListItem Text="SIM" Value="SIM" />
                                      <asp:ListItem Text="Phone" Value="Phone" />
                                  </asp:DropDownList>
@@ -119,6 +121,7 @@
                             <asp:TableCell>
                                 Rogers Account Created
                                  <asp:DropDownList ID="ddl_RogersYesNo" runat="server" AutoPostBack="true" Width="150px" CssClass="form-control">
+                                     <asp:ListItem Text="" Value="" Selected="true"></asp:ListItem>
                                      <asp:ListItem Text="Yes" Value="1"></asp:ListItem>
                                      <asp:ListItem Text="No" Value="0"></asp:ListItem>
                                  </asp:DropDownList>
@@ -126,6 +129,7 @@
                             <asp:TableCell>
                                 Board Contribution Paid
                                 <asp:DropDownList ID="ddl_BoardYesNo" runat="server" AutoPostBack="true" Width="150px" CssClass="form-control">
+                                    <asp:ListItem Text="" Value="" Selected="true"></asp:ListItem>
                                     <asp:ListItem Text="Yes" Value="1"></asp:ListItem>
                                     <asp:ListItem Text="No" Value="0"></asp:ListItem>
                                 </asp:DropDownList>
@@ -135,7 +139,7 @@
                 </asp:Panel>
 
                 <asp:Button ID="btn_Clear" runat="server" CssClass="btn btn-primary" Text="Clear" OnClick="btn_Clear_Click" />
-                <asp:Button ID="btn_Add" runat="server" CssClass="btn btn-primary" Text="Add Smartphone Order" OnClick="btnAdd_Click" />
+                <asp:Button ID="btn_View" runat="server" CssClass="btn btn-primary" Text="View" OnClick="btnView_Click" />
 
 
 

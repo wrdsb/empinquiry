@@ -114,13 +114,13 @@ namespace empinquiry
         protected global::System.Web.UI.WebControls.Button btn_Clear;
 
         /// <summary>
-        /// btn_Add control.
+        /// btn_View control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_Add;
+        protected global::System.Web.UI.WebControls.Button btn_View;
 
         /// <summary>
         /// smartphoneOrdersGrid control.

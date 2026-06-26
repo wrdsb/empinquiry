@@ -48,7 +48,6 @@ namespace empinquiry
 
             }
 
-            
 
 
         }
@@ -127,7 +126,7 @@ namespace empinquiry
         public string notes { get; set; }
 
 
-        protected void btnAdd_Click(object sender, EventArgs e)
+        protected void btnView_Click(object sender, EventArgs e)
         {
             // Logic to add a new order
             // You can collect data from input fields and insert it into your database
@@ -304,11 +303,10 @@ namespace empinquiry
             ddl_tier.SelectedIndex = 0;
             ddl_orderedItem.SelectedIndex = 0;
 
-            ddl_RogersYesNo.SelectedIndex = -1;
-            ddl_BoardYesNo.SelectedIndex = -1;
+            ddl_RogersYesNo.SelectedIndex = 0;
+            ddl_BoardYesNo.SelectedIndex = 0;
 
             Session["update"] = false;
-            btn_Add.Text = "Add Smartphone Order";
             hfId.Value = "";
 
         }
@@ -362,7 +360,6 @@ namespace empinquiry
                 }
                 hfId.Value = id.ToString();
                 Session["update"] = true;
-                btn_Add.Text = "Modify Smartphone Order";
                
 
             }
