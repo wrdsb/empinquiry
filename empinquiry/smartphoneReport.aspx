@@ -72,23 +72,25 @@
             <div class="col-md-12">
                 <asp:Panel ID="pnlDateRange" runat="server" GroupingText="Filter By Date Range">
                     <!-- Place your web controls inside here -->
-                    <div class="row">
-                        <div class="col-md-3">
-                            <asp:Label runat="server">Date Type</asp:Label>
-                            <asp:DropDownList ID="ddl_DateType" runat="server" CssClass="form-control">
-                                <asp:ListItem Text="Order Date" Value="ORDER_DATE"></asp:ListItem>
-                                <asp:ListItem Text="Eligibility Date" Value="NEXT_ELIGIBLE_DATE"></asp:ListItem>
-                            </asp:DropDownList>
-                        </div>
-                        <div class="col-md-3">
-                            <asp:Label runat="server">From Date</asp:Label>
-                            <asp:TextBox ID="tb_fromDate" Width="200px" runat="server" CssClass="form-control" TextMode="Date" onchange="setToDate();"></asp:TextBox>
-                        </div>
-                        <div class="col-md-3">
-                            <asp:Label runat="server">To Date</asp:Label>
-                            <asp:TextBox ID="tb_toDate" Width="200px" runat="server" CssClass="form-control" TextMode="Date"></asp:TextBox>
-                        </div>
-                    </div>
+                    <asp:Table runat="server">
+                        <asp:TableRow>
+                            <asp:TableCell>
+                                <asp:Label runat="server">Date Type</asp:Label>
+                                <asp:DropDownList ID="ddl_DateType" Width="150px" runat="server" CssClass="form-control">
+                                    <asp:ListItem Text="Order Date" Value="ORDER_DATE"></asp:ListItem>
+                                    <asp:ListItem Text="Eligibility Date" Value="NEXT_ELIGIBLE_DATE"></asp:ListItem>
+                                </asp:DropDownList>
+                            </asp:TableCell>
+                            <asp:TableCell>
+                                <asp:Label runat="server">From Date</asp:Label>
+                                <asp:TextBox ID="tb_fromDate" Width="150px" runat="server" CssClass="form-control" TextMode="Date" onchange="setToDate();"></asp:TextBox>
+                            </asp:TableCell>
+                            <asp:TableCell>
+                                <asp:Label runat="server">To Date</asp:Label>
+                                <asp:TextBox ID="tb_toDate" Width="150px" runat="server" CssClass="form-control" TextMode="Date"></asp:TextBox>
+                            </asp:TableCell>
+                        </asp:TableRow>
+                    </asp:Table>
                 </asp:Panel>
 
                 <asp:Panel ID="panelsmart" runat="server" GroupingText="Other Filters" DefaultButton="btn_Add">
@@ -96,11 +98,11 @@
                         <asp:TableRow>
                             <asp:TableCell>
                                 Phone Number                      
-                                <asp:TextBox ID="tb_phoneNumber" runat="server" Width="200px" CssClass="form-control" ClientIDMode="Static"></asp:TextBox>
+                                <asp:TextBox ID="tb_phoneNumber" runat="server" Width="150px" CssClass="form-control" ClientIDMode="Static"></asp:TextBox>
                             </asp:TableCell>
                             <asp:TableCell>
                                 Tier
-                                <asp:DropDownList ID="ddl_tier" runat="server" AutoPostBack="true" Width="200px" CssClass="form-control" OnSelectedIndexChanged="ddl_tier_SelectedIndexChanged">
+                                <asp:DropDownList ID="ddl_tier" runat="server" AutoPostBack="true" Width="150px" CssClass="form-control" OnSelectedIndexChanged="ddl_tier_SelectedIndexChanged">
                                     <asp:ListItem Text="Tier1" Value="Tier1" />
                                     <asp:ListItem Text="Tier2" Value="Tier2" />
                                     <asp:ListItem Text="Tier3" Value="Tier3" />
@@ -109,36 +111,32 @@
                             </asp:TableCell>
                             <asp:TableCell>
                                 Ordered Item
-                                 <asp:DropDownList ID="ddl_orderedItem" runat="server" AutoPostBack="true" Width="200px" CssClass="form-control" OnSelectedIndexChanged="ddl_orderedItem_SelectedIndexChanged">
+                                 <asp:DropDownList ID="ddl_orderedItem" runat="server" AutoPostBack="true" Width="150px" CssClass="form-control" OnSelectedIndexChanged="ddl_orderedItem_SelectedIndexChanged">
                                      <asp:ListItem Text="SIM" Value="SIM" />
                                      <asp:ListItem Text="Phone" Value="Phone" />
                                  </asp:DropDownList>
                             </asp:TableCell>
-                        </asp:TableRow>
-                        <asp:TableRow>
-                            <asp:TableCell>Rogers Account Created
-                                <asp:DropDownList ID="ddl_RogersYesNo" runat="server" AutoPostBack="true" Width="200px" CssClass="form-control">                              
+                            <asp:TableCell>
+                                Rogers Account Created
+                                 <asp:DropDownList ID="ddl_RogersYesNo" runat="server" AutoPostBack="true" Width="150px" CssClass="form-control">
+                                     <asp:ListItem Text="Yes" Value="1"></asp:ListItem>
+                                     <asp:ListItem Text="No" Value="0"></asp:ListItem>
+                                 </asp:DropDownList>
+                            </asp:TableCell>
+                            <asp:TableCell>
+                                Board Contribution Paid
+                                <asp:DropDownList ID="ddl_BoardYesNo" runat="server" AutoPostBack="true" Width="150px" CssClass="form-control">
                                     <asp:ListItem Text="Yes" Value="1"></asp:ListItem>
                                     <asp:ListItem Text="No" Value="0"></asp:ListItem>
                                 </asp:DropDownList>
                             </asp:TableCell>
-                            <asp:TableCell>Board Contribution Paid
-                                <asp:DropDownList ID="ddl_BoardYesNo" runat="server" AutoPostBack="true" Width="200px" CssClass="form-control">                              
-                                    <asp:ListItem Text="Yes" Value="1"></asp:ListItem>
-                                    <asp:ListItem Text="No" Value="0"></asp:ListItem>
-                                </asp:DropDownList>
-                            </asp:TableCell>
                         </asp:TableRow>
-                       
-
                     </asp:Table>
                 </asp:Panel>
-       
-         <asp:Button ID="btn_Clear" runat="server" CssClass="btn btn-primary" Text="Clear" OnClick="btn_Clear_Click" />
 
-     <asp:TableCell>
-         <asp:Button ID="btn_Add" runat="server" CssClass="btn btn-primary" Text="Add Smartphone Order" OnClick="btnAdd_Click" />
-     </asp:TableCell>
+                <asp:Button ID="btn_Clear" runat="server" CssClass="btn btn-primary" Text="Clear" OnClick="btn_Clear_Click" />
+                <asp:Button ID="btn_Add" runat="server" CssClass="btn btn-primary" Text="Add Smartphone Order" OnClick="btnAdd_Click" />
+
 
 
 
