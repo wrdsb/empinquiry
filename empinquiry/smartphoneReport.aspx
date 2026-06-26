@@ -116,33 +116,31 @@
                             </asp:TableCell>
                         </asp:TableRow>
                         <asp:TableRow>
-                            <asp:TableCell>Rogers Account Created</asp:TableCell>
-                            <asp:TableCell>
-                                <asp:RadioButtonList ID="rbl_RogersYesNo" runat="server" RepeatDirection="Horizontal" RepeatLayout="Flow" CssClass="custom-radio-list">
+                            <asp:TableCell>Rogers Account Created
+                                <asp:DropDownList ID="ddl_RogersYesNo" runat="server" AutoPostBack="true" Width="200px" CssClass="form-control">                              
                                     <asp:ListItem Text="Yes" Value="1"></asp:ListItem>
                                     <asp:ListItem Text="No" Value="0"></asp:ListItem>
-                                </asp:RadioButtonList>
+                                </asp:DropDownList>
                             </asp:TableCell>
-                            <asp:TableCell>Board Contribution Paid</asp:TableCell>
-                            <asp:TableCell>
-                                <asp:RadioButtonList ID="rbl_BoardYesNo" runat="server" RepeatDirection="Horizontal" RepeatLayout="Flow" CssClass="custom-radio-list">
+                            <asp:TableCell>Board Contribution Paid
+                                <asp:DropDownList ID="ddl_BoardYesNo" runat="server" AutoPostBack="true" Width="200px" CssClass="form-control">                              
                                     <asp:ListItem Text="Yes" Value="1"></asp:ListItem>
                                     <asp:ListItem Text="No" Value="0"></asp:ListItem>
-                                </asp:RadioButtonList>
+                                </asp:DropDownList>
                             </asp:TableCell>
                         </asp:TableRow>
-                        <asp:TableRow>
-                            <asp:TableCell>
-                                <asp:Button ID="btn_Clear" runat="server" CssClass="btn btn-primary" Text="Clear" OnClick="btn_Clear_Click" />
-                            </asp:TableCell>
-                            <asp:TableCell>
-                                <asp:Button ID="btn_Add" runat="server" CssClass="btn btn-primary" Text="Add Smartphone Order" OnClick="btnAdd_Click" />
-                            </asp:TableCell>
-
-                        </asp:TableRow>
+                       
 
                     </asp:Table>
                 </asp:Panel>
+       
+         <asp:Button ID="btn_Clear" runat="server" CssClass="btn btn-primary" Text="Clear" OnClick="btn_Clear_Click" />
+
+     <asp:TableCell>
+         <asp:Button ID="btn_Add" runat="server" CssClass="btn btn-primary" Text="Add Smartphone Order" OnClick="btnAdd_Click" />
+     </asp:TableCell>
+
+
 
 
                 <!-- For Grid -->

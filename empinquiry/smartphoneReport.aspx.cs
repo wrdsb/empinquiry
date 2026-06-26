@@ -146,9 +146,9 @@ namespace empinquiry
 
             selectedItem = ddl_orderedItem.SelectedValue;
 
-            isRogersYesSelected = rbl_RogersYesNo.SelectedIndex != -1 ? rbl_RogersYesNo.SelectedValue : string.Empty;
+            isRogersYesSelected = ddl_RogersYesNo.SelectedIndex != -1 ? ddl_RogersYesNo.SelectedValue : string.Empty;
 
-            isBoardYesSelected = rbl_BoardYesNo.SelectedIndex != -1 ? rbl_BoardYesNo.SelectedValue : string.Empty;
+            isBoardYesSelected = ddl_BoardYesNo.SelectedIndex != -1 ? ddl_BoardYesNo.SelectedValue : string.Empty;
 
             if (DateTime.TryParse(tb_toDate.Text, out DateTime parsedDate2))
             {
@@ -304,8 +304,8 @@ namespace empinquiry
             ddl_tier.SelectedIndex = 0;
             ddl_orderedItem.SelectedIndex = 0;
 
-            rbl_RogersYesNo.SelectedIndex = -1;
-            rbl_BoardYesNo.SelectedIndex = -1;
+            ddl_RogersYesNo.SelectedIndex = -1;
+            ddl_BoardYesNo.SelectedIndex = -1;
 
             Session["update"] = false;
             btn_Add.Text = "Add Smartphone Order";
@@ -347,9 +347,9 @@ namespace empinquiry
                                     tb_phoneNumber.Text = reader["phone_number"].ToString();
                                     ddl_tier.SelectedValue = reader["tier"].ToString();
                                     ddl_orderedItem.SelectedValue = reader["ordered_item"].ToString();
-                                    rbl_RogersYesNo.SelectedValue =
+                                    ddl_RogersYesNo.SelectedValue =
                                         reader["rogers_account_created"].ToString() == "True" ? "1" : "0";
-                                    rbl_BoardYesNo.SelectedValue =
+                                    ddl_BoardYesNo.SelectedValue =
                                         reader["board_contribution_paid"].ToString() == "True" ? "1" : "0";
                                     tb_toDate.Text =
                                         Convert.ToDateTime(reader["next_eligible_date"])
