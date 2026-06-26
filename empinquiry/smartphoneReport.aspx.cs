@@ -135,7 +135,7 @@ namespace empinquiry
 
             //MessageBox.Show("update : " + Session["update"]);
 
-            if (DateTime.TryParse(tb_orderDate.Text, out DateTime parsedDate))
+            if (DateTime.TryParse(tb_fromDate.Text, out DateTime parsedDate))
             {
                 selectedOrderDate = parsedDate;
             }
@@ -150,7 +150,7 @@ namespace empinquiry
 
             isBoardYesSelected = rbl_BoardYesNo.SelectedIndex != -1 ? rbl_BoardYesNo.SelectedValue : string.Empty;
 
-            if (DateTime.TryParse(tb_eligibleDate.Text, out DateTime parsedDate2))
+            if (DateTime.TryParse(tb_toDate.Text, out DateTime parsedDate2))
             {
                 selectedEligibleDateTime = parsedDate2;
             }
@@ -278,7 +278,7 @@ namespace empinquiry
             catch (Exception ex)
             {
                
-                tb_orderDate.Focus();
+                tb_fromDate.Focus();
                 return false;
             }
             return true;
@@ -297,9 +297,9 @@ namespace empinquiry
         }
         private void ClearFormControls()
         {
-            tb_orderDate.Text = string.Empty;
+            tb_fromDate.Text = string.Empty;
             tb_phoneNumber.Text = string.Empty;
-            tb_eligibleDate.Text = string.Empty;
+            tb_toDate.Text = string.Empty;
             
             ddl_tier.SelectedIndex = 0;
             ddl_orderedItem.SelectedIndex = 0;
@@ -342,7 +342,7 @@ namespace empinquiry
                             {
                                 while (reader.Read())
                                 {
-                                    tb_orderDate.Text =
+                                    tb_fromDate.Text =
                                         Convert.ToDateTime(reader["order_date"]).ToString("yyyy-MM-dd");
                                     tb_phoneNumber.Text = reader["phone_number"].ToString();
                                     ddl_tier.SelectedValue = reader["tier"].ToString();
@@ -351,7 +351,7 @@ namespace empinquiry
                                         reader["rogers_account_created"].ToString() == "True" ? "1" : "0";
                                     rbl_BoardYesNo.SelectedValue =
                                         reader["board_contribution_paid"].ToString() == "True" ? "1" : "0";
-                                    tb_eligibleDate.Text =
+                                    tb_toDate.Text =
                                         Convert.ToDateTime(reader["next_eligible_date"])
                                         .ToString("yyyy-MM-dd");
                                     

@@ -7,7 +7,7 @@
     <script>
         function setEligibleDate() {
 
-            var orderDate = document.getElementById('<%= tb_orderDate.ClientID %>').value;
+            var orderDate = document.getElementById('<%= tb_fromDate.ClientID %>').value;
 
             if (orderDate) {
 
@@ -19,7 +19,7 @@
                 var mm = String(dt.getMonth() + 1).padStart(2, '0');
                 var dd = String(dt.getDate()).padStart(2, '0');
 
-                document.getElementById('<%= tb_eligibleDate.ClientID %>').value =
+                document.getElementById('<%= tb_toDate.ClientID %>').value =
                     yyyy + '-' + mm + '-' + dd;
             }
         }
@@ -73,7 +73,6 @@
                 <asp:Panel ID="pnlDateRange" runat="server" GroupingText="Filter By Date Range">
                     <!-- Place your web controls inside here -->
                     <div class="row">
-
                         <div class="col-md-3">
                             <asp:Label runat="server">Date Type</asp:Label>
                             <asp:DropDownList ID="ddl_DateType" runat="server" CssClass="form-control">
@@ -83,14 +82,13 @@
                         </div>
                         <div class="col-md-3">
                             <asp:Label runat="server">From Date</asp:Label>
-                            <asp:TextBox ID="tb_orderDate" Width="200px" runat="server" CssClass="form-control" TextMode="Date" onchange="setEligibleDate();"></asp:TextBox>
+                            <asp:TextBox ID="tb_fromDate" Width="200px" runat="server" CssClass="form-control" TextMode="Date" onchange="setEligibleDate();"></asp:TextBox>
                         </div>
                         <div class="col-md-3">
                             <asp:Label runat="server">To Date</asp:Label>
-                            <asp:TextBox ID="tb_eligibleDate" Width="200px" runat="server" CssClass="form-control" TextMode="Date"></asp:TextBox>
+                            <asp:TextBox ID="tb_toDate" Width="200px" runat="server" CssClass="form-control" TextMode="Date"></asp:TextBox>
                         </div>
                     </div>
-
                 </asp:Panel>
 
                 <asp:Panel ID="panelsmart" runat="server" DefaultButton="btn_Add">

@@ -33,22 +33,22 @@ namespace empinquiry
         protected global::System.Web.UI.WebControls.DropDownList ddl_DateType;
 
         /// <summary>
-        /// tb_orderDate control.
+        /// tb_fromDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tb_orderDate;
+        protected global::System.Web.UI.WebControls.TextBox tb_fromDate;
 
         /// <summary>
-        /// tb_eligibleDate control.
+        /// tb_toDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tb_eligibleDate;
+        protected global::System.Web.UI.WebControls.TextBox tb_toDate;
 
         /// <summary>
         /// panelsmart control.
