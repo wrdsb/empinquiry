@@ -117,15 +117,13 @@
                     <Columns>
                         <asp:BoundField DataField="EmpId" HeaderText="EmpId" />
                         <asp:BoundField DataField="Name" HeaderText ="Name" />
-                        <asp:BoundField DataField="OrderDate" HeaderText="Order Date" DataFormatString="{0:MM/dd/yyyy}" />
                         <asp:BoundField DataField="Phone" HeaderText="Phone #" />
                         <asp:BoundField DataField="Tier" HeaderText="Tier" />
                         <asp:BoundField DataField="Item" HeaderText="Item" />
                         <asp:BoundField DataField="Rogers" HeaderText="Rogers" />
                         <asp:BoundField DataField="BoardPaid" HeaderText="Board Paid" />
+                        <asp:BoundField DataField="OrderDate" HeaderText="Order Date" DataFormatString="{0:MM/dd/yyyy}" />
                         <asp:BoundField DataField="EligibleDate" HeaderText="Eligible Date" DataFormatString="{0:MM/dd/yyyy}" />
-                        <asp:BoundField DataField="Forms" HeaderText="Forms" />
-                        <asp:BoundField DataField="Notes" HeaderText="Notes" />
                     </Columns>
                 </asp:GridView>
                 

@@ -73,28 +73,32 @@ namespace empinquiry
                                                 ELSE 'No'
                                               END                                       AS BoardPaid
                                             , FORMAT(next_eligible_date, 'yyyy-MM-dd')  AS EligibleDate
-                                            , form_link                                 AS Forms
                                             , notes                                     AS Notes
                                             , Id
                                     FROM    [hd_empinquiry_smartphone] WHERE ";
 
-                    if (dateType == "ORDER_DATE")
+                    if (dateType == "ORDER_DATE" && !string.IsNullOrEmpty(tb_fromDate.Text))
                         sql += " order_date BETWEEN @fromDate and @toDate ";
-                    else if (dateType == "ELIGIBLE_DATE")
+                    else if (dateType == "ELIGIBLE_DATE" && !string.IsNullOrEmpty(tb_fromDate.Text))
                         sql += " next_eligible_date BETWEEN @fromDate and @toDate ";
+
+                    if (!string.IsNullOrEmpty(phoneNumber))
+                        sql += " phone_number LIKE @phoneNumber ";
 
 
                         using (SqlCommand cmd = new SqlCommand(sql, conn))
                         {
                             //cmd.Parameters.AddWithValue("@EmployeeID", empId);
-                            if (dateType == "ORDER_DATE" || dateType == "ELIGIBLE_DATE")
+                            if ((dateType == "ORDER_DATE" || dateType == "ELIGIBLE_DATE") && !string.IsNullOrEmpty(tb_fromDate.Text))
                             {
                                 cmd.Parameters.AddWithValue("@fromDate", fromDate);
                                 cmd.Parameters.AddWithValue("@toDate", toDate);
 
                             }
+                            if (!string.IsNullOrEmpty(phoneNumber))
+                            cmd.Parameters.AddWithValue("@phoneNumber", "%" + phoneNumber + "%");
 
-                            using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
                             {
                                 da.Fill(dt);
                             }
@@ -152,8 +156,13 @@ namespace empinquiry
             }
 
             if(string.IsNullOrEmpty(tb_fromDate.Text) && 
-               string.IsNullOrEmpty(tb_toDate.Text))
-                return;
+               string.IsNullOrEmpty(tb_toDate.Text) &&
+               string.IsNullOrEmpty(phoneNumber) &&
+               string.IsNullOrEmpty(selectedTier) &&
+               string.IsNullOrEmpty(selectedItem) &&
+               string.IsNullOrEmpty(selectedRogers) &&
+               string.IsNullOrEmpty(selectedBoard))
+                    return;
 
             BindGrid();
         }
