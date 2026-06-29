@@ -30,41 +30,8 @@
             this.value = this.value.replace(/[^0-9\s\-()+]/g, '');
         });
 
-
-
     </script>
 
-
-    <script type="text/javascript">
-
-</script>
-
-    <style>
-        /* Style the container */
-        .custom-radio-list {
-            font-family: Arial, sans-serif;
-            gap: 20px;
-            display: flex;
-        }
-
-            /* Style the labels (the text next to buttons) */
-            .custom-radio-list label {
-                margin-left: 5px;
-                cursor: pointer;
-                color: #333;
-            }
-
-            /* Style the radio input itself */
-            .custom-radio-list input[type="radio"] {
-                cursor: pointer;
-                transform: scale(1.2); /* Make buttons slightly larger */
-            }
-
-            /* Hover effect on the labels */
-            .custom-radio-list label:hover {
-                color: #007bff;
-            }
-    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container">
@@ -157,27 +124,9 @@
                         <asp:BoundField DataField="EligibleDate" HeaderText="Eligible Date" DataFormatString="{0:MM/dd/yyyy}" />
                         <asp:BoundField DataField="Forms" HeaderText="Forms" />
                         <asp:BoundField DataField="Notes" HeaderText="Notes" />
-
-                        <asp:TemplateField HeaderText="Actions">
-                            <ItemTemplate>
-                                <asp:LinkButton ID="btnEdit"
-                                    runat="server"
-                                    CommandArgument='<%# Container.DataItemIndex %>'
-                                    Text="Modify"
-                                    CssClass="btn btn-sm btn-primary"
-                                    OnClick="btnEdit_Click" />
-                                <asp:LinkButton ID="btnDelete"
-                                    runat="server"
-                                    Text="Delete"
-                                    CssClass="btn btn-sm btn-primary"
-                                    CommandArgument='<%# Container.DataItemIndex %>'
-                                    OnClick="btnDelete_Click"
-                                    OnClientClick="return confirm('Are you sure to delete the smartphone order?');" />
-                            </ItemTemplate>
-                        </asp:TemplateField>
                     </Columns>
                 </asp:GridView>
-                <asp:HiddenField ID="hfId" runat="server" />
+                
             </div>
         </div>
     </div>

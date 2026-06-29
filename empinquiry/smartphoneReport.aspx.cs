@@ -125,11 +125,7 @@ namespace empinquiry
 
         protected void btnView_Click(object sender, EventArgs e)
         {
-            // Logic to add a new order
-            // You can collect data from input fields and insert it into your database
-            // After adding, re-bind the grid to show the new data
-
-            //MessageBox.Show("update : " + Session["update"]);
+            
 
             if (DateTime.TryParse(tb_fromDate.Text, out DateTime parsedDate))
             {
@@ -177,99 +173,9 @@ namespace empinquiry
 
             ddl_RogersYesNo.SelectedIndex = 0;
             ddl_BoardYesNo.SelectedIndex = 0;
-
-            Session["update"] = false;
-            hfId.Value = "";
+            ddl_DateType.SelectedIndex = 0;
 
         }
-
-        protected void btnEdit_Click(object sender, EventArgs e)
-        {
-            LinkButton btn = (LinkButton)sender;
-
-            int rowIndex = Convert.ToInt32(btn.CommandArgument);
-
-            try
-            {
-
-
-                int id = Convert.ToInt32(
-                    smartphoneOrdersGrid.DataKeys[rowIndex].Value);
-
-                // Use this id to retrieve the row from the database
-                string sql = @" SELECT *
-                                FROM hd_empinquiry_smartphone
-                                WHERE Id = @Id";
-                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLDB_HDHRP"].ConnectionString))
-                {
-                    con.Open();
-                    using (SqlCommand cmd = new SqlCommand(sql, con))
-                    {
-                        cmd.Parameters.AddWithValue("@Id", id);
-                        using (SqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            if (reader.HasRows)
-                            {
-                                while (reader.Read())
-                                {
-                                    tb_fromDate.Text =
-                                        Convert.ToDateTime(reader["order_date"]).ToString("yyyy-MM-dd");
-                                    tb_phoneNumber.Text = reader["phone_number"].ToString();
-                                    ddl_tier.SelectedValue = reader["tier"].ToString();
-                                    ddl_orderedItem.SelectedValue = reader["ordered_item"].ToString();
-                                    ddl_RogersYesNo.SelectedValue =
-                                        reader["rogers_account_created"].ToString() == "True" ? "1" : "0";
-                                    ddl_BoardYesNo.SelectedValue =
-                                        reader["board_contribution_paid"].ToString() == "True" ? "1" : "0";
-                                    tb_toDate.Text =
-                                        Convert.ToDateTime(reader["next_eligible_date"])
-                                        .ToString("yyyy-MM-dd");
-                                    
-                                }
-                            }
-                        }
-                    }
-                }
-                hfId.Value = id.ToString();
-                Session["update"] = true;
-               
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-
-        }
-
-        protected void btnDelete_Click(object sender, EventArgs e)
-        {
-            LinkButton btn = (LinkButton)sender;
-            int rowIndex = Convert.ToInt32(btn.CommandArgument);
-
-            try
-            {
-                int id = Convert.ToInt32(
-                    smartphoneOrdersGrid.DataKeys[rowIndex].Value);
-
-                string sql = @"DELETE FROM hd_empinquiry_smartphone WHERE Id = @Id";
-                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLDB_HDHRP"].ConnectionString))
-                {
-                    using (SqlCommand cmd = new SqlCommand(sql, con))
-                    {
-                        cmd.Parameters.AddWithValue("@Id", id);
-                        con.Open();
-                        cmd.ExecuteNonQuery();
-                        con.Close();
-                    }
-                }
-                BindGrid();
-                
-
-            }
-            catch (Exception ex) { }
-        }
-
         protected void btn_Clear_Click(object sender, EventArgs e)
         {
             ClearFormControls();
