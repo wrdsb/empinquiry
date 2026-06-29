@@ -39,22 +39,14 @@ namespace empinquiry
 
                     Response.Redirect("login.aspx");
                 }
-               
-
-                BindGrid();
-
             }
-
-
-
         }
         private void BindGrid()
         {
-            //GetRecords();
+            GetRecords();
         }
         void GetRecords()
         {
-            string empId = Session["selectedEmpId"].ToString();
 
             string connString = ConfigurationManager.ConnectionStrings["SQLDB_HDHRP"].ConnectionString;
 
@@ -82,12 +74,12 @@ namespace empinquiry
                                             , form_link                                 AS Forms
                                             , notes                                     AS Notes
                                             , Id
-                                    FROM    [hd_empinquiry_smartphone]
-                                    WHERE   employee_id = @EmployeeID";
+                                    FROM    [hd_empinquiry_smartphone]";
+                                 
 
                     using (SqlCommand cmd = new SqlCommand(sql, conn))
                     {
-                        cmd.Parameters.AddWithValue("@EmployeeID", empId);
+                        //cmd.Parameters.AddWithValue("@EmployeeID", empId);
 
                         using (SqlDataAdapter da = new SqlDataAdapter(cmd))
                         {
@@ -120,13 +112,12 @@ namespace empinquiry
         public string selectedRogers { get; set; }
         public string selectedBoard { get; set; }
         public DateTime? ToDate { get; set; }
-        public string notes { get; set; }
-
+        public string dateType { get; set; }
+       
 
         protected void btnView_Click(object sender, EventArgs e)
         {
-            
-
+            dateType = ddl_DateType.SelectedValue;
             if (DateTime.TryParse(tb_fromDate.Text, out DateTime parsedDate))
             {
                 fromDate = parsedDate;
@@ -148,7 +139,6 @@ namespace empinquiry
             }
 
             BindGrid();
-            
         }
       
      
@@ -174,6 +164,9 @@ namespace empinquiry
             ddl_RogersYesNo.SelectedIndex = 0;
             ddl_BoardYesNo.SelectedIndex = 0;
             ddl_DateType.SelectedIndex = 0;
+
+            smartphoneOrdersGrid.DataSource = null;
+            smartphoneOrdersGrid.DataBind();
 
         }
         protected void btn_Clear_Click(object sender, EventArgs e)
