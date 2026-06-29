@@ -116,7 +116,7 @@
                 <asp:GridView ID="smartphoneOrdersGrid" runat="server" DataKeyNames="Id" AutoGenerateColumns="False" CssClass="table table-striped">
                     <Columns>
                         <asp:BoundField DataField="EmpId" HeaderText="EmpId" />
-                        <asp:BoundField DataField="Name" HeaderText ="Name" />
+                        <asp:BoundField DataField="Name" HeaderText="Name" />
                         <asp:BoundField DataField="Phone" HeaderText="Phone #" />
                         <asp:BoundField DataField="Tier" HeaderText="Tier" />
                         <asp:BoundField DataField="Item" HeaderText="Item" />
@@ -126,7 +126,7 @@
                         <asp:BoundField DataField="EligibleDate" HeaderText="Eligible Date" DataFormatString="{0:MM/dd/yyyy}" />
                     </Columns>
                 </asp:GridView>
-                
+
             </div>
         </div>
     </div>

@@ -86,23 +86,23 @@ namespace empinquiry
                         sql += " phone_number LIKE @phoneNumber ";
 
 
-                        using (SqlCommand cmd = new SqlCommand(sql, conn))
+                    using (SqlCommand cmd = new SqlCommand(sql, conn))
+                    {
+                        //cmd.Parameters.AddWithValue("@EmployeeID", empId);
+                        if ((dateType == "ORDER_DATE" || dateType == "ELIGIBLE_DATE") && !string.IsNullOrEmpty(tb_fromDate.Text))
                         {
-                            //cmd.Parameters.AddWithValue("@EmployeeID", empId);
-                            if ((dateType == "ORDER_DATE" || dateType == "ELIGIBLE_DATE") && !string.IsNullOrEmpty(tb_fromDate.Text))
-                            {
-                                cmd.Parameters.AddWithValue("@fromDate", fromDate);
-                                cmd.Parameters.AddWithValue("@toDate", toDate);
+                            cmd.Parameters.AddWithValue("@fromDate", fromDate);
+                            cmd.Parameters.AddWithValue("@toDate", toDate);
 
-                            }
-                            if (!string.IsNullOrEmpty(phoneNumber))
+                        }
+                        if (!string.IsNullOrEmpty(phoneNumber))
                             cmd.Parameters.AddWithValue("@phoneNumber", "%" + phoneNumber + "%");
 
                         using (SqlDataAdapter da = new SqlDataAdapter(cmd))
-                            {
-                                da.Fill(dt);
-                            }
+                        {
+                            da.Fill(dt);
                         }
+                    }
                 }
             }
             catch (Exception ex)
@@ -114,11 +114,11 @@ namespace empinquiry
 
             if (dt.Rows.Count == 0)
             {
-                
+
             }
             else
             {
-                
+
             }
         }
 
@@ -130,7 +130,7 @@ namespace empinquiry
         public string selectedBoard { get; set; }
         public DateTime? toDate { get; set; }
         public string dateType { get; set; }
-       
+
 
         protected void btnView_Click(object sender, EventArgs e)
         {
@@ -155,35 +155,35 @@ namespace empinquiry
                 toDate = parsedDate2;
             }
 
-            if(string.IsNullOrEmpty(tb_fromDate.Text) && 
+            if (string.IsNullOrEmpty(tb_fromDate.Text) &&
                string.IsNullOrEmpty(tb_toDate.Text) &&
                string.IsNullOrEmpty(phoneNumber) &&
                string.IsNullOrEmpty(selectedTier) &&
                string.IsNullOrEmpty(selectedItem) &&
                string.IsNullOrEmpty(selectedRogers) &&
                string.IsNullOrEmpty(selectedBoard))
-                    return;
+                return;
 
             BindGrid();
         }
-      
-     
+
+
 
         protected void ddl_tier_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         protected void ddl_orderedItem_SelectedIndexChanged(object sender, EventArgs e)
         {
-      
+
         }
         private void ClearFormControls()
         {
             tb_fromDate.Text = string.Empty;
             tb_phoneNumber.Text = string.Empty;
             tb_toDate.Text = string.Empty;
-            
+
             ddl_tier.SelectedIndex = 0;
             ddl_orderedItem.SelectedIndex = 0;
 
@@ -198,7 +198,7 @@ namespace empinquiry
         protected void btn_Clear_Click(object sender, EventArgs e)
         {
             ClearFormControls();
-            
+
         }
     }
 }
