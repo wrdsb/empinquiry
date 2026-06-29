@@ -76,18 +76,29 @@ namespace empinquiry
                                             , form_link                                 AS Forms
                                             , notes                                     AS Notes
                                             , Id
-                                    FROM    [hd_empinquiry_smartphone]";
-                                 
+                                    FROM    [hd_empinquiry_smartphone] WHERE ";
 
-                    using (SqlCommand cmd = new SqlCommand(sql, conn))
-                    {
-                        //cmd.Parameters.AddWithValue("@EmployeeID", empId);
+                    if (dateType == "ORDER_DATE")
+                        sql += " order_date BETWEEN @fromDate and @toDate ";
+                    else if (dateType == "ELIGIBLE_DATE")
+                        sql += " next_eligible_date BETWEEN @fromDate and @toDate ";
 
-                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+
+                        using (SqlCommand cmd = new SqlCommand(sql, conn))
                         {
-                            da.Fill(dt);
+                            //cmd.Parameters.AddWithValue("@EmployeeID", empId);
+                            if (dateType == "ORDER_DATE" || dateType == "ELIGIBLE_DATE")
+                            {
+                                cmd.Parameters.AddWithValue("@fromDate", fromDate);
+                                cmd.Parameters.AddWithValue("@toDate", toDate);
+
+                            }
+
+                            using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                            {
+                                da.Fill(dt);
+                            }
                         }
-                    }
                 }
             }
             catch (Exception ex)
@@ -113,7 +124,7 @@ namespace empinquiry
         public string selectedItem { get; set; }
         public string selectedRogers { get; set; }
         public string selectedBoard { get; set; }
-        public DateTime? ToDate { get; set; }
+        public DateTime? toDate { get; set; }
         public string dateType { get; set; }
        
 
@@ -137,8 +148,12 @@ namespace empinquiry
 
             if (DateTime.TryParse(tb_toDate.Text, out DateTime parsedDate2))
             {
-                ToDate = parsedDate2;
+                toDate = parsedDate2;
             }
+
+            if(string.IsNullOrEmpty(tb_fromDate.Text) && 
+               string.IsNullOrEmpty(tb_toDate.Text))
+                return;
 
             BindGrid();
         }

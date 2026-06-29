@@ -45,7 +45,7 @@
                                 <asp:Label runat="server">Date Type</asp:Label>
                                 <asp:DropDownList ID="ddl_DateType" Width="150px" runat="server" CssClass="form-control">
                                     <asp:ListItem Text="Order Date" Value="ORDER_DATE"></asp:ListItem>
-                                    <asp:ListItem Text="Eligibility Date" Value="NEXT_ELIGIBLE_DATE"></asp:ListItem>
+                                    <asp:ListItem Text="Eligibility Date" Value="ELIGIBLE_DATE"></asp:ListItem>
                                 </asp:DropDownList>
                             </asp:TableCell>
                             <asp:TableCell>
