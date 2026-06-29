@@ -115,6 +115,8 @@
                 <!-- For Grid -->
                 <asp:GridView ID="smartphoneOrdersGrid" runat="server" DataKeyNames="Id" AutoGenerateColumns="False" CssClass="table table-striped">
                     <Columns>
+                        <asp:BoundField DataField="EmpId" HeaderText="EmpId" />
+                        <asp:BoundField DataField="Name" HeaderText ="Name" />
                         <asp:BoundField DataField="OrderDate" HeaderText="Order Date" DataFormatString="{0:MM/dd/yyyy}" />
                         <asp:BoundField DataField="Phone" HeaderText="Phone #" />
                         <asp:BoundField DataField="Tier" HeaderText="Tier" />

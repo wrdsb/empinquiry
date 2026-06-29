@@ -56,7 +56,9 @@ namespace empinquiry
             {
                 using (SqlConnection conn = new SqlConnection(connString))
                 {
-                    string sql = @" SELECT  FORMAT(order_date, 'yyyy-MM-dd')            AS OrderDate
+                    string sql = @" SELECT  employee_id                                 AS EmpId
+                                            , employee_name                             AS Name
+                                            , FORMAT(order_date, 'yyyy-MM-dd')          AS OrderDate
                                             , phone_number                              AS Phone
                                             , tier                                      AS Tier
                                             , ordered_item                              AS Item
