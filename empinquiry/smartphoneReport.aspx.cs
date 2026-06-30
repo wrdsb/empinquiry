@@ -43,7 +43,6 @@ namespace empinquiry
         }
         private void BindGrid()
         {
-
             GetRecords();
         }
         DataTable dt = new DataTable();
@@ -165,6 +164,12 @@ namespace empinquiry
 
 
         protected void btnView_Click(object sender, EventArgs e)
+        {           
+            if(LoadfilterValues())
+                BindGrid();
+        }
+
+        bool LoadfilterValues()
         {
             dateType = ddl_DateType.SelectedValue;
             if (DateTime.TryParse(tb_fromDate.Text, out DateTime parsedDate))
@@ -194,9 +199,8 @@ namespace empinquiry
                string.IsNullOrEmpty(selectedItem) &&
                string.IsNullOrEmpty(selectedRogers) &&
                string.IsNullOrEmpty(selectedBoard))
-                return;
-
-            BindGrid();
+                return false;
+            return true;
         }
 
 
@@ -235,7 +239,8 @@ namespace empinquiry
 
         protected void btn_GenerateCSV_Click(object sender, EventArgs e)
         {
-            GenerateCSV();
+            if(LoadfilterValues())
+                GenerateCSV();
         }
         void GenerateCSV()
         {
