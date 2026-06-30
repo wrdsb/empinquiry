@@ -165,11 +165,11 @@ namespace empinquiry
 
         protected void btnView_Click(object sender, EventArgs e)
         {           
-            if(LoadfilterValues())
+            if(filterValues())
                 BindGrid();
         }
 
-        bool LoadfilterValues()
+        bool filterValues()
         {
             dateType = ddl_DateType.SelectedValue;
             if (DateTime.TryParse(tb_fromDate.Text, out DateTime parsedDate))
@@ -239,7 +239,7 @@ namespace empinquiry
 
         protected void btn_GenerateCSV_Click(object sender, EventArgs e)
         {
-            if(LoadfilterValues())
+            if(filterValues())
                 GenerateCSV();
         }
         void GenerateCSV()
