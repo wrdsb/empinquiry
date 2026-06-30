@@ -123,6 +123,15 @@ namespace empinquiry
         protected global::System.Web.UI.WebControls.Button btn_View;
 
         /// <summary>
+        /// btn_GenerateCSV control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_GenerateCSV;
+
+        /// <summary>
         /// smartphoneOrdersGrid control.
         /// </summary>
         /// <remarks>

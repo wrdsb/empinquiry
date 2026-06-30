@@ -107,6 +107,7 @@
 
                 <asp:Button ID="btn_Clear" runat="server" CssClass="btn btn-primary" Text="Clear" OnClick="btn_Clear_Click" />
                 <asp:Button ID="btn_View" runat="server" CssClass="btn btn-primary" Text="View" OnClick="btnView_Click" />
+                 <asp:Button ID="btn_GenerateCSV" runat="server" CssClass="btn btn-primary" Text="Generate CSV File" OnClick="btn_GenerateCSV_Click" />
 
 
 

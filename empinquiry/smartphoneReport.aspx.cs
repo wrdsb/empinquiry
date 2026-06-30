@@ -43,14 +43,13 @@ namespace empinquiry
         }
         private void BindGrid()
         {
+
             GetRecords();
         }
-        void GetRecords()
+        DataTable dt = new DataTable();
+        DataTable fillDataTable()
         {
-
             string connString = ConfigurationManager.ConnectionStrings["SQLDB_HDHRP"].ConnectionString;
-
-            DataTable dt = new DataTable();
 
             try
             {
@@ -121,7 +120,7 @@ namespace empinquiry
                         if (!string.IsNullOrEmpty(selectedRogers))
                             cmd.Parameters.AddWithValue("@rogers_account_created", selectedRogers);
 
-                        if(!string.IsNullOrEmpty(selectedBoard))
+                        if (!string.IsNullOrEmpty(selectedBoard))
                             cmd.Parameters.AddWithValue("@board_contribution_paid", selectedBoard);
 
                         using (SqlDataAdapter da = new SqlDataAdapter(cmd))
@@ -134,6 +133,13 @@ namespace empinquiry
             catch (Exception ex)
             {
             }
+            return dt;
+
+        }
+        void GetRecords()
+        {
+
+            fillDataTable();
 
             smartphoneOrdersGrid.DataSource = dt;
             smartphoneOrdersGrid.DataBind();
@@ -225,6 +231,63 @@ namespace empinquiry
         {
             ClearFormControls();
 
+        }
+
+        protected void btn_GenerateCSV_Click(object sender, EventArgs e)
+        {
+            GenerateCSV();
+        }
+        void GenerateCSV()
+        {
+            try
+            {
+                Response.Clear();
+                Response.Buffer = true;
+                Response.AddHeader(
+                    "content-disposition",
+                    "attachment;filename=SmartphoneReport.csv");
+
+                Response.ContentType = "text/csv";
+                Response.Write("Employee ID,Employee Name,Phone Number,Tier,Ordered Item,Rogers Account,Board Paid,Order Date,Eligibility Date");
+                Response.Write(Environment.NewLine);
+
+                fillDataTable();
+                foreach (DataRow row in dt.Rows)
+                {
+                    Response.Write(
+                        row["EmpId"] + "," +
+                        EscapeCsvValue(row["Name"].ToString()) + "," +
+                        row["Phone"] + "," +
+                        row["Tier"] + "," +
+                        row["Item"] + "," +
+                        row["Rogers"] + "," +
+                        row["BoardPaid"] + "," +
+                         row["OrderDate"] + "," +
+                        row["EligibleDate"]);
+
+                    Response.Write(Environment.NewLine);
+                }
+                Response.End();
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+        private string EscapeCsvValue(string value)
+        {
+            if (string.IsNullOrEmpty(value))
+                return "";
+
+            // Escape existing double quotes
+            value = value.Replace("\"", "\"\"");
+
+            // Wrap in quotes if needed
+            if (value.Contains(",") || value.Contains("\"") || value.Contains("\n"))
+            {
+                value = "\"" + value + "\"";
+            }
+
+            return value;
         }
     }
 }
