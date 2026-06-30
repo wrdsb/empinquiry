@@ -94,6 +94,9 @@ namespace empinquiry
                     if (!string.IsNullOrEmpty(selectedRogers))
                         sql += " rogers_account_created = @rogers_account_created AND ";
 
+                    if (!string.IsNullOrEmpty(selectedBoard))
+                        sql += " board_contribution_paid = @board_contribution_paid AND ";
+
                     sql += " created_date <= getdate() ORDER BY 1";
 
 
@@ -117,6 +120,9 @@ namespace empinquiry
 
                         if (!string.IsNullOrEmpty(selectedRogers))
                             cmd.Parameters.AddWithValue("@rogers_account_created", selectedRogers);
+
+                        if(!string.IsNullOrEmpty(selectedBoard))
+                            cmd.Parameters.AddWithValue("@board_contribution_paid", selectedBoard);
 
                         using (SqlDataAdapter da = new SqlDataAdapter(cmd))
                         {
