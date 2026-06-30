@@ -87,6 +87,8 @@ namespace empinquiry
 
                     if (!string.IsNullOrEmpty(selectedTier))
                         sql += " tier = @tier AND ";
+                    if (!string.IsNullOrEmpty(selectedItem))
+                        sql += " ordered_item = @ordered_item AND ";
 
                     sql += " created_date <= getdate() ORDER BY 1";
 
@@ -105,6 +107,9 @@ namespace empinquiry
 
                         if (!string.IsNullOrEmpty(selectedTier))
                             cmd.Parameters.AddWithValue("@tier", selectedTier);
+
+                        if (!string.IsNullOrEmpty(selectedItem))
+                            cmd.Parameters.AddWithValue("@ordered_item", selectedItem);
 
                         using (SqlDataAdapter da = new SqlDataAdapter(cmd))
                         {
