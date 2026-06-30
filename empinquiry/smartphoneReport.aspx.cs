@@ -78,12 +78,17 @@ namespace empinquiry
                                     FROM    [hd_empinquiry_smartphone] WHERE ";
 
                     if (dateType == "ORDER_DATE" && !string.IsNullOrEmpty(tb_fromDate.Text))
-                        sql += " order_date BETWEEN @fromDate and @toDate ";
+                        sql += " order_date BETWEEN @fromDate and @toDate AND ";
                     else if (dateType == "ELIGIBLE_DATE" && !string.IsNullOrEmpty(tb_fromDate.Text))
-                        sql += " next_eligible_date BETWEEN @fromDate and @toDate ";
+                        sql += " next_eligible_date BETWEEN @fromDate and @toDate AND ";
 
                     if (!string.IsNullOrEmpty(phoneNumber))
-                        sql += " phone_number LIKE @phoneNumber ";
+                        sql += " phone_number LIKE @phoneNumber AND ";
+
+                    if (!string.IsNullOrEmpty(selectedTier))
+                        sql += " tier = @tier AND ";
+
+                    sql += " created_date <= getdate() ORDER BY 1";
 
 
                     using (SqlCommand cmd = new SqlCommand(sql, conn))
@@ -97,6 +102,9 @@ namespace empinquiry
                         }
                         if (!string.IsNullOrEmpty(phoneNumber))
                             cmd.Parameters.AddWithValue("@phoneNumber", "%" + phoneNumber + "%");
+
+                        if (!string.IsNullOrEmpty(selectedTier))
+                            cmd.Parameters.AddWithValue("@tier", selectedTier);
 
                         using (SqlDataAdapter da = new SqlDataAdapter(cmd))
                         {
