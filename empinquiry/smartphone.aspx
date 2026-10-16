@@ -185,7 +185,7 @@
                 </div>
 
                 <!-- For Grid -->
-                <asp:GridView ID="smartphoneOrdersGrid" runat="server" DataKeyNames="Id" AutoGenerateColumns="False" CssClass="table table-striped">
+                <asp:GridView ID="smartphoneOrdersGrid" runat="server" DataKeyNames="Id" AutoGenerateColumns="False" CssClass="table-responsive table-bordered">
                     <Columns>
                         <asp:BoundField DataField="OrderDate" HeaderText="Order Date" DataFormatString="{0:MM/dd/yyyy}" />
                         <asp:BoundField DataField="Phone" HeaderText="Phone #" />
@@ -199,6 +199,7 @@
 
                         <asp:TemplateField HeaderText="Actions">
                             <ItemTemplate>
+                            <div style="display: flex; gap: 5px; white-space: nowrap;">
                                 <asp:LinkButton ID="btnEdit"
                                     runat="server"
                                     CommandArgument='<%# Container.DataItemIndex %>'
@@ -212,6 +213,7 @@
                                     CommandArgument='<%# Container.DataItemIndex %>'
                                     OnClick="btnDelete_Click"
                                     OnClientClick="return confirm('Are you sure to delete the smartphone order?');" />
+                            </div>
                             </ItemTemplate>
                         </asp:TemplateField>
                     </Columns>

@@ -114,7 +114,7 @@
 
 
                 <!-- For Grid -->
-                <asp:GridView ID="smartphoneOrdersGrid" runat="server" DataKeyNames="Id" AutoGenerateColumns="False" CssClass="table table-striped">
+                <asp:GridView ID="smartphoneOrdersGrid" runat="server" DataKeyNames="Id" AutoGenerateColumns="False" CssClass="table-responsive table-bordered">
                     <Columns>
                         <asp:BoundField DataField="EmpId" HeaderText="EmpId" />
                         <asp:BoundField DataField="Name" HeaderText="Name" />
