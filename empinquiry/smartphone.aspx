@@ -165,7 +165,7 @@
                                 <asp:Button ID="btn_Clear" runat="server" CssClass="btn btn-primary" Text="Clear" OnClick="btn_Clear_Click" />
                             </asp:TableCell>
                             <asp:TableCell>
-                                <asp:Button ID="btn_Add" runat="server" CssClass="btn btn-primary" Text="Add Smartphone Order" OnClick="btnAdd_Click" />
+                                <asp:Button ID="btn_Add" runat="server" CssClass="btn btn-success mb-3" Text="Add Smartphone Order" OnClick="btnAdd_Click" />
                             </asp:TableCell>
                             <asp:TableCell>
                                 <asp:Label ID="lblsubmit"
@@ -185,40 +185,44 @@
                 </div>
 
                 <!-- For Grid -->
-                <asp:GridView ID="smartphoneOrdersGrid" runat="server" DataKeyNames="Id" AutoGenerateColumns="False" CssClass="table-responsive table-bordered">
-                    <Columns>
-                        <asp:BoundField DataField="OrderDate" HeaderText="Order Date" DataFormatString="{0:MM/dd/yyyy}" />
-                        <asp:BoundField DataField="Phone" HeaderText="Phone #" />
-                        <asp:BoundField DataField="Tier" HeaderText="Tier" />
-                        <asp:BoundField DataField="Item" HeaderText="Item" />
-                        <asp:BoundField DataField="Rogers" HeaderText="Rogers" />
-                        <asp:BoundField DataField="BoardPaid" HeaderText="Board Paid" />
-                        <asp:BoundField DataField="EligibleDate" HeaderText="Eligible Date" DataFormatString="{0:MM/dd/yyyy}" />
-                        <asp:BoundField DataField="Forms" HeaderText="Forms" />
-                        <asp:BoundField DataField="Notes" HeaderText="Notes" />
+                <fieldset id="fd_spDetails" runat="server">
+                    <legend>Smartphone Order Details</legend>
+                    <asp:GridView ID="smartphoneOrdersGrid" runat="server" DataKeyNames="Id" AutoGenerateColumns="False" CssClass="table-responsive table-bordered">
+                        <Columns>
+                            <asp:BoundField DataField="OrderDate" HeaderText="Order Date" DataFormatString="{0:MM/dd/yyyy}" />
+                            <asp:BoundField DataField="Phone" HeaderText="Phone #" />
+                            <asp:BoundField DataField="Tier" HeaderText="Tier" />
+                            <asp:BoundField DataField="Item" HeaderText="Item" />
+                            <asp:BoundField DataField="Rogers" HeaderText="Rogers" />
+                            <asp:BoundField DataField="BoardPaid" HeaderText="Board Paid" />
+                            <asp:BoundField DataField="EligibleDate" HeaderText="Eligible Date" DataFormatString="{0:MM/dd/yyyy}" />
+                            <asp:BoundField DataField="Forms" HeaderText="Forms" />
+                            <asp:BoundField DataField="Notes" HeaderText="Notes" />
 
-                        <asp:TemplateField HeaderText="Actions">
-                            <ItemTemplate>
-                            <div style="display: flex; gap: 5px; white-space: nowrap;">
-                                <asp:LinkButton ID="btnEdit"
-                                    runat="server"
-                                    CommandArgument='<%# Container.DataItemIndex %>'
-                                    Text="Modify"
-                                    CssClass="btn btn-sm btn-primary"
-                                    OnClick="btnEdit_Click" />
-                                <asp:LinkButton ID="btnDelete"
-                                    runat="server"
-                                    Text="Delete"
-                                    CssClass="btn btn-sm btn-primary"
-                                    CommandArgument='<%# Container.DataItemIndex %>'
-                                    OnClick="btnDelete_Click"
-                                    OnClientClick="return confirm('Are you sure to delete the smartphone order?');" />
-                            </div>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                    </Columns>
-                </asp:GridView>
-                <asp:HiddenField ID="hfId" runat="server" />
+                            <asp:TemplateField HeaderText="Actions">
+                                <ItemTemplate>
+                                    <div style="display: flex; gap: 5px; white-space: nowrap;">
+                                        <asp:LinkButton ID="btnEdit"
+                                            runat="server"
+                                            CommandArgument='<%# Container.DataItemIndex %>'
+                                            Text="Modify"
+                                            CssClass="btn btn-sm btn-warning"
+                                            OnClick="btnEdit_Click" />
+                                        <asp:LinkButton ID="btnDelete"
+                                            runat="server"
+                                            Text="Delete"
+                                            CssClass="btn btn-sm btn-danger"
+                                            CommandArgument='<%# Container.DataItemIndex %>'
+                                            OnClick="btnDelete_Click"
+                                            OnClientClick="return confirm('Are you sure to delete the smartphone order?');" />
+                                    </div>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                        </Columns>
+                    </asp:GridView>
+                    <asp:HiddenField ID="hfId" runat="server" />
+                    <br />
+                </fieldset>
             </div>
         </div>
     </div>

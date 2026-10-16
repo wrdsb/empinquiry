@@ -150,6 +150,15 @@ namespace empinquiry
         protected global::System.Web.UI.WebControls.Label lbllist;
 
         /// <summary>
+        /// fd_spDetails control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl fd_spDetails;
+
+        /// <summary>
         /// smartphoneOrdersGrid control.
         /// </summary>
         /// <remarks>

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
@@ -106,6 +107,7 @@ namespace empinquiry
 
             smartphoneOrdersGrid.DataSource = dt;
             smartphoneOrdersGrid.DataBind();
+            
 
             if (dt.Rows.Count == 0)
             {
@@ -156,9 +158,10 @@ namespace empinquiry
             }
 
             notes = !string.IsNullOrEmpty(tb_notes.Text) ? tb_notes.Text : string.Empty;
+            bool update = Convert.ToBoolean(Session["update"]);
 
             // logic to save the collected data to the database
-            if (Convert.ToBoolean( Session["update"]))
+            if (update)
             {
                 updateRecords();
                 lblsubmit.Text = "Smartphone order modified successfully!";
@@ -176,8 +179,17 @@ namespace empinquiry
             ClientScript.RegisterStartupScript(this.GetType(), "HideLabelScript", "hideLabel();", true);
 
             BindGrid();
-            ClearFormControls();
             
+            if (!update)
+            {
+                int index = smartphoneOrdersGrid.Rows.Count - 1;
+                smartphoneOrdersGrid.SelectedIndex = index;
+                smartphoneOrdersGrid.SelectedRowStyle.BackColor = ColorTranslator.FromHtml("#d4edda");
+                smartphoneOrdersGrid.SelectedRowStyle.Font.Bold = true;
+            }
+
+            ClearFormControls();
+
         }
         void updateRecords()
         {
@@ -318,6 +330,7 @@ namespace empinquiry
 
             Session["update"] = false;
             btn_Add.Text = "Add Smartphone Order";
+            btn_Add.CssClass = "btn btn-success mb-3";
             hfId.Value = "";
 
         }
@@ -327,6 +340,9 @@ namespace empinquiry
             LinkButton btn = (LinkButton)sender;
 
             int rowIndex = Convert.ToInt32(btn.CommandArgument);
+            smartphoneOrdersGrid.SelectedIndex = rowIndex;
+            smartphoneOrdersGrid.SelectedRowStyle.BackColor = ColorTranslator.FromHtml("#FFF3CD");
+            smartphoneOrdersGrid.SelectedRowStyle.Font.Bold = true;
 
             try
             {
@@ -372,6 +388,7 @@ namespace empinquiry
                 hfId.Value = id.ToString();
                 Session["update"] = true;
                 btn_Add.Text = "Modify Smartphone Order";
+                btn_Add.CssClass = "btn btn-warning";
                 hideLabel();
 
 
