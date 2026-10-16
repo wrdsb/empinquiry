@@ -33,6 +33,15 @@ namespace empinquiry
         protected global::System.Web.UI.WebControls.Panel panelsmart;
 
         /// <summary>
+        /// fd_smpOrderForm control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl fd_smpOrderForm;
+
+        /// <summary>
         /// tb_orderDate control.
         /// </summary>
         /// <remarks>
@@ -139,15 +148,6 @@ namespace empinquiry
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblsubmit;
-
-        /// <summary>
-        /// lbllist control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbllist;
 
         /// <summary>
         /// fd_spDetails control.

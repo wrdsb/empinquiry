@@ -109,14 +109,14 @@ namespace empinquiry
             smartphoneOrdersGrid.DataBind();
             
 
-            if (dt.Rows.Count == 0)
-            {
-                lbllist.Text = "No data to display in the grid.";
-            }
-            else
-            {
-                lbllist.Text = "Please find the smartphone orders displayed in the grid for the selected employee.";
-            }
+            //if (dt.Rows.Count == 0)
+            //{
+            //    lbllist.Text = "No data to display in the grid.";
+            //}
+            //else
+            //{
+            //    lbllist.Text = "Please find the smartphone orders displayed in the grid for the selected employee.";
+            //}
         }
 
         public DateTime? selectedOrderDate { get; set; }

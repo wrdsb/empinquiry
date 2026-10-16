@@ -89,100 +89,103 @@
                 </div>--%>
 
                 <asp:Panel ID="panelsmart" runat="server" DefaultButton="btn_Add">
-                    <asp:Table runat="server">
+                    <fieldset id="fd_smpOrderForm" runat="server">
+                        <legend>Smartphone Order Form</legend>
+                        <asp:Table runat="server">
 
 
-                        <asp:TableRow>
-                            <asp:TableCell>Order Date  </asp:TableCell>
-                            <asp:TableCell>
-                                <asp:TextBox ID="tb_orderDate" Width="200px" runat="server" TextMode="Date" CssClass="form-control" onchange="setEligibleDate();"></asp:TextBox>
-                            </asp:TableCell>
-                            <asp:TableCell>Phone Number</asp:TableCell>
-                            <asp:TableCell>
-                                <asp:TextBox ID="tb_phoneNumber" runat="server" Width="200px" CssClass="form-control" ClientIDMode="Static"></asp:TextBox>
-                            </asp:TableCell>
-                            <asp:TableCell>Tier</asp:TableCell>
-                            <asp:TableCell>
-                                <asp:DropDownList ID="ddl_tier" runat="server" AutoPostBack="true" Width="200px" CssClass="form-control" OnSelectedIndexChanged="ddl_tier_SelectedIndexChanged">
-                                    <asp:ListItem Text="Tier1" Value="Tier1" />
-                                    <asp:ListItem Text="Tier2" Value="Tier2" />
-                                    <asp:ListItem Text="Tier3" Value="Tier3" />
-                                    <asp:ListItem Text="Tier4" Value="Tier4" />
-                                </asp:DropDownList>
-                            </asp:TableCell>
-                        </asp:TableRow>
+                            <asp:TableRow>
+                                <asp:TableCell>Order Date  </asp:TableCell>
+                                <asp:TableCell>
+                                    <asp:TextBox ID="tb_orderDate" Width="200px" runat="server" TextMode="Date" CssClass="form-control" onchange="setEligibleDate();"></asp:TextBox>
+                                </asp:TableCell>
+                                <asp:TableCell>Phone Number</asp:TableCell>
+                                <asp:TableCell>
+                                    <asp:TextBox ID="tb_phoneNumber" runat="server" Width="200px" CssClass="form-control" ClientIDMode="Static"></asp:TextBox>
+                                </asp:TableCell>
+                                <asp:TableCell>Tier</asp:TableCell>
+                                <asp:TableCell>
+                                    <asp:DropDownList ID="ddl_tier" runat="server" AutoPostBack="true" Width="200px" CssClass="form-control" OnSelectedIndexChanged="ddl_tier_SelectedIndexChanged">
+                                        <asp:ListItem Text="Tier1" Value="Tier1" />
+                                        <asp:ListItem Text="Tier2" Value="Tier2" />
+                                        <asp:ListItem Text="Tier3" Value="Tier3" />
+                                        <asp:ListItem Text="Tier4" Value="Tier4" />
+                                    </asp:DropDownList>
+                                </asp:TableCell>
+                            </asp:TableRow>
 
 
-                        <asp:TableRow>
-                            <asp:TableCell>Ordered Item</asp:TableCell>
-                            <asp:TableCell>
-                                <asp:DropDownList ID="ddl_orderedItem" runat="server" AutoPostBack="true" Width="200px" CssClass="form-control" OnSelectedIndexChanged="ddl_orderedItem_SelectedIndexChanged">
-                                    <asp:ListItem Text="SIM" Value="SIM" />
-                                    <asp:ListItem Text="Phone" Value="Phone" />
-                                </asp:DropDownList>
-                            </asp:TableCell>
-                            <asp:TableCell>Rogers Account Created</asp:TableCell>
-                            <asp:TableCell>
-                                <asp:RadioButtonList ID="rbl_RogersYesNo" runat="server" RepeatDirection="Horizontal" RepeatLayout="Flow" CssClass="custom-radio-list">
-                                    <asp:ListItem Text="Yes" Value="1"></asp:ListItem>
-                                    <asp:ListItem Text="No" Value="0"></asp:ListItem>
-                                </asp:RadioButtonList>
-                            </asp:TableCell>
-                            <asp:TableCell>Board Contribution Paid</asp:TableCell>
-                            <asp:TableCell>
-                                <asp:RadioButtonList ID="rbl_BoardYesNo" runat="server" RepeatDirection="Horizontal" RepeatLayout="Flow" CssClass="custom-radio-list">
-                                    <asp:ListItem Text="Yes" Value="1"></asp:ListItem>
-                                    <asp:ListItem Text="No" Value="0"></asp:ListItem>
-                                </asp:RadioButtonList>
-                            </asp:TableCell>
-                        </asp:TableRow>
+                            <asp:TableRow>
+                                <asp:TableCell>Ordered Item</asp:TableCell>
+                                <asp:TableCell>
+                                    <asp:DropDownList ID="ddl_orderedItem" runat="server" AutoPostBack="true" Width="200px" CssClass="form-control" OnSelectedIndexChanged="ddl_orderedItem_SelectedIndexChanged">
+                                        <asp:ListItem Text="SIM" Value="SIM" />
+                                        <asp:ListItem Text="Phone" Value="Phone" />
+                                    </asp:DropDownList>
+                                </asp:TableCell>
+                                <asp:TableCell>Rogers Account Created</asp:TableCell>
+                                <asp:TableCell>
+                                    <asp:RadioButtonList ID="rbl_RogersYesNo" runat="server" RepeatDirection="Horizontal" RepeatLayout="Flow" CssClass="custom-radio-list">
+                                        <asp:ListItem Text="Yes" Value="1"></asp:ListItem>
+                                        <asp:ListItem Text="No" Value="0"></asp:ListItem>
+                                    </asp:RadioButtonList>
+                                </asp:TableCell>
+                                <asp:TableCell>Board Contribution Paid</asp:TableCell>
+                                <asp:TableCell>
+                                    <asp:RadioButtonList ID="rbl_BoardYesNo" runat="server" RepeatDirection="Horizontal" RepeatLayout="Flow" CssClass="custom-radio-list">
+                                        <asp:ListItem Text="Yes" Value="1"></asp:ListItem>
+                                        <asp:ListItem Text="No" Value="0"></asp:ListItem>
+                                    </asp:RadioButtonList>
+                                </asp:TableCell>
+                            </asp:TableRow>
 
 
-                        <asp:TableRow>
-                            <asp:TableCell>Next Eligible Date</asp:TableCell>
-                            <asp:TableCell>
-                                <asp:TextBox ID="tb_eligibleDate" Width="200px" runat="server" TextMode="Date" CssClass="form-control"></asp:TextBox>
-                            </asp:TableCell>
-                            <asp:TableCell>Link Options Form</asp:TableCell>
-                            <asp:TableCell>
-                                <asp:HyperLink
-                                    ID="lnkGoogleFolder"
-                                    runat="server"
-                                    Text="Open Google Folder"
-                                    Target="_blank" NavigateUrl="https://drive.google.com/drive/folders/1b0ClP5MY2XEAMFTpOo46LTmtORJ4UXak">
-                                </asp:HyperLink>
-                            </asp:TableCell>
-                            <asp:TableCell>Notes</asp:TableCell>
-                            <asp:TableCell>
-                                <asp:TextBox ID="tb_notes" runat="server" CssClass="form-control" TextMode="MultiLine"
-                                    MaxLength="400">
-                                </asp:TextBox>
-                            </asp:TableCell>
-                        </asp:TableRow>
+                            <asp:TableRow>
+                                <asp:TableCell>Next Eligible Date</asp:TableCell>
+                                <asp:TableCell>
+                                    <asp:TextBox ID="tb_eligibleDate" Width="200px" runat="server" TextMode="Date" CssClass="form-control"></asp:TextBox>
+                                </asp:TableCell>
+                                <asp:TableCell>Link Options Form</asp:TableCell>
+                                <asp:TableCell>
+                                    <asp:HyperLink
+                                        ID="lnkGoogleFolder"
+                                        runat="server"
+                                        Text="Open Google Folder"
+                                        Target="_blank" NavigateUrl="https://drive.google.com/drive/folders/1b0ClP5MY2XEAMFTpOo46LTmtORJ4UXak">
+                                    </asp:HyperLink>
+                                </asp:TableCell>
+                                <asp:TableCell>Notes</asp:TableCell>
+                                <asp:TableCell>
+                                    <asp:TextBox ID="tb_notes" runat="server" CssClass="form-control" TextMode="MultiLine"
+                                        MaxLength="400">
+                                    </asp:TextBox>
+                                </asp:TableCell>
+                            </asp:TableRow>
 
-                        <asp:TableRow>
-                            <asp:TableCell>
-                                <asp:Button ID="btn_Clear" runat="server" CssClass="btn btn-primary" Text="Clear" OnClick="btn_Clear_Click" />
-                            </asp:TableCell>
-                            <asp:TableCell>
-                                <asp:Button ID="btn_Add" runat="server" CssClass="btn btn-success mb-3" Text="Add Smartphone Order" OnClick="btnAdd_Click" />
-                            </asp:TableCell>
-                            <asp:TableCell>
-                                <asp:Label ID="lblsubmit"
-                                    runat="server"
-                                    Font-Bold="true" ForeColor="ForestGreen">
-                                </asp:Label>
-                            </asp:TableCell>
-                        </asp:TableRow>
+                            <asp:TableRow>
+                                <asp:TableCell>
+                                    <asp:Button ID="btn_Clear" runat="server" CssClass="btn btn-primary" Text="Clear" OnClick="btn_Clear_Click" />
+                                </asp:TableCell>
+                                <asp:TableCell>
+                                    <asp:Button ID="btn_Add" runat="server" CssClass="btn btn-success mb-3" Text="Add Smartphone Order" OnClick="btnAdd_Click" />
+                                </asp:TableCell>
+                                <asp:TableCell>
+                                    <asp:Label ID="lblsubmit"
+                                        runat="server"
+                                        Font-Bold="true" ForeColor="ForestGreen">
+                                    </asp:Label>
+                                </asp:TableCell>
+                            </asp:TableRow>
 
-                    </asp:Table>
+                        </asp:Table>
+                    </fieldset>
                 </asp:Panel>
-                <div class="announcement">
+                <%-- <div class="announcement">
                     <asp:Label ID="lbllist"
                         runat="server"
                         Font-Bold="true">
                     </asp:Label>
-                </div>
+                </div>--%>
 
                 <!-- For Grid -->
                 <fieldset id="fd_spDetails" runat="server">
