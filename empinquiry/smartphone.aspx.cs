@@ -137,6 +137,8 @@ namespace empinquiry
 
             //MessageBox.Show("update : " + Session["update"]);
 
+            bool savednewrecord = false;
+
             if (DateTime.TryParse(tb_orderDate.Text, out DateTime parsedDate))
             {
                 selectedOrderDate = parsedDate;
@@ -169,7 +171,8 @@ namespace empinquiry
             }
             else
             {
-                if (SaveRecords())
+                savednewrecord = SaveRecords();
+                if (savednewrecord)
                 {
                     lblsubmit.Text = "Smartphone order added successfully!";
                     lblsubmit.Style["display"] = "block"; // Ensure it is visible if previously hidden
@@ -180,7 +183,7 @@ namespace empinquiry
 
             BindGrid();
             
-            if (!update)
+            if (!update && savednewrecord)
             {
                 int index = smartphoneOrdersGrid.Rows.Count - 1;
                 smartphoneOrdersGrid.SelectedIndex = index;
