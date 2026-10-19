@@ -333,6 +333,9 @@ namespace empinquiry
             btn_Add.CssClass = "btn btn-success mb-3";
             hfId.Value = "";
 
+            div_smartPhoneOrderform.Attributes["class"] = "announcement";
+            lblFormTitle.Text = "Please Submit New Smartphone Order";
+
         }
 
         protected void btnEdit_Click(object sender, EventArgs e)
@@ -343,6 +346,9 @@ namespace empinquiry
             smartphoneOrdersGrid.SelectedIndex = rowIndex;
             smartphoneOrdersGrid.SelectedRowStyle.BackColor = ColorTranslator.FromHtml("#FFF3CD");
             smartphoneOrdersGrid.SelectedRowStyle.Font.Bold = true;
+
+            div_smartPhoneOrderform.Attributes["class"] = "announcement-modify";
+            lblFormTitle.Text = "Please Modify Smartphone Order";
 
             try
             {

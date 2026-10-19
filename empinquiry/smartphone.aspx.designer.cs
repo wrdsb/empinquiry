@@ -24,6 +24,15 @@ namespace empinquiry
         protected global::System.Web.UI.WebControls.Label lblSelectedEmployee;
 
         /// <summary>
+        /// fd_smpOrderForm control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl fd_smpOrderForm;
+
+        /// <summary>
         /// panelsmart control.
         /// </summary>
         /// <remarks>
@@ -33,13 +42,22 @@ namespace empinquiry
         protected global::System.Web.UI.WebControls.Panel panelsmart;
 
         /// <summary>
-        /// fd_smpOrderForm control.
+        /// div_smartPhoneOrderform control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl fd_smpOrderForm;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl div_smartPhoneOrderform;
+
+        /// <summary>
+        /// lblFormTitle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFormTitle;
 
         /// <summary>
         /// tb_orderDate control.

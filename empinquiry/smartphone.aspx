@@ -52,23 +52,40 @@
             display: flex;
         }
 
-            /* Style the labels (the text next to buttons) */
-            .custom-radio-list label {
-                margin-left: 5px;
-                cursor: pointer;
-                color: #333;
-            }
+        /* Style the labels (the text next to buttons) */
+        .custom-radio-list label {
+            margin-left: 5px;
+            cursor: pointer;
+            color: #333;
+        }
 
-            /* Style the radio input itself */
-            .custom-radio-list input[type="radio"] {
-                cursor: pointer;
-                transform: scale(1.2); /* Make buttons slightly larger */
-            }
+        /* Style the radio input itself */
+        .custom-radio-list input[type="radio"] {
+            cursor: pointer;
+            transform: scale(1.2); /* Make buttons slightly larger */
+        }
 
-            /* Hover effect on the labels */
-            .custom-radio-list label:hover {
-                color: #007bff;
-            }
+        /* Hover effect on the labels */
+        .custom-radio-list label:hover {
+            color: #007bff;
+        }
+        /* Existing green style */
+        .announcement {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        /* New orange style for modify mode */
+        .announcement-modify {
+            background-color: #fff3cd;
+            border: 1px solid #ffeeba;
+            color: #856404;
+            padding: 10px;
+            border-radius: 4px;
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -87,10 +104,18 @@
                         Font-Bold="true">                       
                     </asp:Label>
                 </div>--%>
+                <fieldset id="fd_smpOrderForm" runat="server">
+                    <legend>Smartphone Order Form</legend>
 
-                <asp:Panel ID="panelsmart" runat="server" DefaultButton="btn_Add">
-                    <fieldset id="fd_smpOrderForm" runat="server">
-                        <legend>Smartphone Order Form</legend>
+                    <asp:Panel ID="panelsmart" BorderStyle="Double" runat="server" DefaultButton="btn_Add" BorderColor="LightGray" CssClass="card card-body mb-4 bg-light">
+                        <div id="div_smartPhoneOrderform" runat="server" class="announcement">
+                            <asp:Label ID="lblFormTitle"
+                                runat="server"
+                                Font-Bold="true"
+                                Text="Please submit new Smartphone Order">                       
+                            </asp:Label>
+                        </div>
+
                         <asp:Table runat="server">
 
 
@@ -178,8 +203,10 @@
                             </asp:TableRow>
 
                         </asp:Table>
-                    </fieldset>
-                </asp:Panel>
+
+                    </asp:Panel>
+                    <br />
+                </fieldset>
                 <%-- <div class="announcement">
                     <asp:Label ID="lbllist"
                         runat="server"
