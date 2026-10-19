@@ -52,23 +52,23 @@
             display: flex;
         }
 
-        /* Style the labels (the text next to buttons) */
-        .custom-radio-list label {
-            margin-left: 5px;
-            cursor: pointer;
-            color: #333;
-        }
+            /* Style the labels (the text next to buttons) */
+            .custom-radio-list label {
+                margin-left: 5px;
+                cursor: pointer;
+                color: #333;
+            }
 
-        /* Style the radio input itself */
-        .custom-radio-list input[type="radio"] {
-            cursor: pointer;
-            transform: scale(1.2); /* Make buttons slightly larger */
-        }
+            /* Style the radio input itself */
+            .custom-radio-list input[type="radio"] {
+                cursor: pointer;
+                transform: scale(1.2); /* Make buttons slightly larger */
+            }
 
-        /* Hover effect on the labels */
-        .custom-radio-list label:hover {
-            color: #007bff;
-        }
+            /* Hover effect on the labels */
+            .custom-radio-list label:hover {
+                color: #007bff;
+            }
         /* Existing green style */
         .announcement {
             background-color: #d4edda;
@@ -120,34 +120,38 @@
 
 
                             <asp:TableRow>
-                                <asp:TableCell>Order Date  </asp:TableCell>
+                                <asp:TableCell Width="200px">Order Date  </asp:TableCell>
                                 <asp:TableCell>
-                                    <asp:TextBox ID="tb_orderDate" Width="200px" runat="server" TextMode="Date" CssClass="form-control" onchange="setEligibleDate();"></asp:TextBox>
+                                    <asp:TextBox ID="tb_orderDate" Width="300px" runat="server" TextMode="Date" CssClass="form-control" onchange="setEligibleDate();"></asp:TextBox>
                                 </asp:TableCell>
-                                <asp:TableCell>Phone Number</asp:TableCell>
+                                <asp:TableCell Width="200px">Phone Number</asp:TableCell>
                                 <asp:TableCell>
-                                    <asp:TextBox ID="tb_phoneNumber" runat="server" Width="200px" CssClass="form-control" ClientIDMode="Static"></asp:TextBox>
+                                    <asp:TextBox ID="tb_phoneNumber" runat="server" Width="300px" CssClass="form-control" ClientIDMode="Static"></asp:TextBox>
                                 </asp:TableCell>
+
+                            </asp:TableRow>
+
+
+                            <asp:TableRow>
                                 <asp:TableCell>Tier</asp:TableCell>
                                 <asp:TableCell>
-                                    <asp:DropDownList ID="ddl_tier" runat="server" AutoPostBack="true" Width="200px" CssClass="form-control" OnSelectedIndexChanged="ddl_tier_SelectedIndexChanged">
+                                    <asp:DropDownList ID="ddl_tier" runat="server" AutoPostBack="true" Width="300px" CssClass="form-control" OnSelectedIndexChanged="ddl_tier_SelectedIndexChanged">
                                         <asp:ListItem Text="Tier1" Value="Tier1" />
                                         <asp:ListItem Text="Tier2" Value="Tier2" />
                                         <asp:ListItem Text="Tier3" Value="Tier3" />
                                         <asp:ListItem Text="Tier4" Value="Tier4" />
                                     </asp:DropDownList>
                                 </asp:TableCell>
-                            </asp:TableRow>
-
-
-                            <asp:TableRow>
                                 <asp:TableCell>Ordered Item</asp:TableCell>
                                 <asp:TableCell>
-                                    <asp:DropDownList ID="ddl_orderedItem" runat="server" AutoPostBack="true" Width="200px" CssClass="form-control" OnSelectedIndexChanged="ddl_orderedItem_SelectedIndexChanged">
+                                    <asp:DropDownList ID="ddl_orderedItem" runat="server" AutoPostBack="true" Width="300px" CssClass="form-control" OnSelectedIndexChanged="ddl_orderedItem_SelectedIndexChanged">
                                         <asp:ListItem Text="SIM" Value="SIM" />
                                         <asp:ListItem Text="Phone" Value="Phone" />
                                     </asp:DropDownList>
                                 </asp:TableCell>
+
+                            </asp:TableRow>
+                            <asp:TableRow>
                                 <asp:TableCell>Rogers Account Created</asp:TableCell>
                                 <asp:TableCell>
                                     <asp:RadioButtonList ID="rbl_RogersYesNo" runat="server" RepeatDirection="Horizontal" RepeatLayout="Flow" CssClass="custom-radio-list">
@@ -168,7 +172,7 @@
                             <asp:TableRow>
                                 <asp:TableCell>Next Eligible Date</asp:TableCell>
                                 <asp:TableCell>
-                                    <asp:TextBox ID="tb_eligibleDate" Width="200px" runat="server" TextMode="Date" CssClass="form-control"></asp:TextBox>
+                                    <asp:TextBox ID="tb_eligibleDate" Width="300px" runat="server" TextMode="Date" CssClass="form-control"></asp:TextBox>
                                 </asp:TableCell>
                                 <asp:TableCell>Link Options Form</asp:TableCell>
                                 <asp:TableCell>
@@ -179,8 +183,11 @@
                                         Target="_blank" NavigateUrl="https://drive.google.com/drive/folders/1b0ClP5MY2XEAMFTpOo46LTmtORJ4UXak">
                                     </asp:HyperLink>
                                 </asp:TableCell>
+
+                            </asp:TableRow>
+                            <asp:TableRow>
                                 <asp:TableCell>Notes</asp:TableCell>
-                                <asp:TableCell>
+                                <asp:TableCell ColumnSpan="3">
                                     <asp:TextBox ID="tb_notes" runat="server" CssClass="form-control" TextMode="MultiLine"
                                         MaxLength="400">
                                     </asp:TextBox>
@@ -194,10 +201,10 @@
                                 <asp:TableCell>
                                     <asp:Button ID="btn_Add" runat="server" CssClass="btn btn-success mb-3" Text="Add Smartphone Order" OnClick="btnAdd_Click" />
                                 </asp:TableCell>
-                                <asp:TableCell>
+                                <asp:TableCell ColumnSpan="2">
                                     <asp:Label ID="lblsubmit"
                                         runat="server"
-                                        Font-Bold="true" ForeColor="ForestGreen">
+                                        Font-Bold="true" ForeColor="DarkBlue">
                                     </asp:Label>
                                 </asp:TableCell>
                             </asp:TableRow>
