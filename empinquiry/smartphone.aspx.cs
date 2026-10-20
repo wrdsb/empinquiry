@@ -69,26 +69,27 @@ namespace empinquiry
             {
                 using (SqlConnection conn = new SqlConnection(connString))
                 {
-                    string sql = @" SELECT  FORMAT(order_date, 'yyyy-MM-dd')            AS OrderDate
-                                            , phone_number                              AS Phone
-                                            , tier                                      AS Tier
-                                            , ordered_item                              AS Item
-                                            , CASE
-                                                WHEN rogers_account_created = 1 
-                                                THEN 'Yes'
-                                                ELSE 'No'
-                                              END                                       AS Rogers
-                                            , CASE
-                                                WHEN board_contribution_paid = 1 
-                                                THEN 'Yes'
-                                                ELSE 'No'
-                                              END                                       AS BoardPaid
-                                            , FORMAT(next_eligible_date, 'yyyy-MM-dd')  AS EligibleDate
-                                            , form_link                                 AS Forms
-                                            , notes                                     AS Notes
-                                            , Id
-                                    FROM    [hd_empinquiry_smartphone]
-                                    WHERE   employee_id = @EmployeeID";
+                    string sql = @" SELECT      FORMAT(order_date, 'yyyy-MM-dd')            AS OrderDate
+                                                , phone_number                              AS Phone
+                                                , tier                                      AS Tier
+                                                , ordered_item                              AS Item
+                                                , CASE
+                                                    WHEN rogers_account_created = 1 
+                                                    THEN 'Yes'
+                                                    ELSE 'No'
+                                                  END                                       AS Rogers
+                                                , CASE
+                                                    WHEN board_contribution_paid = 1 
+                                                    THEN 'Yes'
+                                                    ELSE 'No'
+                                                  END                                       AS BoardPaid
+                                                , FORMAT(next_eligible_date, 'yyyy-MM-dd')  AS EligibleDate
+                                                , form_link                                 AS Forms
+                                                , notes                                     AS Notes
+                                                , Id
+                                    FROM        [hd_empinquiry_smartphone]
+                                    WHERE       employee_id = @EmployeeID 
+                                    ORDER BY    Id DESC";
 
                     using (SqlCommand cmd = new SqlCommand(sql, conn))
                     {
@@ -185,7 +186,7 @@ namespace empinquiry
             
             if (!update && savednewrecord)
             {
-                int index = smartphoneOrdersGrid.Rows.Count - 1;
+                int index = 0;
                 smartphoneOrdersGrid.SelectedIndex = index;
                 smartphoneOrdersGrid.SelectedRowStyle.BackColor = ColorTranslator.FromHtml("#d4edda");
                 smartphoneOrdersGrid.SelectedRowStyle.Font.Bold = true;
