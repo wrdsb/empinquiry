@@ -92,12 +92,13 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <div class="note">
+                <div style ="background-color: aliceblue; border: 1px dotted lightskyblue; color: dimgrey; padding: 10px; border-radius: 4px; font-size:large">
                     <asp:Label ID="lblSelectedEmployee"
                         runat="server"
                         Font-Bold="true">                       
                     </asp:Label>
                 </div>
+                <br />
                 <%--<div class="announcement">
                     <asp:Label ID="lblinfo"
                         runat="server"
@@ -112,7 +113,7 @@
                             <asp:Label ID="lblFormTitle"
                                 runat="server"
                                 Font-Bold="true"
-                                Text="Please submit new Smartphone Order">                       
+                                Text="Please Submit New Smartphone Order">                       
                             </asp:Label>
                         </div>
 
