@@ -92,7 +92,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <div style ="background-color: aliceblue; border: 1px dotted lightskyblue; color: dimgrey; padding: 10px; border-radius: 4px; font-size:large">
+                <div style="background-color: aliceblue; border: 1px dotted lightskyblue; color: dimgrey; padding: 10px; border-radius: 4px; font-size: large">
                     <asp:Label ID="lblSelectedEmployee"
                         runat="server"
                         Font-Bold="true">                       
@@ -123,7 +123,15 @@
                             <asp:TableRow>
                                 <asp:TableCell Width="200px">Order Date  </asp:TableCell>
                                 <asp:TableCell>
-                                    <asp:TextBox ID="tb_orderDate" Width="300px" runat="server" TextMode="Date" CssClass="form-control" onchange="setEligibleDate();"></asp:TextBox>
+                                    <asp:TextBox ID="tb_orderDate" Width="300px" runat="server" ClientIDMode="Static" CssClass="form-control" onchange="setEligibleDate();"></asp:TextBox>
+                                    <!-- JavaScript -->
+                                    <script type="text/javascript">
+                                        $(function () {
+                                            $("#tb_orderDate").datepicker({
+                                                dateFormat: "yy-mm-dd" // In jQuery UI, 'yy' stands for a 4-digit year
+                                            });
+                                        });
+                                    </script>
                                 </asp:TableCell>
                                 <asp:TableCell Width="200px">Phone Number</asp:TableCell>
                                 <asp:TableCell>
@@ -173,7 +181,14 @@
                             <asp:TableRow>
                                 <asp:TableCell>Next Eligible Date</asp:TableCell>
                                 <asp:TableCell>
-                                    <asp:TextBox ID="tb_eligibleDate" Width="300px" runat="server" TextMode="Date" CssClass="form-control"></asp:TextBox>
+                                    <asp:TextBox ID="tb_eligibleDate" Width="300px" runat="server" ClientIDMode="Static" CssClass="form-control"></asp:TextBox>
+                                    <script type="text/javascript">
+                                        $(function () {
+                                            $("#tb_eligibleDate").datepicker({
+                                                dateFormat: "yy-mm-dd" // In jQuery UI, 'yy' stands for a 4-digit year
+                                            });
+                                        });
+                                    </script>
                                 </asp:TableCell>
                                 <asp:TableCell>Link Options Form</asp:TableCell>
                                 <asp:TableCell>
