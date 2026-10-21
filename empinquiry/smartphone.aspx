@@ -106,7 +106,9 @@
                     </asp:Label>
                 </div>--%>
                 <fieldset id="fd_smpOrderForm" runat="server">
-                    <legend>Smartphone Order Form</legend>
+                    <legend>
+                        <asp:LinkButton ID="linkBtn" runat="server" OnClick="linkBtn_Click" Text="Smartphone Order Form" ToolTip="Click here to Minimize or Maximize Form"></asp:LinkButton>
+                    </legend>
 
                     <asp:Panel ID="panelsmart" BorderStyle="Double" runat="server" DefaultButton="btn_Add" BorderColor="LightGray" CssClass="card card-body mb-4 bg-light">
                         <div id="div_smartPhoneOrderform" runat="server" class="announcement">
@@ -220,7 +222,7 @@
                                 <asp:TableCell ColumnSpan="2">
                                     <asp:Label ID="lblsubmit"
                                         runat="server"
-                                        Font-Bold="true" ForeColor="DarkBlue">
+                                        Font-Bold="true" ForeColor="CornflowerBlue" Font-Size="Larger" >
                                     </asp:Label>
                                 </asp:TableCell>
                             </asp:TableRow>

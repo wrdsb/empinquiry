@@ -443,5 +443,11 @@ namespace empinquiry
             ClearFormControls();
             hideLabel();
         }
+
+        protected void linkBtn_Click(object sender, EventArgs e)
+        {
+            panelsmart.Visible = !panelsmart.Visible;
+            hideLabel();
+        }
     }
 }
