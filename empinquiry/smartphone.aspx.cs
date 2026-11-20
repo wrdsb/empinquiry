@@ -42,7 +42,9 @@ namespace empinquiry
                 }
                 string empId = Session["selectedEmpId"].ToString();
                 string empName = $"{Session["selectedFirstname"]} {Session["selectedSurname"]}";
-                lblSelectedEmployee.Text = $"Selected Employee Id : {empId} | Name : {empName}";
+                string status = Session["selectedEmpStatus"].ToString();
+                string job = Session["selectedEmpJob"].ToString();
+                lblSelectedEmployee.Text = $"Selected Employee Id : {empId} | Name : {empName} | {status} | {job} ";
                 //lblinfo.Text = "Please fill out the form below to add a new smartphone order for the selected employee. After submitting, the order will be displayed in the grid below.";
 
                 BindGrid();

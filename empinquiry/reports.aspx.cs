@@ -724,10 +724,14 @@ namespace empinquiry
             string empId = args[0];
             string surname = args[1];
             string firstname = args[2];
+            string status = args[3];
+            string job = args[4];
 
             Session["selectedEmpId"] = empId;
             Session["selectedSurname"] = surname;
             Session["selectedFirstname"] = firstname;
+            Session["selectedEmpStatus"] = status;
+            Session["selectedEmpJob"] = job;
 
             // Redirect to smartphone page
             Response.Redirect("smartphone.aspx");

@@ -180,7 +180,7 @@
                                     runat="server"
                                     ToolTip ="Smartphone Orders"
                                     Text='<%# Eval("employee_id") %>'
-                                    CommandArgument='<%# Eval("employee_id") + ";" + Eval("surname") + ";" + Eval("first_name") %>'
+                                    CommandArgument='<%# Eval("employee_id") + ";" + Eval("surname") + ";" + Eval("first_name") + ";" + Eval("emp_activity_code") + ";" + Eval("description_text") %>'
                                     OnClick="linkButtonEmpId_click">
                                 </asp:LinkButton>
                             </td>
