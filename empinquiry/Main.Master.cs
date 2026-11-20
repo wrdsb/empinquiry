@@ -77,8 +77,11 @@ namespace empinquiry
                     reports_link.Attributes["class"] = "active";
                     break;
                 case "smartphoneReport.aspx":
-                    smartphone_link.Visible = false; // Hide smartphone tab on smartphonereports page
                     smartphoneReport_link.Attributes["class"] = "active";
+                    smartphone_link.Attributes["class"] = "Inactive";
+                    break;
+                case "smartphone.aspx":
+                    smartphone_link.Attributes["class"] = "active";
                     break;
             }
         }
